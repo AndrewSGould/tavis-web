@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { OpenXblService } from './services/openxbl.service';
+import { PlayerService } from './services/player.service';
+import { XblUser } from './models/xbl-user.model';
 
 @Component({
   selector: 'app-root',
@@ -11,18 +14,30 @@ export class AppComponent implements OnInit {
   hideProfileMenu = true;
   hideMobileMenu = true;
   showRegisterButton = true;
+  xblUser: XblUser | undefined;
+  playerService: PlayerService | undefined = undefined;
 
-  constructor(private jwtHelper: JwtHelperService, private router: Router) {
-    this.router.events.subscribe((ev) => {
-      if (ev instanceof NavigationEnd) {
-        if (location.href.indexOf('register') !== -1)
-          this.showRegisterButton = false;
-        else this.showRegisterButton = true;
-      }
-    });
+  constructor(
+    private jwtHelper: JwtHelperService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private openXblService: OpenXblService,
+    playerService: PlayerService
+  ) {
+    this.route = route;
+    this.openXblService = openXblService;
+    this.playerService = playerService;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // TODO: ...
+    this.xblUser = this.playerService?.xblUser.value;
+
+    if (!this.playerService?.xblUser?.value.avatar)
+      this.xblUser!.avatar = localStorage.getItem('avatar')!;
+    if (!this.playerService?.xblUser?.value.gamertag)
+      this.xblUser!.gamertag = localStorage.getItem('gamertag')!;
+  }
 
   isUserAuthenticated = (): boolean => {
     const token = localStorage.getItem('jwt');

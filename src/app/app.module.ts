@@ -19,8 +19,6 @@ import { RandomGamesDialog } from './dialogs/random-games/random-games-dialog';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ClickOutsideDirective } from './directives/clickOutside/click-outside.directive';
 import { ProfileComponent } from './components/profile/profile.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { RegisterComponent } from './components/register/register.component';
 import { OrdinalPipe } from './pipes/ordinal.pipe';
 import { PlayerComponent } from './components/player/player.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
@@ -40,8 +38,6 @@ export function tokenGetter() {
     PageNotFoundComponent,
     ClickOutsideDirective,
     ProfileComponent,
-    ForgotPasswordComponent,
-    RegisterComponent,
     OrdinalPipe,
     PlayerComponent,
     LeaderboardComponent,

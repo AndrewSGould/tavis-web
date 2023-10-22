@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit {
   ) {
     this.tavisService = tavisService;
     this.route = route;
-    this.openXblService = openXblService;
   }
 
   tavisService: TavisService | null = null;
@@ -25,11 +24,10 @@ export class HomeComponent implements OnInit {
   completedGames: Game[] = [];
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      const code = params['code'];
-      if (!code) return;
-
-      this.openXblService.connect(code);
-    });
+    // this.route.queryParams.subscribe((params) => {
+    //   const code = params['code'];
+    //   if (!code) return;
+    //   this.openXblService.connect(code);
+    // });
   }
 }
