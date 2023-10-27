@@ -2,109 +2,49 @@
 
 A TrueAchievement companion application for enhanced stat analysis and community events.
 
-- Running locally:
-- Install VS Code
-- Install Git
-- Install [Node.js](https://nodejs.org/en)
-- Note: If you are install `-g` you'll likely need to restart VS Code/your terminal
-- Install Angular CLI with `npm install -g @angular/cli`
-- If you're on Windows, you may need allow scripts to run: `Set-ExecutionPolicy RemoteSigned`
-- Run `ng s` to start the app
+## Getting Started with Create React App
 
-## Better Completions Matter (BCM)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Yearly Achievement Hunting Contest Management Solution
+## Available Scripts
 
-### Requirements
+In the project directory, you can run:
 
-Each requirement will be tagged with [v(x)] to denote at which point the feature is planned for. For a rough idea:
+### `npm start`
 
-- [v1] Targets minimal useful functionality
-- [v2] Targets extending that functionality to being easier to use
-- [v3] Targets features to allow an end user to manage the yearly contest tasks
-- [v4] Targets features to support the monthly bonuses and end user management
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-#### Home Page
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-- Reflect the first page on the sheet [v1-v3]
-  - Rules overview [v1]
-  - Timer for when the period ends on all pages [v2]
-  - Links to tools [v2]
-  - Links to Monthly Bonuses [v2]
-  - Link to recaps [v3]
-  - Discord link [v3]
-  - Link to previous spreadsheets [v3]
+### `npm test`
 
-~~#### RGSC Requirements~~
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-~~- Pull random game per users collection based on the below criteria [v1]~~
-  ~~- Game must be over 1.2 ratio [v1]~~
-  ~~- The highest time estimate is 100+ [v1]~~
-  ~~- Ignore games marked Not for Contest. [v1]~~
-  ~~- Ignore games with unobtainables [v1]~~
-  ~~- Ignore games with server closures [v1]~~
-  ~~- Ignore games marked No Longer Owned [v1]~~
-  ~~- Only platforms Xbox 360, Xbox One, Series S/X, Windows [v1]~~
+### `npm run build`
 
-  ~~- 50 viable games minimum or it doesn't draw/returns error. [v1]~~
-    ~~- return number of games needed ex 46/50? [v2]~~
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-  ~~- if a game has 0 completions, don't draw it [v1]~~
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-#### Completed Games Requirements
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-~~- Scan user for all completed games for the month [v1]~~
-- What happens when a DLC/TU comes out? Scrape every Game Collection. compare achievement count? [v1/2]
-- If a game is under 1.2 ratio, track it but ignore it [v1]
+### `npm run eject`
 
-#### Page for each Player
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-- View RGSC game [v2]
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-#### Admin page
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-- Ability to add game to bonus category per person [v4]
-- Reroll for user [v3]
-- Think about how May Genre Tower would work [v4]
-- Add/remove players [v1]
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-#### Page for each individual game
+## Learn More
 
-- See who all has done it in the competition [v4]
-- Link it through to TA [v4]
-- Game works for 'x' bonuses [v4]
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-#### UHH Matchup Ideas
-
-~~Overall goal is to generate a list of 'compatability' for every player.~~
-~~Player 1 has a xx% compatability with Player 2, a xx% compatability with Player 3, etc~~
-
-~~- If a game is in both collections, add a point~~
-~~- After adding points for every matchup, find the highest~~
-
-#### Design Notes
-
-- TA ID should be primary key for Player table?
-- Write Integration tests that ping TA to ensure scraping is working (run monthly?)
-- Diagnostics table that tracks processing time
-  - Include 'Last Updated' field
-- Change Api to versioning approach (v1/profile/.., v1/collection/.., v1/game/.., v1/period/.., v1/scraper/..)
-- What other games to parse? Period Summary? Game pages?
-- Thread and throttle TA hits to prevent unintentional DoS (Akka? ProtoActor?)
-  - What time frame can I spread this out to while still being quick? 4hrs? Ideally sooner
-- In the Player table (or separate table?) track what contests the player is in
-- Try scraping Period Summary - https://www.trueachievements.com/gamer/{gamertag}/periods/2022/05
-- Ability to schedule syncs
-
-#### Roles
-
-- Super Admin (god user)
-- Admin (user who can do larger TA syncs)
-- BcmAdmin, RaidBossAdmin (administrative duties per contest)
-- Member
-
-### Sync Manager
-
-- Show how many Players will be sync'd
-- Estimate how long the Sync will take (estimated)
-  - Calculate this based off of Sync history. Average of sync time / average of players synced
+To learn React, check out the [React documentation](https://reactjs.org/).

@@ -1,5 +1,6 @@
 // TODO: clean up the different uses of the urls..
 
+// eslint-disable-next-line import/prefer-default-export
 export const environment = {
   production: false,
   api: {

@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        "formulahendry.auto-close-tag",
+        "formulahendry.auto-rename-tag",
+        "streetsidesoftware.code-spell-checker",
+        "dsznajder.es7-react-js-snippets",
+        "dbaeumer.vscode-eslint",
+        "wix.vscode-import-cost",
+        "orta.vscode-jest",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "wayou.vscode-todo-highlight"
+    ]
+}
