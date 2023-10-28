@@ -20,7 +20,12 @@ const routes: Routes = [
     component: PlayerComponent,
   },
   { path: 'profile', component: ProfileComponent },
-  { path: 'sync', component: SyncManagerComponent, canActivate: [AuthGuard] },
+  {
+    path: 'sync',
+    component: SyncManagerComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['Admin'] },
+  },
   { path: 'bcm-admin', component: BcmAdminComponent, canActivate: [AuthGuard] },
   { path: '**', component: PageNotFoundComponent },
 ];

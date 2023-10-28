@@ -85,13 +85,6 @@ export class ProfileComponent implements OnInit {
         next: (response: any) => {
           localStorage.setItem('jwt', response.token);
           localStorage.setItem('refreshToken', response.refreshToken);
-          localStorage.setItem('gamertag', response.gamertag);
-          localStorage.setItem('avatar', response.avatar);
-
-          this.playerService.updateProfile({
-            gamertag: response.gamertag,
-            avatar: response.avatar,
-          });
         },
         error: (err: HttpErrorResponse) => console.error(err),
       });

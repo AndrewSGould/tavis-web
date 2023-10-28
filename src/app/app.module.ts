@@ -22,6 +22,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { OrdinalPipe } from './pipes/ordinal.pipe';
 import { PlayerComponent } from './components/player/player.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+import { JwtService } from './services/jwt.service';
 
 export function tokenGetter() {
   return localStorage.getItem('jwt');
@@ -61,7 +62,7 @@ export function tokenGetter() {
       },
     }),
   ],
-  providers: [],
+  providers: [JwtService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
