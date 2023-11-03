@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticatedResponse } from 'src/app/models/authenticated-response.model';
 import { DiscordAuth } from 'src/app/models/discord-auth.model';
-import { XblUser } from 'src/app/models/xbl-user.model';
-import { PlayerService } from 'src/app/services/player.service';
+import { DiscordService } from 'src/app/services/discord.service';
+import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -17,15 +17,18 @@ import { environment } from 'src/environments/environment';
 })
 export class ProfileComponent implements OnInit {
   discordSignin: string = environment.discordSignin;
+  discordUser: string | undefined = undefined;
 
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
-    private playerService: PlayerService
+    private userService: UserService,
+    private discordService: DiscordService
   ) {
     this.route = route;
     this.http = http;
-    this.playerService = playerService;
+    this.userService = userService;
+    this.discordService = discordService;
   }
 
   ngOnInit(): void {
@@ -44,6 +47,8 @@ export class ProfileComponent implements OnInit {
       ];
 
       if (accessToken) this.connectDiscord(tokenType!, accessToken);
+
+      if (!code && !accessToken) this.retrieveDiscord();
     });
   }
 
@@ -62,11 +67,14 @@ export class ProfileComponent implements OnInit {
           localStorage.setItem('refreshToken', response.refreshToken);
           localStorage.setItem('gamertag', response.gamertag);
           localStorage.setItem('avatar', response.avatar);
+          localStorage.setItem('roles', JSON.stringify(response.roles));
 
-          this.playerService.updateProfile({
+          this.userService.updateProfile({
             gamertag: response.gamertag,
             avatar: response.avatar,
           });
+
+          this.retrieveDiscord();
         },
         error: (err: HttpErrorResponse) => console.error(err),
       });
@@ -85,8 +93,27 @@ export class ProfileComponent implements OnInit {
         next: (response: any) => {
           localStorage.setItem('jwt', response.token);
           localStorage.setItem('refreshToken', response.refreshToken);
+          localStorage.setItem('roles', response.roles);
+          this.userService.updateUser({ roles: response.roles });
+
+          this.retrieveDiscord();
         },
         error: (err: HttpErrorResponse) => console.error(err),
       });
+  };
+
+  retrieveDiscord = () => {
+    this.discordService.getConnection().subscribe({
+      next: (data: any) => (this.discordUser = data.globalName),
+      error: (err: any) => console.error(err),
+    });
+
+    this.userService.user$.subscribe((data) => {
+      if (data.roles.length === 0)
+        this.userService.fetchRoles().subscribe((data: string[]) => {
+          this.userService.updateUserRoles(data);
+          this.userService.user$.subscribe((data) => console.log(data));
+        });
+    });
   };
 }

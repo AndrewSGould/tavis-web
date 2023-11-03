@@ -26,7 +26,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['Admin'] },
   },
-  { path: 'bcm-admin', component: BcmAdminComponent, canActivate: [AuthGuard] },
+  {
+    path: 'admin',
+    component: BcmAdminComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['Admin'] },
+  },
   { path: '**', component: PageNotFoundComponent },
 ];
 

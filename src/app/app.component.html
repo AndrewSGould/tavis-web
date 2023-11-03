@@ -85,8 +85,8 @@
 
             <a
               href="#"
-              routerLink="bcm-admin"
-              *ngIf="isUserAuthenticated()"
+              routerLink="admin"
+              *ngIf="isUserAdmin"
               routerLinkActive="bg-green-900 text-white"
               class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-green-700 hover:text-white"
             >
@@ -96,7 +96,7 @@
             <a
               href="#"
               routerLink="sync"
-              *ngIf="isUserAuthenticated()"
+              *ngIf="isUserAdmin"
               routerLinkActive="bg-green-900 text-white"
               class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-green-700 hover:text-white"
             >
@@ -109,7 +109,7 @@
         class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
       >
         <button
-          *ngIf="isUserAuthenticated()"
+          *ngIf="isUserAuthenticated"
           type="button"
           class="rounded-full bg-green-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
         >
@@ -145,17 +145,17 @@
             >
               <span class="sr-only">Open user menu</span>
               <ng-container
-                *ngIf="this.playerService?.xblUser$ | async as xblUser"
+                *ngIf="this.userService?.xblUser$ | async as xblUser"
               >
                 <img
-                  *ngIf="isUserAuthenticated()"
+                  *ngIf="isUserAuthenticated"
                   class="h-8 w-8 rounded-full"
                   src="{{ xblUser?.avatar }}"
                   alt=""
                 />
               </ng-container>
               <div
-                *ngIf="!isUserAuthenticated()"
+                *ngIf="!isUserAuthenticated"
                 class="relative h-8 w-8 overflow-hidden rounded-full bg-gray-600"
               >
                 <svg
@@ -182,12 +182,10 @@
             aria-labelledby="user-menu-button"
             tabindex="-1"
           >
-            <ng-container
-              *ngIf="this.playerService?.xblUser$ | async as xblUser"
-            >
+            <ng-container *ngIf="this.userService?.xblUser$ | async as xblUser">
               <a
                 href="#"
-                *ngIf="isUserAuthenticated()"
+                *ngIf="isUserAuthenticated"
                 routerLink="profile"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 role="menuitem"
@@ -198,7 +196,7 @@
             </ng-container>
             <a
               href="#"
-              *ngIf="isUserAuthenticated()"
+              *ngIf="isUserAuthenticated"
               (click)="logOut()"
               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
@@ -209,7 +207,7 @@
             <!-- TODO: put a modal in front of this -->
             <a
               href="https://xbl.io/app/auth/eb9ab783-e41f-d428-0319-fb2d4d4a0d71"
-              *ngIf="!isUserAuthenticated()"
+              *ngIf="!isUserAuthenticated"
               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
               tabindex="-1"
@@ -250,8 +248,8 @@
 
       <a
         href="#"
-        routerLink="bcm-admin"
-        *ngIf="isUserAuthenticated()"
+        routerLink="admin"
+        *ngIf="isUserAdmin"
         routerLinkActive="bg-green-900 text-white"
         class="block rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-green-700 hover:text-white"
       >
@@ -261,7 +259,7 @@
       <a
         href="#"
         routerLink="sync"
-        *ngIf="isUserAuthenticated()"
+        *ngIf="isUserAdmin"
         routerLinkActive="bg-green-900 text-white"
         class="block rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-green-700 hover:text-white"
       >

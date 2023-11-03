@@ -3,4 +3,5 @@ export interface AuthenticatedResponse {
   refreshToken: string;
   gamertag: string;
   avatar: string;
+  roles: string[];
 }
