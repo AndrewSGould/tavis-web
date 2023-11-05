@@ -9,6 +9,12 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { ProfileComponent } from './components/profile/profile.component';
 import { SyncManagerComponent } from './components/sync-manager/sync-manager.component';
 import { AuthGuard } from './guards/auth.guards';
+import { RgscComponent } from './components/profile/rgsc/rgsc.component';
+import { AbcComponent } from './components/profile/abc/abc.component';
+import { CompletedGamesComponent } from './components/profile/completed-games/completed-games.component';
+import { OddJobsComponent } from './components/profile/oddjobs/oddjobs.component';
+import { YearliesComponent } from './components/profile/yearlies/yearlies.component';
+import { MonthliesComponent } from './components/profile/monthlies/monthlies.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,8 +22,16 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
   {
-    path: 'player/:id',
+    path: 'player/:player',
     component: PlayerComponent,
+    children: [
+      { path: 'rgsc', component: RgscComponent },
+      { path: 'abc', component: AbcComponent },
+      { path: 'completed-games', component: CompletedGamesComponent },
+      { path: 'oddjobs', component: OddJobsComponent },
+      { path: 'monthlies', component: MonthliesComponent },
+      { path: 'yearlies', component: YearliesComponent },
+    ],
   },
   { path: 'profile', component: ProfileComponent },
   {

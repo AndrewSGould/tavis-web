@@ -1,0 +1,17 @@
+<div class="p-4">
+  <table class="w-full table-auto">
+    <tbody>
+      <tr
+        *ngFor="let genre of presetGenres"
+        [class.bg-green-700]="getGamesWithGenre(genre).length > 0"
+      >
+        <td class="px-4 py-2">{{ genre }}</td>
+        <td class="px-4 py-2">
+          <span *ngFor="let game of getGamesWithGenre(genre)">
+            {{ game.title }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

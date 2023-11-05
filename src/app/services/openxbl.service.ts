@@ -31,4 +31,8 @@ export class OpenXblService {
         },
       });
   }
+
+  getUser(): any {
+    return this.http.get(baseUrl + 'openxbl/user');
+  }
 }

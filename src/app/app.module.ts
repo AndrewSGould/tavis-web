@@ -23,6 +23,12 @@ import { OrdinalPipe } from './pipes/ordinal.pipe';
 import { PlayerComponent } from './components/player/player.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { JwtService } from './services/jwt.service';
+import { CompletedGamesComponent } from './components/profile/completed-games/completed-games.component';
+import { AbcComponent } from './components/profile/abc/abc.component';
+import { MonthliesComponent } from './components/profile/monthlies/monthlies.component';
+import { OddJobsComponent } from './components/profile/oddjobs/oddjobs.component';
+import { RgscComponent } from './components/profile/rgsc/rgsc.component';
+import { YearliesComponent } from './components/profile/yearlies/yearlies.component';
 
 export function tokenGetter() {
   return localStorage.getItem('jwt');
@@ -42,6 +48,12 @@ export function tokenGetter() {
     OrdinalPipe,
     PlayerComponent,
     LeaderboardComponent,
+    CompletedGamesComponent,
+    AbcComponent,
+    MonthliesComponent,
+    OddJobsComponent,
+    RgscComponent,
+    YearliesComponent,
   ],
   imports: [
     BrowserModule,
