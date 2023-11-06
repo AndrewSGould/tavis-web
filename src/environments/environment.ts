@@ -7,5 +7,5 @@ export const environment = {
     token: 'https://www.bcmx.org/api/token/refresh',
   },
   discordSignin:
-    'https://discord.com/api/oauth2/authorize?client_id=1159341858862940190&redirect_uri=http%3A%2F%2Fbcmx.org%2Fprofile&response_type=token&sc>
+    'https://discord.com/api/oauth2/authorize?client_id=1159341858862940190&redirect_uri=http%3A%2F%2Fbcmx.org%2Fprofile&response_type=token&scope=identify%20connections%20guilds.members.read%20guilds.join%20guilds',
 };
