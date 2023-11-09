@@ -3,29 +3,49 @@ import { RouterModule, Routes } from '@angular/router';
 import { BcmAdminComponent } from './components/admin/bcm-admin.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { PlayerComponent } from './components/player/player.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
+import { SigninComponent } from './components/signin/signin.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { RegisterComponent } from './components/register/register.component';
 import { SyncManagerComponent } from './components/sync-manager/sync-manager.component';
 import { AuthGuard } from './guards/auth.guards';
+import { RgscComponent } from './components/profile/rgsc/rgsc.component';
+import { AbcComponent } from './components/profile/abc/abc.component';
+import { CompletedGamesComponent } from './components/profile/completed-games/completed-games.component';
+import { OddJobsComponent } from './components/profile/oddjobs/oddjobs.component';
+import { YearliesComponent } from './components/profile/yearlies/yearlies.component';
+import { MonthliesComponent } from './components/profile/monthlies/monthlies.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'signin', component: LoginComponent },
+  { path: 'signin', component: SigninComponent },
   { path: 'home', component: HomeComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
   {
-    path: 'player/:id',
+    path: 'player/:player',
     component: PlayerComponent,
+    children: [
+      { path: 'rgsc', component: RgscComponent },
+      { path: 'abc', component: AbcComponent },
+      { path: 'completed-games', component: CompletedGamesComponent },
+      { path: 'oddjobs', component: OddJobsComponent },
+      { path: 'monthlies', component: MonthliesComponent },
+      { path: 'yearlies', component: YearliesComponent },
+    ],
   },
-  { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'sync', component: SyncManagerComponent, canActivate: [AuthGuard] },
-  { path: 'bcm-admin', component: BcmAdminComponent, canActivate: [AuthGuard] },
+  {
+    path: 'sync',
+    component: SyncManagerComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['Admin'] },
+  },
+  {
+    path: 'admin',
+    component: BcmAdminComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['Admin'] },
+  },
   { path: '**', component: PageNotFoundComponent },
 ];
 

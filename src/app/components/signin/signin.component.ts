@@ -6,15 +6,15 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { LoginModel } from '../../interface/login.model';
-import { AuthenticatedResponse } from '../../interface/authenticated-response.model';
+import { LoginModel } from '../../models/login.model';
+import { AuthenticatedResponse } from '../../models/authenticated-response.model';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
+  selector: 'app-signin',
+  templateUrl: './signin.component.html',
 })
-export class LoginComponent implements OnInit {
+export class SigninComponent implements OnInit {
   discordSignin: string = '';
   invalidLogin: boolean | undefined;
   rememberMe: boolean = false;
@@ -39,8 +39,6 @@ export class LoginComponent implements OnInit {
   }
 
   login = (form: NgForm) => {
-    this.manageUserRememberance();
-
     if (form.valid) {
       this.http
         .post<AuthenticatedResponse>(
@@ -64,15 +62,7 @@ export class LoginComponent implements OnInit {
     }
   };
 
-  rememberMeToggle = () => {
-    this.rememberMe = !this.rememberMe;
-  };
-
-  private manageUserRememberance = () => {
-    if (this.previouslyRemembered == this.rememberMe) return;
-
-    if (this.rememberMe)
-      localStorage.setItem('UserLogin', this.credentials.username);
-    else localStorage.removeItem('UserLogin');
+  connect = () => {
+    window.location.href = '';
   };
 }

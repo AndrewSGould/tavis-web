@@ -8,10 +8,10 @@ const baseUrl = environment.api.baseUrl;
 @Injectable({
   providedIn: 'root',
 })
-export class PlayerService {
+export class DiscordService {
   constructor(private http: HttpClient) {}
 
-  getCompletedGames(id: number): Observable<any> {
-    return this.http.get(baseUrl + `player/getCompletedGames?playerId=` + id);
+  getConnection(): Observable<any> {
+    return this.http.get(baseUrl + `discord/getconnection`);
   }
 }

@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
+import { SigninComponent } from './components/signin/signin.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HomeComponent } from './components/home/home.component';
 import { SyncManagerComponent } from './components/sync-manager/sync-manager.component';
@@ -19,11 +19,16 @@ import { RandomGamesDialog } from './dialogs/random-games/random-games-dialog';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ClickOutsideDirective } from './directives/clickOutside/click-outside.directive';
 import { ProfileComponent } from './components/profile/profile.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { RegisterComponent } from './components/register/register.component';
 import { OrdinalPipe } from './pipes/ordinal.pipe';
 import { PlayerComponent } from './components/player/player.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+import { JwtService } from './services/jwt.service';
+import { CompletedGamesComponent } from './components/profile/completed-games/completed-games.component';
+import { AbcComponent } from './components/profile/abc/abc.component';
+import { MonthliesComponent } from './components/profile/monthlies/monthlies.component';
+import { OddJobsComponent } from './components/profile/oddjobs/oddjobs.component';
+import { RgscComponent } from './components/profile/rgsc/rgsc.component';
+import { YearliesComponent } from './components/profile/yearlies/yearlies.component';
 
 export function tokenGetter() {
   return localStorage.getItem('jwt');
@@ -32,7 +37,7 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
+    SigninComponent,
     HomeComponent,
     SyncManagerComponent,
     BcmAdminComponent,
@@ -40,11 +45,15 @@ export function tokenGetter() {
     PageNotFoundComponent,
     ClickOutsideDirective,
     ProfileComponent,
-    ForgotPasswordComponent,
-    RegisterComponent,
     OrdinalPipe,
     PlayerComponent,
     LeaderboardComponent,
+    CompletedGamesComponent,
+    AbcComponent,
+    MonthliesComponent,
+    OddJobsComponent,
+    RgscComponent,
+    YearliesComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,7 +74,7 @@ export function tokenGetter() {
       },
     }),
   ],
-  providers: [],
+  providers: [JwtService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
