@@ -8,21 +8,24 @@ import { environment } from '../../environments/environment';
 const baseUrl = environment.api.baseUrl;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BcmService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getBcmLeaderboardList(): Observable<any> {
     return this.http.get(baseUrl + `bcm/getBcmLeaderboardList`);
   }
 
-  getBcmPlayer(id: number): Observable<any> {
-    return this.http.get(baseUrl + `bcm/getBcmPlayer?playerId=` + id);
+  getBcmPlayer(player: string): Observable<any> {
+    return this.http.get(baseUrl + `bcm/getBcmPlayer?player=` + player);
   }
 
-  getBcmRgsc(id: number): Observable<any> {
-    return this.http.get(baseUrl + `bcm/rgscStats?playerId=` + id);
+  getYearlySummary(player: string): Observable<any> {
+    return this.http.get(baseUrl + `bcm/yearly-summary?player=` + player);
+  }
+
+  getRgscSummary(player: string): Observable<any> {
+    return this.http.get(baseUrl + `rgsc/user-summary?player=` + player);
   }
 }

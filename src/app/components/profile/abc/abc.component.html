@@ -1,0 +1,12 @@
+<div class="p-4">
+  <div class="flex flex-wrap gap-2">
+    <ng-container *ngFor="let letter of alphabet">
+      <div
+        class="rounded-lg p-2 text-white"
+        [class]="!exists(letter) ? 'bg-none' : 'bg-green-700'"
+      >
+        {{ letter }}
+      </div>
+    </ng-container>
+  </div>
+</div>

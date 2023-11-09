@@ -1,0 +1,26 @@
+<div *ngIf="rgscSummary">
+  <h3>Randoms:</h3>
+  <ul>
+    <li *ngFor="let random of rgscSummary.currentRandoms">
+      <div>
+        <p><strong>Title:</strong> {{ random.game.title }}</p>
+        <p>
+          <strong>Issued:</strong> {{ random.rgsc.issued | date : "MMM y" }}
+        </p>
+        <br />
+      </div>
+    </li>
+  </ul>
+  <h3>Roll History:</h3>
+  <ul>
+    <li *ngFor="let random of rgscSummary.randomsRolledAway">
+      <div>
+        <p><strong>Title:</strong> {{ random.game.title }}</p>
+        <p>
+          <strong>Issued:</strong> {{ random.rgsc.issued | date : "MMM y" }}
+        </p>
+        <br />
+      </div>
+    </li>
+  </ul>
+</div>
