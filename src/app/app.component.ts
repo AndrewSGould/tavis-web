@@ -8,6 +8,7 @@ import { User } from './models/user.model';
 import { AuthenticatedResponse } from './models/authenticated-response.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { JwtService } from './services/jwt.service';
 
 @Component({
   selector: 'app-root',
@@ -25,38 +26,47 @@ export class AppComponent implements OnInit {
   isUserAuthenticated: boolean = false;
 
   constructor(
-    private jwtHelper: JwtHelperService,
     private router: Router,
     private route: ActivatedRoute,
     private openXblService: OpenXblService,
     private http: HttpClient,
+    private jwtService: JwtService,
     userService: UserService
   ) {
     this.route = route;
     this.openXblService = openXblService;
     this.userService = userService;
     this.http = http;
+    this.jwtService = jwtService;
   }
 
   ngOnInit(): void {
+    this.jwtService.token.subscribe((token) => {
+      if (!token) token = localStorage.getItem('jwt') ?? '';
+      this.isUserAuthenticated = !this.jwtService.isTokenExpired(token);
+    });
+
     this.userService?.xblUser.subscribe((data) => {
-      if (!data.avatar || !data.gamertag)
+      if (
+        !data.avatar &&
+        !data.gamertag &&
+        localStorage.getItem('avatar') &&
+        localStorage.getItem('gamertag')
+      )
         this.userService?.updateProfile({
           avatar: localStorage.getItem('avatar')!,
           gamertag: localStorage.getItem('gamertag')!,
         });
-      else this.xblUser = data;
     });
 
     this.userService?.user.subscribe((data) => {
-      if (data.roles.length === 0)
+      if (data.roles?.length === 0 && localStorage.getItem('roles') !== '[]')
         this.userService?.updateUser({
           roles: JSON.parse(localStorage.getItem('roles')!),
         });
       else this.user = data;
 
-      this.isUserAdmin = !!this.user?.roles.find((x) => x === 'Admin');
-      this.isUserAuthenticated = this.user?.roles.length! > 1;
+      this.isUserAdmin = !!this.user?.roles?.find((x) => x === 'Admin');
     });
   }
 

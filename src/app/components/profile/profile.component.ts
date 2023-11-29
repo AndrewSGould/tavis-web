@@ -3,11 +3,13 @@ import {
   HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticatedResponse } from 'src/app/models/authenticated-response.model';
 import { DiscordAuth } from 'src/app/models/discord-auth.model';
 import { DiscordService } from 'src/app/services/discord.service';
+import { JwtService } from 'src/app/services/jwt.service';
 import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
 
@@ -23,12 +25,18 @@ export class ProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private http: HttpClient,
     private userService: UserService,
-    private discordService: DiscordService
+    private discordService: DiscordService,
+    private jwtService: JwtService,
+    private router: Router,
+    private location: Location
   ) {
     this.route = route;
     this.http = http;
     this.userService = userService;
     this.discordService = discordService;
+    this.jwtService = jwtService;
+    this.router = router;
+    this.location = location;
   }
 
   ngOnInit(): void {
@@ -74,6 +82,18 @@ export class ProfileComponent implements OnInit {
             avatar: response.avatar,
           });
 
+          this.userService.updateUser({ roles: response.roles });
+
+          this.jwtService.updateToken(response.token);
+
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: {
+              code: null,
+            },
+            queryParamsHandling: 'merge',
+          });
+
           this.retrieveDiscord();
         },
         error: (err: HttpErrorResponse) => console.error(err),
@@ -96,6 +116,8 @@ export class ProfileComponent implements OnInit {
           localStorage.setItem('roles', response.roles);
           this.userService.updateUser({ roles: response.roles });
 
+          this.location.replaceState(this.location.path().split('#')[0]);
+
           this.retrieveDiscord();
         },
         error: (err: HttpErrorResponse) => console.error(err),
@@ -104,7 +126,9 @@ export class ProfileComponent implements OnInit {
 
   retrieveDiscord = () => {
     this.discordService.getConnection().subscribe({
-      next: (data: any) => (this.discordUser = data.globalName),
+      next: (data: any) => {
+        if (data) this.discordUser = data.globalName;
+      },
       error: (err: any) => console.error(err),
     });
 
