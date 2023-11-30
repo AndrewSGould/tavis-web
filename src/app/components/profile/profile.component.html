@@ -1,10 +1,120 @@
-<p class="mt-2 mb-0 pt-1 text-sm font-semibold text-slate-50">
-  <a
-    href="{{ discordSignin }}"
-    class="inline-flex items-center space-x-4 rounded-md bg-indigo-500 px-5 py-3 text-xl font-bold transition duration-75 hover:bg-gray-600"
-    *ngIf="!discordUser"
-  >
-    <span>Connect your Discord!</span>
-  </a>
-  <span *ngIf="discordUser">Discord connected as {{ discordUser }}</span>
-</p>
+<main class="text-center" *ngIf="isUserAuthenticated && !isLoading">
+  <p class="mt-2 mb-0 pt-1 text-sm font-semibold text-slate-50">
+    <a
+      href="{{ discordSignin }}"
+      class="inline-flex items-center space-x-4 rounded-md bg-indigo-500 px-5 py-3 text-xl font-bold transition duration-75 hover:bg-gray-600"
+      *ngIf="!discordUser"
+    >
+      <span>Connect your Discord!</span>
+    </a>
+    <span
+      *ngIf="discordUser"
+      class="inline-flex items-center gap-2 text-gray-300"
+      ><img
+        src="../../../assets/discord-icon-svgrepo-com.svg"
+        class="inline h-5"
+      />
+      connected as {{ discordUser }}!</span
+    >
+  </p>
+  <section>
+    <h1 class="my-4 mb-4 text-2xl font-semibold text-white">Registration</h1>
+    <ul
+      class="inline-block rounded-lg border border-gray-600 bg-gray-700 text-sm font-medium text-white"
+    >
+      <li class="w-full rounded-t-lg border-b border-gray-600">
+        <div class="ps-3 flex items-center">
+          <input
+            id="bcmx-checkbox"
+            type="checkbox"
+            value=""
+            class="mx-2 h-4 w-4 cursor-pointer rounded border-gray-500 bg-gray-600 text-green-600 ring-offset-gray-700 focus:ring-2 focus:ring-green-600 focus:ring-offset-gray-700"
+          />
+          <label
+            for="bcmx-checkbox"
+            class="ms-2 flex-grow cursor-pointer py-3 text-left text-sm font-medium text-gray-300"
+            >BCMX</label
+          >
+        </div>
+      </li>
+      <li class="w-full rounded-t-lg border-b border-gray-600">
+        <div class="ps-3 flex items-center">
+          <input
+            id="calproj-checkbox"
+            type="checkbox"
+            value=""
+            class="mx-2 h-4 w-4 rounded border-gray-500 bg-gray-600 text-green-600 opacity-20 ring-offset-gray-700 focus:ring-2 focus:ring-green-600 focus:ring-offset-gray-700"
+            disabled
+          />
+          <label
+            for="calproj-checkbox"
+            class="ms-2 flex-grow py-3 text-left text-sm font-medium text-gray-300 opacity-20"
+            >Calendar Project</label
+          >
+          <span class="mx-4 text-[8px]">COMING SOON&#8482;</span>
+          <span class="mx-2 text-[8px]">
+            <img
+              src="../../../assets/patreon-svgrepo-com.svg"
+              class="mr-0.5 inline-block h-3"
+            />
+            FIRST</span
+          >
+        </div>
+      </li>
+      <li class="w-full rounded-t-lg border-b border-gray-600">
+        <div class="ps-3 flex items-center">
+          <input
+            id="raidboss-checkbox"
+            type="checkbox"
+            value=""
+            class="mx-2 h-4 w-4 rounded border-gray-500 bg-gray-600 text-green-600 opacity-20 ring-offset-gray-700 focus:ring-2 focus:ring-green-600 focus:ring-offset-gray-700"
+            disabled
+          />
+          <label
+            for="raidboss-checkbox"
+            class="ms-2 flex-grow py-3 text-left text-sm font-medium text-gray-300 opacity-20"
+            >Raid Boss</label
+          >
+          <span class="mx-4 text-[8px]">COMING... LATER&#8482;</span>
+          <span class="mx-2 text-[8px]">
+            <img
+              src="../../../assets/patreon-svgrepo-com.svg"
+              class="mr-0.5 inline-block h-3"
+            />
+            FIRST</span
+          >
+        </div>
+      </li>
+      <li class="w-full rounded-t-lg border-b border-gray-600">
+        <div class="ps-3 flex items-center">
+          <input
+            id="throwdown-checkbox"
+            type="checkbox"
+            value=""
+            class="mx-2 h-4 w-4 rounded border-gray-500 bg-gray-600 text-green-600 opacity-20 ring-offset-gray-700 focus:ring-2 focus:ring-green-600 focus:ring-offset-gray-700"
+            disabled
+          />
+          <label
+            for="throwdown-checkbox"
+            class="ms-2 flex-grow py-3 text-left text-sm font-medium text-gray-300 opacity-20"
+            >Throwdown</label
+          >
+          <span class="mx-4 text-[8px]">COMING... LATER&#8482;</span>
+          <span class="mx-2 text-[8px]">
+            <img
+              src="../../../assets/patreon-svgrepo-com.svg"
+              class="mr-0.5 inline-block h-3"
+            />
+            FIRST</span
+          >
+        </div>
+      </li>
+    </ul>
+  </section>
+</main>
+<main class="text-center" *ngIf="!isUserAuthenticated && !isLoading">
+  <span>Please sign in</span>
+</main>
+<main class="text-center" *ngIf="isLoading">
+  <img src="../../../assets/infinite-spinner.svg" class="inline h-16" />
+</main>

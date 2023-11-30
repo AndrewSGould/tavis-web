@@ -20,6 +20,8 @@ import { environment } from 'src/environments/environment';
 export class ProfileComponent implements OnInit {
   discordSignin: string = environment.discordSignin;
   discordUser: string | undefined = undefined;
+  isUserAuthenticated: boolean = false;
+  isLoading: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,9 +42,10 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // TODO: make a call to OXBL and Discord
-    // if OXBL is unsuccessful, redirect to the error please sign in page
-    // if discord is unsuccessful, show the connect to discord
+    this.jwtService.token.subscribe((token) => {
+      if (!token) token = localStorage.getItem('jwt') ?? '';
+      this.isUserAuthenticated = !this.jwtService.isTokenExpired(token);
+    });
 
     this.route.queryParams.subscribe((params) => {
       const code = params['code'];
@@ -54,9 +57,13 @@ export class ProfileComponent implements OnInit {
         fragment.get('token_type'),
       ];
 
-      if (accessToken) this.connectDiscord(tokenType!, accessToken);
+      if (accessToken) {
+        this.isLoading = true;
+        this.connectDiscord(tokenType!, accessToken);
+      }
 
       if (!code && !accessToken) this.retrieveDiscord();
+      else this.isLoading = false;
     });
   }
 
@@ -128,6 +135,7 @@ export class ProfileComponent implements OnInit {
     this.discordService.getConnection().subscribe({
       next: (data: any) => {
         if (data) this.discordUser = data.globalName;
+        this.isLoading = false;
       },
       error: (err: any) => console.error(err),
     });
