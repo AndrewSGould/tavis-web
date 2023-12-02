@@ -12,6 +12,9 @@ import { DiscordService } from 'src/app/services/discord.service';
 import { JwtService } from 'src/app/services/jwt.service';
 import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
+import { MatDialog } from '@angular/material/dialog';
+import { BcmRegDialogComponent } from 'src/app/dialogs/bcm-reg/bcm-reg-dialog';
+import { BcmUnregDialogComponent } from 'src/app/dialogs/bcm-unreg/bcm-unreg-dialog';
 
 @Component({
   selector: 'app-profile',
@@ -21,7 +24,12 @@ export class ProfileComponent implements OnInit {
   discordSignin: string = environment.discordSignin;
   discordUser: string | undefined = undefined;
   isUserAuthenticated: boolean = false;
-  isLoading: boolean = true;
+  bcmRegStatus: boolean = false;
+  origBcmRegStatus: boolean = false;
+
+  authCheckLoading: boolean = true;
+  discordCheckLoading: boolean = true;
+  rolesCheckLoading: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,7 +38,8 @@ export class ProfileComponent implements OnInit {
     private discordService: DiscordService,
     private jwtService: JwtService,
     private router: Router,
-    private location: Location
+    private location: Location,
+    public dialog: MatDialog
   ) {
     this.route = route;
     this.http = http;
@@ -39,17 +48,23 @@ export class ProfileComponent implements OnInit {
     this.jwtService = jwtService;
     this.router = router;
     this.location = location;
+    this.dialog = dialog;
   }
 
   ngOnInit(): void {
+    this.origBcmRegStatus = this.bcmRegStatus;
+
     this.jwtService.token.subscribe((token) => {
       if (!token) token = localStorage.getItem('jwt') ?? '';
       this.isUserAuthenticated = !this.jwtService.isTokenExpired(token);
+      this.authCheckLoading = false;
     });
 
     this.route.queryParams.subscribe((params) => {
       const code = params['code'];
-      if (code) this.login(code);
+      if (code) {
+        this.login(code);
+      }
 
       const fragment = new URLSearchParams(window.location.hash.slice(1));
       const [accessToken, tokenType] = [
@@ -58,12 +73,10 @@ export class ProfileComponent implements OnInit {
       ];
 
       if (accessToken) {
-        this.isLoading = true;
         this.connectDiscord(tokenType!, accessToken);
       }
 
       if (!code && !accessToken) this.retrieveDiscord();
-      else this.isLoading = false;
     });
   }
 
@@ -120,7 +133,7 @@ export class ProfileComponent implements OnInit {
         next: (response: any) => {
           localStorage.setItem('jwt', response.token);
           localStorage.setItem('refreshToken', response.refreshToken);
-          localStorage.setItem('roles', response.roles);
+          localStorage.setItem('roles', JSON.stringify(response.roles));
           this.userService.updateUser({ roles: response.roles });
 
           this.location.replaceState(this.location.path().split('#')[0]);
@@ -135,17 +148,44 @@ export class ProfileComponent implements OnInit {
     this.discordService.getConnection().subscribe({
       next: (data: any) => {
         if (data) this.discordUser = data.globalName;
-        this.isLoading = false;
+        this.discordCheckLoading = false;
       },
       error: (err: any) => console.error(err),
     });
 
     this.userService.user$.subscribe((data) => {
-      if (data.roles.length === 0)
+      if (data.roles.length === 0 && !localStorage.getItem('roles'))
         this.userService.fetchRoles().subscribe((data: string[]) => {
           this.userService.updateUserRoles(data);
           this.userService.user$.subscribe((data) => console.log(data));
+
+          this.rolesCheckLoading = false;
         });
+      else this.rolesCheckLoading = false;
     });
   };
+
+  onBcmReg(event: Event): void {
+    const checkbox = event.target as HTMLInputElement;
+
+    if (checkbox.checked) {
+      let dialog = this.dialog.open(BcmRegDialogComponent, {
+        data: {},
+        maxWidth: '700px',
+      });
+
+      dialog.backdropClick().subscribe(() => {
+        this.bcmRegStatus = this.origBcmRegStatus;
+      });
+    } else {
+      let dialog = this.dialog.open(BcmUnregDialogComponent, {
+        data: {},
+        maxWidth: '700px',
+      });
+
+      dialog.backdropClick().subscribe(() => {
+        this.bcmRegStatus = this.origBcmRegStatus;
+      });
+    }
+  }
 }

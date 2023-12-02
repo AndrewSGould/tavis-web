@@ -28,6 +28,7 @@ export class UserService {
   }
 
   updateUserRoles(newRoles: string[]): void {
+    // TODO: update localstorage too
     const updatedUser = { ...this.user.value, roles: newRoles };
     this.user.next(updatedUser);
   }

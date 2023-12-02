@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { TavisService } from 'src/app/services/tavis.service';
 import { MatDialog } from '@angular/material/dialog';
-import { RandomGamesDialog } from 'src/app/dialogs/random-games/random-games-dialog';
+import { RandomGamesDialogComponent } from 'src/app/dialogs/random-games/random-games-dialog';
 
 @Component({
   selector: 'app-bcm-admin',
@@ -14,7 +14,7 @@ export class BcmAdminComponent implements OnInit {
 
   verifyRandomGameEligibility() {
     this.tavisService?.verifyRandomGameEligibility().subscribe((data) => {
-      this.dialog.open(RandomGamesDialog, {
+      this.dialog.open(RandomGamesDialogComponent, {
         data: data,
         height: '80%',
         width: '50%',

@@ -14,8 +14,8 @@ import { BcmAdminComponent } from './components/admin/bcm-admin.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CommonModule } from '@angular/common';
-import { RandomGamesDialog } from './dialogs/random-games/random-games-dialog';
+import { CommonModule, DatePipe } from '@angular/common';
+import { RandomGamesDialogComponent } from './dialogs/random-games/random-games-dialog';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ClickOutsideDirective } from './directives/clickOutside/click-outside.directive';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -29,6 +29,8 @@ import { MonthliesComponent } from './components/profile/monthlies/monthlies.com
 import { OddJobsComponent } from './components/profile/oddjobs/oddjobs.component';
 import { RgscComponent } from './components/profile/rgsc/rgsc.component';
 import { YearliesComponent } from './components/profile/yearlies/yearlies.component';
+import { BcmRegDialogComponent } from './dialogs/bcm-reg/bcm-reg-dialog';
+import { BcmUnregDialogComponent } from './dialogs/bcm-unreg/bcm-unreg-dialog';
 
 export function tokenGetter() {
   return localStorage.getItem('jwt');
@@ -41,7 +43,9 @@ export function tokenGetter() {
     HomeComponent,
     SyncManagerComponent,
     BcmAdminComponent,
-    RandomGamesDialog,
+    RandomGamesDialogComponent,
+    BcmRegDialogComponent,
+    BcmUnregDialogComponent,
     PageNotFoundComponent,
     ClickOutsideDirective,
     ProfileComponent,
@@ -74,7 +78,7 @@ export function tokenGetter() {
       },
     }),
   ],
-  providers: [JwtService],
+  providers: [JwtService, DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

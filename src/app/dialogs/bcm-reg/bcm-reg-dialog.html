@@ -1,0 +1,19 @@
+<h4 class="my-4 text-xl font-semibold">Registration</h4>
+<p class="text-gray-400">
+  To register for BCMX 2024, click the button below. Your registration date will
+  be recorded as
+  <span class="text-white">{{ today | date: 'MM/dd/yyyy':'EDT' }}</span>,
+  meaning completions from
+  <span class="text-white"
+    >{{ today > validTrackingDate ? today : validTrackingDate | date:
+    'MM/dd/yyyy': 'EDT' }}</span
+  >
+  and on will be counted for the contest
+  <button
+    type="button"
+    class="me-2 my-4 mb-2 rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-800"
+    (click)="registerForBcm()"
+  >
+    Register!
+  </button>
+</p>

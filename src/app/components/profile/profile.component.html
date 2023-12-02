@@ -1,4 +1,14 @@
-<main class="text-center" *ngIf="isUserAuthenticated && !isLoading">
+<main
+  class="text-center"
+  *ngIf="
+    isUserAuthenticated &&
+    !(
+      this.authCheckLoading ||
+      this.discordCheckLoading ||
+      this.rolesCheckLoading
+    )
+  "
+>
   <p class="mt-2 mb-0 pt-1 text-sm font-semibold text-slate-50">
     <a
       href="{{ discordSignin }}"
@@ -7,6 +17,14 @@
     >
       <span>Connect your Discord!</span>
     </a>
+    <span *ngIf="!discordUser" class="font-sm font-light text-red-400"
+      ><br /><br />
+      You are required to connect your Discord before you can participate in our
+      events.
+      <br />
+      If you haven't joined our Discord yet, connecting will do that for you!
+      Welcome aboard!</span
+    >
     <span
       *ngIf="discordUser"
       class="inline-flex items-center gap-2 text-gray-300"
@@ -17,7 +35,7 @@
       connected as {{ discordUser }}!</span
     >
   </p>
-  <section>
+  <section [ngClass]="{ 'opacity-20': !discordUser }">
     <h1 class="my-4 mb-4 text-2xl font-semibold text-white">Registration</h1>
     <ul
       class="inline-block rounded-lg border border-gray-600 bg-gray-700 text-sm font-medium text-white"
@@ -27,12 +45,20 @@
           <input
             id="bcmx-checkbox"
             type="checkbox"
-            value=""
-            class="mx-2 h-4 w-4 cursor-pointer rounded border-gray-500 bg-gray-600 text-green-600 ring-offset-gray-700 focus:ring-2 focus:ring-green-600 focus:ring-offset-gray-700"
+            [(ngModel)]="bcmRegStatus"
+            [ngClass]="{
+              'cursor-pointer': discordUser,
+              'mx-2 h-4 w-4 rounded border-gray-500 bg-gray-600 text-green-600 ring-offset-gray-700 focus:ring-2 focus:ring-green-600 focus:ring-offset-gray-700': true
+            }"
+            (change)="onBcmReg($event)"
+            [disabled]="!discordUser"
           />
           <label
             for="bcmx-checkbox"
-            class="ms-2 flex-grow cursor-pointer py-3 text-left text-sm font-medium text-gray-300"
+            [ngClass]="{
+              'cursor-pointer': discordUser,
+              'ms-2 flex-grow py-3 text-left text-sm font-medium text-gray-300': true
+            }"
             >BCMX</label
           >
         </div>
@@ -112,9 +138,27 @@
     </ul>
   </section>
 </main>
-<main class="text-center" *ngIf="!isUserAuthenticated && !isLoading">
+<main
+  class="text-center"
+  *ngIf="
+    !isUserAuthenticated &&
+    !(
+      this.authCheckLoading ||
+      this.discordCheckLoading ||
+      this.rolesCheckLoading
+    )
+  "
+>
   <span>Please sign in</span>
 </main>
-<main class="text-center" *ngIf="isLoading">
-  <img src="../../../assets/infinite-spinner.svg" class="inline h-16" />
+<main
+  class="absolute top-[65px] left-0 h-[calc(100%-65px)] w-full bg-black bg-opacity-50"
+  *ngIf="
+    this.authCheckLoading || this.discordCheckLoading || this.rolesCheckLoading
+  "
+>
+  <img
+    src="../../../assets/infinite-spinner.svg"
+    class="absolute top-[45%] left-[46%] h-16"
+  />
 </main>

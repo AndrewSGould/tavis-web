@@ -28,4 +28,8 @@ export class BcmService {
   getRgscSummary(player: string): Observable<any> {
     return this.http.get(baseUrl + `rgsc/user-summary?player=` + player);
   }
+
+  postBcmRegistration(): Observable<any> {
+    return this.http.post(baseUrl + `bcm/registerUser`, {});
+  }
 }
