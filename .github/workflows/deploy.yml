@@ -27,4 +27,8 @@ jobs:
 
     - name: Upload to S3
       run: |
-        echo ${{ env.AWS_GITHUB_ACCESS_KEY }}
+        aws configure set aws_access_key_id ${{ env.AWS_GITHUB_ACCESS_KEY }}
+        aws configure set aws_secret_access_key ${{ secrets.AWS_GITHUB_ACCESS_SECRET }}
+        aws configure set default.region us-east-1 # or your AWS region
+        aws s3 cp ./dist/tavis s3://${{ env.AWS_S3_BUCKET }}/ --recursive --exclude "*.html"
+        aws s3 cp ./dist/tavis s3://${{ env.AWS_S3_BUCKET }}/ --recursive --exclude "*" --include "*.html" --cache-control "public, must-revalidate, proxy-revalidate, max-age=0"
