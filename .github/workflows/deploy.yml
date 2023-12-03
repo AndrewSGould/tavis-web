@@ -1,29 +1,37 @@
-name: deploy
+name: Deploy
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
-      - name: Install SSHPASS
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y sshpass
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
 
-      - name: SSH into the Server
-        run: |
-          sshpass -p "${{secrets.SSH_PASSWORD}}" ssh -o StrictHostKeyChecking=no ${{secrets.USERNAME}}@${{secrets.HOST}} "echo 'Hello, server!'"
-          sshpass -p "${{secrets.SSH_PASSWORD}}" ssh -o StrictHostKeyChecking=no ${{secrets.USERNAME}}@${{secrets.HOST}} "cd tavis-web && git pull"
-          sshpass -p "${{secrets.SSH_PASSWORD}}" ssh -o StrictHostKeyChecking=no ${{secrets.USERNAME}}@${{secrets.HOST}} "cd tavis && docker-compose down"
-          sshpass -p "${{secrets.SSH_PASSWORD}}" ssh -o StrictHostKeyChecking=no ${{secrets.USERNAME}}@${{secrets.HOST}} "cd tavis && docker-compose build"
-          sshpass -p "${{secrets.SSH_PASSWORD}}" ssh -o StrictHostKeyChecking=no ${{secrets.USERNAME}}@${{secrets.HOST}} "cd tavis && docker-compose up -d"
-          
-          
+    - name: Install dependencies
+      run: npm install
+
+    # - name: Run tests
+    #   run: npm test
+
+    - name: Build the app
+      run: npm run build
+
+    - name: Upload to S3
+      run: |
+        aws configure set aws_access_key_id ${{ env.AWS_GITHUB_ACCESS_KEY }}
+        aws configure set aws_secret_access_key ${{ secrets.AWS_GITHUB_ACCESS_SECRET }}
+        aws configure set default.region us-east-1 # or your AWS region
+        aws s3 cp ./dist/tavis s3://${{ env.AWS_S3_BUCKET }}/ --recursive --exclude "*.html"
+        aws s3 cp ./dist/tavis s3://${{ env.AWS_S3_BUCKET }}/ --recursive --exclude "*" --include "*.html" --cache-control "public, must-revalidate, proxy-revalidate, max-age=0"
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
