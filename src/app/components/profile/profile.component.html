@@ -51,7 +51,7 @@
               'mx-2 h-4 w-4 rounded border-gray-500 bg-gray-600 text-green-600 ring-offset-gray-700 focus:ring-2 focus:ring-green-600 focus:ring-offset-gray-700': true
             }"
             (change)="onBcmReg($event)"
-            [disabled]="!discordUser"
+            [disabled]="!discordUser || !!this.bcmRegDate"
           />
           <label
             for="bcmx-checkbox"
@@ -60,6 +60,11 @@
               'ms-2 flex-grow py-3 text-left text-sm font-medium text-gray-300': true
             }"
             >BCMX</label
+          >
+          <span
+            *ngIf="!!this.bcmRegDate"
+            class="mx-3 text-xs font-extralight text-slate-400"
+            >Registered: {{ bcmRegDate | date : "MM/dd/yy" }}</span
           >
         </div>
       </li>
@@ -145,7 +150,8 @@
     !(
       this.authCheckLoading ||
       this.discordCheckLoading ||
-      this.rolesCheckLoading
+      this.rolesCheckLoading ||
+      this.regCheckLoading
     )
   "
 >
@@ -154,7 +160,10 @@
 <main
   class="absolute top-[65px] left-0 h-[calc(100%-65px)] w-full bg-black bg-opacity-50"
   *ngIf="
-    this.authCheckLoading || this.discordCheckLoading || this.rolesCheckLoading
+    this.authCheckLoading ||
+    this.discordCheckLoading ||
+    this.rolesCheckLoading ||
+    this.regCheckLoading
   "
 >
   <img

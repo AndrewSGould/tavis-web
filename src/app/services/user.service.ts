@@ -36,4 +36,8 @@ export class UserService {
   fetchRoles(): Observable<any> {
     return this.http.get(baseUrl + `user/getRoles`);
   }
+
+  fetchRegistrations(): Observable<any> {
+    return this.http.get(baseUrl + `user/getRegistrations`);
+  }
 }

@@ -26,10 +26,12 @@ export class ProfileComponent implements OnInit {
   isUserAuthenticated: boolean = false;
   bcmRegStatus: boolean = false;
   origBcmRegStatus: boolean = false;
+  bcmRegDate: Date | undefined = undefined;
 
   authCheckLoading: boolean = true;
   discordCheckLoading: boolean = true;
   rolesCheckLoading: boolean = true;
+  regCheckLoading: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,6 +55,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.origBcmRegStatus = this.bcmRegStatus;
+
+    this.getRegistrations();
 
     this.jwtService.token.subscribe((token) => {
       if (!token) token = localStorage.getItem('jwt') ?? '';
@@ -177,6 +181,10 @@ export class ProfileComponent implements OnInit {
       dialog.backdropClick().subscribe(() => {
         this.bcmRegStatus = this.origBcmRegStatus;
       });
+
+      dialog.afterClosed().subscribe((data: any) => {
+        this.bcmRegDate = data;
+      });
     } else {
       let dialog = this.dialog.open(BcmUnregDialogComponent, {
         data: {},
@@ -187,5 +195,19 @@ export class ProfileComponent implements OnInit {
         this.bcmRegStatus = this.origBcmRegStatus;
       });
     }
+  }
+
+  getRegistrations(): void {
+    this.userService.fetchRegistrations().subscribe((registration: any) => {
+      this.regCheckLoading = false;
+      if (!registration) return;
+
+      console.log(registration);
+
+      if (registration.name === 'Better Completions Matter') {
+        this.bcmRegStatus = this.origBcmRegStatus = true;
+        this.bcmRegDate = registration.date;
+      }
+    });
   }
 }

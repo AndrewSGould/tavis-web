@@ -1,6 +1,12 @@
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class JwtService {
@@ -24,5 +30,25 @@ export class JwtService {
         'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
       ] || []
     );
+  }
+}
+
+@Injectable({
+  providedIn: 'root',
+})
+export class JwtInterceptorService implements HttpInterceptor {
+  intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    const jwtToken = localStorage.getItem('jwt');
+
+    const modifiedRequest = request.clone({
+      setHeaders: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    });
+
+    return next.handle(modifiedRequest);
   }
 }

@@ -17,8 +17,5 @@ export class BcmUnregDialogComponent implements OnInit {
     this.datePipe = datePipe;
   }
 
-  ngOnInit() {
-    console.log(this.today);
-    console.log(this.validTrackingDate);
-  }
+  ngOnInit() {}
 }
