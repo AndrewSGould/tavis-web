@@ -206,7 +206,7 @@
             >
             <!-- TODO: put a modal in front of this -->
             <a
-              href="https://xbl.io/app/auth/eb9ab783-e41f-d428-0319-fb2d4d4a0d71"
+              [href]="'https://xbl.io/app/auth/' + oxblAppKey"
               *ngIf="!isUserAuthenticated"
               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"

@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { XblUser } from '../models/xbl-user.model';
 
 const baseUrl = environment.api.baseUrl;
+const oxblAppKey = environment.oxblApiKey;
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,7 @@ export class OpenXblService {
     return this.http
       .post(baseUrl + `openxbl/connect`, {
         code,
-        app_key: 'eb9ab783-e41f-d428-0319-fb2d4d4a0d71',
+        app_key: oxblAppKey,
       })
       .subscribe({
         next: (response: any) => {

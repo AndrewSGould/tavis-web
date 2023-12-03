@@ -10,6 +10,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { JwtService } from './services/jwt.service';
 
+const oxblAppKey = environment.oxblApiKey;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -24,6 +26,7 @@ export class AppComponent implements OnInit {
   userService: UserService | undefined = undefined;
   isUserAdmin: boolean = false;
   isUserAuthenticated: boolean = false;
+  oxblAppKey: string = oxblAppKey;
 
   constructor(
     private router: Router,
