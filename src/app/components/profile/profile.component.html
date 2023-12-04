@@ -47,7 +47,7 @@
             type="checkbox"
             [(ngModel)]="bcmRegStatus"
             [ngClass]="{
-              'cursor-pointer': discordUser,
+              'cursor-pointer': discordUser || !this.bcmRegDate,
               'mx-2 h-4 w-4 rounded border-gray-500 bg-gray-600 text-green-600 ring-offset-gray-700 focus:ring-2 focus:ring-green-600 focus:ring-offset-gray-700': true
             }"
             (change)="onBcmReg($event)"
@@ -56,7 +56,7 @@
           <label
             for="bcmx-checkbox"
             [ngClass]="{
-              'cursor-pointer': discordUser,
+              'cursor-pointer': discordUser && !this.bcmRegDate,
               'ms-2 flex-grow py-3 text-left text-sm font-medium text-gray-300': true
             }"
             >BCMX</label

@@ -56,8 +56,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.origBcmRegStatus = this.bcmRegStatus;
 
-    this.getRegistrations();
-
     this.jwtService.token.subscribe((token) => {
       if (!token) token = localStorage.getItem('jwt') ?? '';
       this.isUserAuthenticated = !this.jwtService.isTokenExpired(token);
@@ -80,7 +78,10 @@ export class ProfileComponent implements OnInit {
         this.connectDiscord(tokenType!, accessToken);
       }
 
-      if (!code && !accessToken) this.retrieveDiscord();
+      if (!code && !accessToken) {
+        this.retrieveDiscord();
+        this.getRegistrations();
+      }
     });
   }
 
