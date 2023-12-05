@@ -199,16 +199,28 @@ export class ProfileComponent implements OnInit {
   }
 
   getRegistrations(): void {
-    this.userService.fetchRegistrations().subscribe((registration: any) => {
-      this.regCheckLoading = false;
-      if (!registration) return;
+    this.userService.fetchRegistrations().subscribe({
+      next: (registration: any) => {
+        this.regCheckLoading = false;
+        if (!registration) return;
 
-      console.log(registration);
+        if (registration.name === 'Better Completions Matter') {
+          this.bcmRegStatus = this.origBcmRegStatus = true;
+          this.bcmRegDate = registration.date;
+        }
+      },
+      error: (err: any) => {
+        console.error(err);
+        this.regCheckLoading = false;
+      },
+    });
 
-      if (registration.name === 'Better Completions Matter') {
-        this.bcmRegStatus = this.origBcmRegStatus = true;
-        this.bcmRegDate = registration.date;
-      }
+    this.discordService.getConnection().subscribe({
+      next: (data: any) => {
+        if (data) this.discordUser = data.globalName;
+        this.discordCheckLoading = false;
+      },
+      error: (err: any) => console.error(err),
     });
   }
 }
