@@ -11,13 +11,18 @@
         src="{{ playerAvatar }}"
       />
       <h5 class="mb-1 text-xl font-medium text-white">
-        {{ bcmPlayerSummary.player.name }} ({{
+        {{ bcmPlayerSummary.player.user.gamertag }} ({{
           bcmPlayerSummary.ranking.rank | ordinal
         }})
       </h5>
-      <span class="text-sm text-gray-400"
-        >{{ bcmPlayerSummary.player.region }} -
-        {{ bcmPlayerSummary.player.area }}</span
+      <span
+        class="text-sm text-gray-400"
+        *ngIf="
+          bcmPlayerSummary.player.user.region &&
+          bcmPlayerSummary.player.user.area
+        "
+        >{{ bcmPlayerSummary.player.user.region }} -
+        {{ bcmPlayerSummary.player.user.area }}</span
       >
     </div>
     <div class="p flex flex-col items-center pb-4 text-xs text-gray-300">
@@ -33,7 +38,7 @@
       >
       with
       <span class="font-semibold text-white">{{
-        rgscSummary.currentRandoms[0].game.title
+        rgscSummary.currentRandoms[0]?.game?.title
       }}</span>
       and
       <span class="font-semibold text-white">{{

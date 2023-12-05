@@ -1,10 +1,66 @@
-<button button mat-raised-button color="primary" (click)="verifyRandomGameEligibility()">Generate Random Games</button>
-<br />
-<button button mat-raised-button color="primary" (click)="produceStatReport()">Produce Stat Report</button>
-<br />
-<button button mat-raised-button color="primary" (click)="produceBcmReport()">Produce BCM Report</button>
-<br />
-<button button mat-raised-button color="primary" (click)="produceCompletedGamesReport()">Produce Completed Games Report</button>
-<br />
-<button button mat-raised-button color="primary" (click)="recalcBcmLeaderboard()">Recalc Bcm Leaderboard</button>
-<br />
+<div class="inline-flex flex-col gap-4">
+  <div>
+    <button
+      class="me-2 group relative mb-2 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-purple-600 to-green-500 p-0.5 text-sm font-medium text-white hover:text-white focus:outline-none focus:ring-4 focus:ring-green-800 group-hover:from-purple-600 group-hover:to-green-500"
+      (click)="verifyRandomGameEligibility()"
+    >
+      <span
+        class="relative rounded-md bg-gray-900 px-5 py-2.5 transition-all duration-75 ease-in group-hover:bg-opacity-0"
+      >
+        Generate Random Games
+      </span>
+    </button>
+  </div>
+
+  <div>
+    <button
+      class="me-2 group relative mb-2 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-purple-600 to-green-500 p-0.5 text-sm font-medium text-white hover:text-white focus:outline-none focus:ring-4 focus:ring-green-800 group-hover:from-purple-600 group-hover:to-green-500"
+      (click)="produceStatReport()"
+    >
+      <span
+        class="relative rounded-md bg-gray-900 px-5 py-2.5 transition-all duration-75 ease-in group-hover:bg-opacity-0"
+      >
+        Produce Stat Report
+      </span>
+    </button>
+  </div>
+
+  <div>
+    <button
+      class="me-2 group relative mb-2 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-purple-600 to-green-500 p-0.5 text-sm font-medium text-white hover:text-white focus:outline-none focus:ring-4 focus:ring-green-800 group-hover:from-purple-600 group-hover:to-green-500"
+      (click)="produceBcmReport()"
+    >
+      <span
+        class="relative rounded-md bg-gray-900 px-5 py-2.5 transition-all duration-75 ease-in group-hover:bg-opacity-0"
+      >
+        Produce Bcm Report
+      </span>
+    </button>
+  </div>
+
+  <div>
+    <button
+      class="me-2 group relative mb-2 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-purple-600 to-green-500 p-0.5 text-sm font-medium text-white hover:text-white focus:outline-none focus:ring-4 focus:ring-green-800 group-hover:from-purple-600 group-hover:to-green-500"
+      (click)="produceCompletedGamesReport()"
+    >
+      <span
+        class="relative rounded-md bg-gray-900 px-5 py-2.5 transition-all duration-75 ease-in group-hover:bg-opacity-0"
+      >
+        Produce Completed Games Report
+      </span>
+    </button>
+  </div>
+
+  <div>
+    <button
+      class="me-2 group relative mb-2 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-purple-600 to-green-500 p-0.5 text-sm font-medium text-white hover:text-white focus:outline-none focus:ring-4 focus:ring-green-800 group-hover:from-purple-600 group-hover:to-green-500"
+      (click)="recalcBcmLeaderboard()"
+    >
+      <span
+        class="relative rounded-md bg-gray-900 px-5 py-2.5 transition-all duration-75 ease-in group-hover:bg-opacity-0"
+      >
+        Recalc Bcm Leaderboard
+      </span>
+    </button>
+  </div>
+</div>

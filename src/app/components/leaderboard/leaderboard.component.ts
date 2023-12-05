@@ -15,7 +15,7 @@ export class LeaderboardComponent implements OnInit {
     this.bcmService.getBcmLeaderboardList().subscribe((data) => {
       console.log(data);
       this.leaderboard = data;
-      this.lastScan = this.leaderboard![0].player.lastSync; //TODO: improve this
+      this.lastScan = this.leaderboard![0].bcmPlayer.lastSync; //TODO: improve this
     });
   }
 }

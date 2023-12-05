@@ -30,18 +30,16 @@ export class PlayerComponent implements OnInit {
     }
 
     this.bcmService.getBcmPlayer(this.playerName).subscribe((data) => {
-      console.log(data);
       this.bcmPlayerSummary = data;
     });
 
     this.bcmService.getYearlySummary(this.playerName).subscribe((data) => {
-      console.log(data);
       this.bcmYearlySummary = data;
     });
 
     this.bcmService.getRgscSummary(this.playerName).subscribe((data) => {
-      console.log(data);
       this.rgscSummary = data;
+      console.log(this.rgscSummary);
     });
 
     this.openxblService.getUser().subscribe((data: any) => {
