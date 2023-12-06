@@ -47,7 +47,9 @@
       rerolls left
     </li>
     <li>
-      ABC Challenge:
+      Participation:
+      <span class="font-semibold text-white">0/11</span>
+      | ABC:
       <span class="font-semibold text-white"
         >{{ bcmYearlySummary.completionLetters.length }}/25</span
       >
@@ -56,7 +58,7 @@
         {{ bcmYearlySummary.oddJobCompletions.length }}/5</span
       >
       | Yearlies:
-      <span class="font-semibold text-white">0/52</span>
+      <span class="font-semibold text-white">0/50</span>
     </li>
   </ul>
 
@@ -66,7 +68,7 @@
       [routerLink]="['/player', playerName, 'completed-games']"
       routerLinkActive="bg-green-900 text-white"
     >
-      Completed Games
+      Completions
     </a>
     <a
       aria-current="page"

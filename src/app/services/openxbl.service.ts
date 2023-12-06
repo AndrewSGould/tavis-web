@@ -33,7 +33,7 @@ export class OpenXblService {
       });
   }
 
-  getUser(): any {
-    return this.http.get(baseUrl + 'openxbl/user');
+  getUser(gamertag: string): any {
+    return this.http.get(baseUrl + `openxbl/user?gamertag=${gamertag}`);
   }
 }

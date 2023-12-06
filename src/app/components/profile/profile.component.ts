@@ -76,6 +76,7 @@ export class ProfileComponent implements OnInit {
 
       if (accessToken) {
         this.connectDiscord(tokenType!, accessToken);
+        this.getRegistrations();
       }
 
       if (!code && !accessToken) {

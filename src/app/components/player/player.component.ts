@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BcmService } from 'src/app/services/bcm.service';
 import { OpenXblService } from 'src/app/services/openxbl.service';
 import { PlayerService } from 'src/app/services/player.service';
@@ -18,7 +18,8 @@ export class PlayerComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private bcmService: BcmService,
-    private openxblService: OpenXblService
+    private openxblService: OpenXblService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -28,6 +29,8 @@ export class PlayerComponent implements OnInit {
       alert('no player found?');
       return;
     }
+
+    this.router.navigate(['completed-games'], { relativeTo: this.route });
 
     this.bcmService.getBcmPlayer(this.playerName).subscribe((data) => {
       this.bcmPlayerSummary = data;
@@ -42,10 +45,16 @@ export class PlayerComponent implements OnInit {
       console.log(this.rgscSummary);
     });
 
-    this.openxblService.getUser().subscribe((data: any) => {
-      this.playerAvatar = data.settings.find(
-        (x: any) => x.id === 'GameDisplayPicRaw'
-      ).value;
+    this.route.paramMap.subscribe((params) => {
+      let player = params.get('player');
+      if (!player) console.error('No player provided in the URL!');
+      player = decodeURIComponent(player!);
+
+      this.openxblService.getUser(player).subscribe((data: any) => {
+        this.playerAvatar = data.settings.find(
+          (x: any) => x.id === 'GameDisplayPicRaw'
+        ).value;
+      });
     });
   }
 }

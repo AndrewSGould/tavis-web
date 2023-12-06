@@ -10,13 +10,7 @@ export class OddJobsComponent implements OnInit {
   playerName: string | null | undefined = null;
   oddjobs: any = null;
 
-  presetGenres = [
-    'Collection',
-    'Dungeon Crawler',
-    'Management',
-    'Motocross',
-    'Run & Gun',
-  ];
+  presetGenres = [];
 
   constructor(private route: ActivatedRoute, private bcmService: BcmService) {}
 
