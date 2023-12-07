@@ -21,7 +21,6 @@ export class CompletedGamesComponent implements OnInit {
     }
 
     this.bcmService.getBcmPlayer(this.playerName).subscribe((data) => {
-      console.log(data);
       this.bcmPlayerSummary = data;
     });
   }

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
@@ -31,6 +31,10 @@ import { RgscComponent } from './components/profile/rgsc/rgsc.component';
 import { YearliesComponent } from './components/profile/yearlies/yearlies.component';
 import { BcmRegDialogComponent } from './dialogs/bcm-reg/bcm-reg-dialog';
 import { BcmUnregDialogComponent } from './dialogs/bcm-unreg/bcm-unreg-dialog';
+import {
+  GlobalErrorHandlerService,
+  GlobalHttpInterceptorService,
+} from './services/error.service';
 
 export function tokenGetter() {
   return localStorage.getItem('jwt');
@@ -84,6 +88,15 @@ export function tokenGetter() {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptorService,
+      multi: true,
+    },
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandlerService,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: GlobalHttpInterceptorService,
       multi: true,
     },
   ],

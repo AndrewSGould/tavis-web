@@ -22,7 +22,6 @@ export class AbcComponent implements OnInit {
     }
 
     this.bcmService.getYearlySummary(this.playerName).subscribe((data) => {
-      console.log(data);
       this.highlightedLetters = data.completionLetters;
     });
   }

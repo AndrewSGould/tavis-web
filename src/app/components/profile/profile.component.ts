@@ -163,7 +163,7 @@ export class ProfileComponent implements OnInit {
       if (data.roles.length === 0 && !localStorage.getItem('roles'))
         this.userService.fetchRoles().subscribe((data: string[]) => {
           this.userService.updateUserRoles(data);
-          this.userService.user$.subscribe((data) => console.log(data));
+          // this.userService.user$.subscribe((data) => console.log(data));
 
           this.rolesCheckLoading = false;
         });

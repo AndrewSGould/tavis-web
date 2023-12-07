@@ -23,7 +23,6 @@ export class OddJobsComponent implements OnInit {
     }
 
     this.bcmService.getYearlySummary(this.playerName).subscribe((data) => {
-      console.log(data);
       this.oddjobs = data.oddJobCompletions;
     });
   }

@@ -8,9 +8,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class RandomGamesDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
-  ngOnInit() {
-    console.log(this.data);
-  }
+  ngOnInit() {}
 }
 
 export interface DialogData {

@@ -21,7 +21,6 @@ export class RgscComponent implements OnInit {
     }
 
     this.bcmService.getRgscSummary(this.playerName).subscribe((data) => {
-      console.log(data);
       this.rgscSummary = data;
     });
   }

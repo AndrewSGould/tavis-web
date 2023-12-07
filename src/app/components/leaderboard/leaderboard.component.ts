@@ -13,7 +13,6 @@ export class LeaderboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.bcmService.getBcmLeaderboardList().subscribe((data) => {
-      console.log(data);
       this.leaderboard = data;
       this.lastScan = this.leaderboard![0].bcmPlayer.lastSync; //TODO: improve this
     });

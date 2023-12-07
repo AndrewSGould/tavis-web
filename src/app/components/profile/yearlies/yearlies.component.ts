@@ -5,7 +5,5 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './yearlies.component.html',
 })
 export class YearliesComponent implements OnInit {
-  ngOnInit(): void {
-    console.log('derp');
-  }
+  ngOnInit(): void {}
 }

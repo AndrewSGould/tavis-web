@@ -23,7 +23,6 @@ export class OpenXblService {
       })
       .subscribe({
         next: (response: any) => {
-          console.log(response);
           this.xblUser = response;
           this.isConnected = true;
         },
