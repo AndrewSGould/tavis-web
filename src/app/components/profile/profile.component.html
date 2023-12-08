@@ -41,7 +41,7 @@
       class="inline-block rounded-lg border border-gray-600 bg-gray-700 text-sm font-medium text-white"
     >
       <li class="w-full rounded-t-lg border-b border-gray-600">
-        <div class="ps-3 flex items-center">
+        <div class="ps-3 flex items-center opacity-20">
           <input
             id="bcmx-checkbox"
             type="checkbox"
@@ -51,16 +51,18 @@
               'mx-2 h-4 w-4 rounded border-gray-500 bg-gray-600 text-green-600 ring-offset-gray-700 focus:ring-2 focus:ring-green-600 focus:ring-offset-gray-700': true
             }"
             (change)="onBcmReg($event)"
-            [disabled]="!discordUser || !!this.bcmRegDate"
+            [disabled]="true"
           />
+          <!-- [disabled]="!discordUser || !!this.bcmRegDate" -->
           <label
             for="bcmx-checkbox"
             [ngClass]="{
-              'cursor-pointer': discordUser && !this.bcmRegDate,
+              'cursor-pointer': false,
               'ms-2 flex-grow py-3 text-left text-sm font-medium text-gray-300': true
             }"
             >BCMX</label
           >
+          <!-- 'cursor-pointer': discordUser && !this.bcmRegDate, -->
           <span
             *ngIf="!!this.bcmRegDate"
             class="mx-3 text-xs font-extralight text-slate-400"
