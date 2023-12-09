@@ -76,6 +76,7 @@ export function tokenGetter() {
     BrowserAnimationsModule,
     CommonModule,
     NgxDatatableModule,
+    ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

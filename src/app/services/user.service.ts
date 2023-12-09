@@ -40,4 +40,12 @@ export class UserService {
   fetchRegistrations(): Observable<any> {
     return this.http.get(baseUrl + `user/getRegistrations`);
   }
+
+  updateUserLocation(location: any): Observable<any> {
+    return this.http.put(baseUrl + `user/updateLocation`, { ...location });
+  }
+
+  getUserLocation(): Observable<any> {
+    return this.http.get(baseUrl + `user/getLocation`);
+  }
 }
