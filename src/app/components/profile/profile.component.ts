@@ -27,6 +27,7 @@ export class ProfileComponent implements OnInit {
   bcmRegStatus: boolean = false;
   origBcmRegStatus: boolean = false;
   bcmRegDate: Date | undefined = undefined;
+  gamertag: string | undefined = undefined;
 
   authCheckLoading: boolean = true;
   discordCheckLoading: boolean = true;
@@ -60,6 +61,10 @@ export class ProfileComponent implements OnInit {
       if (!token) token = localStorage.getItem('jwt') ?? '';
       this.isUserAuthenticated = !this.jwtService.isTokenExpired(token);
       this.authCheckLoading = false;
+    });
+
+    this.userService.xblUser$.subscribe((data: any) => {
+      this.gamertag = data.gamertag;
     });
 
     this.route.queryParams.subscribe((params) => {
