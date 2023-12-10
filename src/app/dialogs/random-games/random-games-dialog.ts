@@ -6,12 +6,9 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   templateUrl: '../../dialogs/random-games/random-games-dialog.html',
 })
 export class RandomGamesDialogComponent implements OnInit {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 
-  ngOnInit() {}
-}
-
-export interface DialogData {
-  invalids: any;
-  fullList: any;
+  ngOnInit() {
+    console.log(this.data);
+  }
 }

@@ -7,35 +7,24 @@ import { RandomGamesDialogComponent } from 'src/app/dialogs/random-games/random-
   selector: 'app-bcm-admin',
   templateUrl: './bcm-admin.component.html',
 })
-export class BcmAdminComponent implements OnInit {
+export class BcmAdminComponent {
   constructor(private tavisService: TavisService, public dialog: MatDialog) {}
 
-  ngOnInit(): void {}
-
-  verifyRandomGameEligibility() {
-    this.tavisService?.verifyRandomGameEligibility().subscribe((data) => {
-      this.dialog.open(RandomGamesDialogComponent, {
-        data: data,
-        height: '80%',
-        width: '50%',
-      });
-    });
-  }
-
-  produceBcmReport() {
-    this.tavisService?.produceBcmReport().subscribe((data) => {
-      console.log(data);
+  rollRandom() {
+    this.tavisService?.rollRandom().subscribe({
+      next: (data) => {
+        this.dialog.open(RandomGamesDialogComponent, {
+          data: data,
+        });
+      },
+      error: () => {
+        alert('No one left to roll!');
+      },
     });
   }
 
   produceStatReport() {
     this.tavisService?.produceStatReport().subscribe((data) => {
-      console.log(data);
-    });
-  }
-
-  produceCompletedGamesReport() {
-    this.tavisService?.produceCompletedGamesReport().subscribe((data) => {
       console.log(data);
     });
   }

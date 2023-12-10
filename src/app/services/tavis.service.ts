@@ -8,11 +8,10 @@ import { environment } from '../../environments/environment';
 const baseUrl = environment.api.baseUrl;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TavisService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   fullSync(): Observable<any> {
     return this.http.get(baseUrl + `datasync/full`);
@@ -22,8 +21,8 @@ export class TavisService {
     return this.http.get(baseUrl + `datasync/syncInfo`);
   }
 
-  verifyRandomGameEligibility(): Observable<any> {
-    return this.http.get(baseUrl + `bcm/verifyRandomGameEligibility`);
+  rollRandom(): Observable<any> {
+    return this.http.post(baseUrl + `bcm/rollRandom`, {});
   }
 
   updateGameInfo(): Observable<any> {
@@ -33,21 +32,13 @@ export class TavisService {
   testGwgParse(): Observable<any> {
     return this.http.get(baseUrl + `datasync/testGwgParse`);
   }
-  
+
   syncLastMonthsCompletions(): Observable<any> {
     return this.http.get(baseUrl + `datasync/lastmonthscompletions`);
   }
 
-  produceBcmReport(): Observable<any> {
-    return this.http.get(baseUrl + `bcm/produceBcmReport`);
-  }
-
   produceStatReport(): Observable<any> {
     return this.http.get(baseUrl + `bcm/produceStatReport`);
-  }
-
-  produceCompletedGamesReport(): Observable<any> {
-    return this.http.get(baseUrl + `bcm/produceCompletedGamesReport`);
   }
 
   recalcBcmLeaderboard(): Observable<any> {
@@ -63,7 +54,9 @@ export class TavisService {
   }
 
   getAvailableAreas(region: string): Observable<any> {
-    return this.http.get(baseUrl + `user/availableAreas?selectedRegion=` + region);
+    return this.http.get(
+      baseUrl + `user/availableAreas?selectedRegion=` + region
+    );
   }
 
   create(data: any): Observable<any> {
