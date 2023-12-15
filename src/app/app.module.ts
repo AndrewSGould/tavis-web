@@ -31,6 +31,7 @@ import { RgscComponent } from './components/profile/rgsc/rgsc.component';
 import { YearliesComponent } from './components/profile/yearlies/yearlies.component';
 import { BcmRegDialogComponent } from './dialogs/bcm-reg/bcm-reg-dialog';
 import { BcmUnregDialogComponent } from './dialogs/bcm-unreg/bcm-unreg-dialog';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import {
   GlobalErrorHandlerService,
   GlobalHttpInterceptorService,
@@ -74,6 +75,8 @@ export function tokenGetter() {
     MatDialogModule,
     BrowserAnimationsModule,
     CommonModule,
+    NgxDatatableModule,
+    ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

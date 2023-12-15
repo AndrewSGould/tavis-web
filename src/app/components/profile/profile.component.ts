@@ -15,6 +15,9 @@ import { environment } from 'src/environments/environment';
 import { MatDialog } from '@angular/material/dialog';
 import { BcmRegDialogComponent } from 'src/app/dialogs/bcm-reg/bcm-reg-dialog';
 import { BcmUnregDialogComponent } from 'src/app/dialogs/bcm-unreg/bcm-unreg-dialog';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import * as isoCountries from 'i18n-iso-countries';
+import en from 'i18n-iso-countries/langs/en.json';
 
 @Component({
   selector: 'app-profile',
@@ -27,11 +30,17 @@ export class ProfileComponent implements OnInit {
   bcmRegStatus: boolean = false;
   origBcmRegStatus: boolean = false;
   bcmRegDate: Date | undefined = undefined;
+  gamertag: string | undefined = undefined;
 
   authCheckLoading: boolean = true;
   discordCheckLoading: boolean = true;
   rolesCheckLoading: boolean = true;
   regCheckLoading: boolean = true;
+  locationLoading: boolean = false;
+  locUpdated: boolean = false;
+  form: FormGroup;
+  countries: { code: string; name: string }[] = [];
+  states: { code: string; name: string }[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -41,7 +50,8 @@ export class ProfileComponent implements OnInit {
     private jwtService: JwtService,
     private router: Router,
     private location: Location,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private fb: FormBuilder
   ) {
     this.route = route;
     this.http = http;
@@ -51,15 +61,90 @@ export class ProfileComponent implements OnInit {
     this.router = router;
     this.location = location;
     this.dialog = dialog;
+
+    this.form = this.fb.group({
+      country: [''],
+      state: [''],
+    });
   }
 
   ngOnInit(): void {
+    isoCountries.registerLocale(en);
+
+    this.countries = Object.entries(isoCountries.getNames('en'))
+      .map(([code, name]) => ({ code, name }))
+      .sort((a, b) => {
+        if (a.name.toLowerCase() === 'united states of america') {
+          return -1;
+        } else if (b.name.toLowerCase() === 'united states of america') {
+          return 1;
+        }
+        return a.name.localeCompare(b.name);
+      });
+
+    this.states = [
+      { code: 'AL', name: 'Alabama' },
+      { code: 'AK', name: 'Alaska' },
+      { code: 'AZ', name: 'Arizona' },
+      { code: 'AR', name: 'Arkansas' },
+      { code: 'CA', name: 'California' },
+      { code: 'CO', name: 'Colorado' },
+      { code: 'CT', name: 'Connecticut' },
+      { code: 'DE', name: 'Delaware' },
+      { code: 'FL', name: 'Florida' },
+      { code: 'GA', name: 'Georgia' },
+      { code: 'HI', name: 'Hawaii' },
+      { code: 'ID', name: 'Idaho' },
+      { code: 'IL', name: 'Illinois' },
+      { code: 'IN', name: 'Indiana' },
+      { code: 'IA', name: 'Iowa' },
+      { code: 'KS', name: 'Kansas' },
+      { code: 'KY', name: 'Kentucky' },
+      { code: 'LA', name: 'Louisiana' },
+      { code: 'ME', name: 'Maine' },
+      { code: 'MD', name: 'Maryland' },
+      { code: 'MA', name: 'Massachusetts' },
+      { code: 'MI', name: 'Michigan' },
+      { code: 'MN', name: 'Minnesota' },
+      { code: 'MS', name: 'Mississippi' },
+      { code: 'MO', name: 'Missouri' },
+      { code: 'MT', name: 'Montana' },
+      { code: 'NE', name: 'Nebraska' },
+      { code: 'NV', name: 'Nevada' },
+      { code: 'NH', name: 'New Hampshire' },
+      { code: 'NJ', name: 'New Jersey' },
+      { code: 'NM', name: 'New Mexico' },
+      { code: 'NY', name: 'New York' },
+      { code: 'NC', name: 'North Carolina' },
+      { code: 'ND', name: 'North Dakota' },
+      { code: 'OH', name: 'Ohio' },
+      { code: 'OK', name: 'Oklahoma' },
+      { code: 'OR', name: 'Oregon' },
+      { code: 'PA', name: 'Pennsylvania' },
+      { code: 'RI', name: 'Rhode Island' },
+      { code: 'SC', name: 'South Carolina' },
+      { code: 'SD', name: 'South Dakota' },
+      { code: 'TN', name: 'Tennessee' },
+      { code: 'TX', name: 'Texas' },
+      { code: 'UT', name: 'Utah' },
+      { code: 'VT', name: 'Vermont' },
+      { code: 'VA', name: 'Virginia' },
+      { code: 'WA', name: 'Washington' },
+      { code: 'WV', name: 'West Virginia' },
+      { code: 'WI', name: 'Wisconsin' },
+      { code: 'WY', name: 'Wyoming' },
+    ];
+
     this.origBcmRegStatus = this.bcmRegStatus;
 
     this.jwtService.token.subscribe((token) => {
       if (!token) token = localStorage.getItem('jwt') ?? '';
       this.isUserAuthenticated = !this.jwtService.isTokenExpired(token);
       this.authCheckLoading = false;
+    });
+
+    this.userService.xblUser$.subscribe((data: any) => {
+      this.gamertag = data.gamertag;
     });
 
     this.route.queryParams.subscribe((params) => {
@@ -77,11 +162,13 @@ export class ProfileComponent implements OnInit {
       if (accessToken) {
         this.connectDiscord(tokenType!, accessToken);
         this.getRegistrations();
+        this.getUserLocation();
       }
 
       if (!code && !accessToken) {
         this.retrieveDiscord();
         this.getRegistrations();
+        this.getUserLocation();
       }
     });
   }
@@ -224,4 +311,29 @@ export class ProfileComponent implements OnInit {
       error: (err: any) => console.error(err),
     });
   }
+
+  updateUserLocation = () => {
+    this.locationLoading = true;
+    this.userService.updateUserLocation(this.form.value).subscribe(() => {
+      this.locationLoading = false;
+      this.locUpdated = true;
+
+      setTimeout(() => {
+        this.locUpdated = false;
+      }, 3000);
+    });
+  };
+
+  getUserLocation = () => {
+    this.userService.getUserLocation().subscribe((data: any) => {
+      this.form.patchValue({
+        country: data.country,
+        state: data.state,
+      });
+    });
+  };
+
+  resetStateSelection = () => {
+    this.form.get('state')?.reset();
+  };
 }

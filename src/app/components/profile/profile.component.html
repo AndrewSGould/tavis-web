@@ -9,6 +9,7 @@
     )
   "
 >
+  <h1 class="text-2xl underline">User Profile</h1>
   <p class="mt-2 mb-0 pt-1 text-sm font-semibold text-slate-50">
     <a
       href="{{ discordSignin }}"
@@ -36,12 +37,12 @@
     >
   </p>
   <section [ngClass]="{ 'opacity-20': !discordUser }">
-    <h1 class="my-4 mb-4 text-2xl font-semibold text-white">Registration</h1>
+    <h1 class="my-4 mb-4 text-xl font-semibold text-white">Registration</h1>
     <ul
       class="inline-block rounded-lg border border-gray-600 bg-gray-700 text-sm font-medium text-white"
     >
       <li class="w-full rounded-t-lg border-b border-gray-600">
-        <div class="ps-3 flex items-center opacity-20">
+        <div class="ps-3 flex items-center">
           <input
             id="bcmx-checkbox"
             type="checkbox"
@@ -51,18 +52,24 @@
               'mx-2 h-4 w-4 rounded border-gray-500 bg-gray-600 text-green-600 ring-offset-gray-700 focus:ring-2 focus:ring-green-600 focus:ring-offset-gray-700': true
             }"
             (change)="onBcmReg($event)"
-            [disabled]="true"
+            [disabled]="!discordUser || !!this.bcmRegDate"
           />
-          <!-- [disabled]="!discordUser || !!this.bcmRegDate" -->
           <label
             for="bcmx-checkbox"
             [ngClass]="{
-              'cursor-pointer': false,
+              'cursor-pointer': discordUser && !this.bcmRegDate,
               'ms-2 flex-grow py-3 text-left text-sm font-medium text-gray-300': true
             }"
             >BCMX</label
           >
-          <!-- 'cursor-pointer': discordUser && !this.bcmRegDate, -->
+          <button
+            type="button"
+            class="mx-5 whitespace-nowrap rounded-lg border border-green-500 px-2.5 py-1 text-center text-sm font-medium text-green-500 hover:bg-green-500 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-800"
+            [routerLink]="['/player/', gamertag]"
+            *ngIf="bcmRegDate"
+          >
+            Player Profile
+          </button>
           <span
             *ngIf="!!this.bcmRegDate"
             class="mx-3 text-xs font-extralight text-slate-400"
@@ -143,6 +150,78 @@
         </div>
       </li>
     </ul>
+  </section>
+  <hr class="my-8 mx-auto w-20" />
+  <section>
+    <h1 class="my-4 mb-4 text-xl font-semibold text-white">Info</h1>
+    <span class="font-xs mb-6 inline-block font-light opacity-70"
+      >Optionally provide your general area to be tracked on additional BCMX
+      Leaderboards!</span
+    >
+    <form [formGroup]="form" class="mx-auto flex max-w-sm flex-col gap-y-4">
+      <div>
+        <label
+          for="country"
+          class="mb-2 block text-left text-sm font-medium text-white"
+        >
+          Select your country
+        </label>
+        <select
+          id="country"
+          formControlName="country"
+          class="block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-green-500 focus:ring-green-500"
+          (change)="resetStateSelection()"
+        >
+          <option *ngFor="let country of countries" [value]="country.code">
+            {{ country.name }}
+          </option>
+        </select>
+      </div>
+      <div *ngIf="form.get('country')?.value === 'US'">
+        <label
+          for="state"
+          class="mb-2 block text-left text-sm font-medium text-white"
+        >
+          Select your state
+        </label>
+        <select
+          id="state"
+          formControlName="state"
+          class="block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-green-500 focus:ring-green-500"
+        >
+          <option *ngFor="let state of states" [value]="state.name">
+            {{ state.name }}
+          </option>
+        </select>
+      </div>
+
+      <button
+        type="submit"
+        class="me-2 my-4 mb-2 flex content-center items-center justify-center rounded-lg bg-green-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-800"
+        (click)="updateUserLocation()"
+        [disabled]="locationLoading"
+      >
+        <ng-container *ngIf="!locationLoading">Update</ng-container>
+        <ng-container *ngIf="locationLoading"
+          ><svg
+            aria-hidden="true"
+            class="h-6 w-6 animate-spin fill-green-600 text-gray-200 dark:text-gray-600"
+            viewBox="0 0 100 101"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+              fill="currentColor"
+            />
+            <path
+              d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+              fill="currentFill"
+            /></svg
+        ></ng-container>
+      </button>
+      <div *ngIf="locUpdated" class="text-green-400">Updated!</div>
+    </form>
   </section>
 </main>
 <main

@@ -10,22 +10,37 @@ import { RandomGamesDialogComponent } from 'src/app/dialogs/random-games/random-
 export class BcmAdminComponent implements OnInit {
   constructor(private tavisService: TavisService, public dialog: MatDialog) {}
 
-  ngOnInit(): void {}
-
-  verifyRandomGameEligibility() {
-    this.tavisService?.verifyRandomGameEligibility().subscribe((data) => {
-      this.dialog.open(RandomGamesDialogComponent, {
-        data: data,
-        height: '80%',
-        width: '50%',
-      });
-    });
+  ngOnInit(): void {
+    this.getPlayerList();
   }
 
-  produceBcmReport() {
-    this.tavisService?.produceBcmReport().subscribe((data) => {
-      console.log(data);
+  selectedPlayer: string | null = null;
+  players: { player: string }[] = [];
+  selectedGameId: number | null = null;
+  isReroll: boolean = false;
+  playerRgscInfo: any | undefined = undefined;
+
+  getPlayerList = () => {
+    this.tavisService?.getBcmPlayerList().subscribe((playerList: any) => {
+      this.players = playerList;
     });
+  };
+
+  rollRandom() {
+    this.tavisService
+      ?.rollRandom(this.selectedPlayer, this.selectedGameId)
+      .subscribe({
+        next: (data) => {
+          this.dialog.open(RandomGamesDialogComponent, {
+            data: data,
+          });
+
+          this.loadPlayerRgscs();
+        },
+        error: () => {
+          alert('No one left to roll!');
+        },
+      });
   }
 
   produceStatReport() {
@@ -34,15 +49,19 @@ export class BcmAdminComponent implements OnInit {
     });
   }
 
-  produceCompletedGamesReport() {
-    this.tavisService?.produceCompletedGamesReport().subscribe((data) => {
-      console.log(data);
-    });
-  }
-
   recalcBcmLeaderboard() {
     this.tavisService?.recalcBcmLeaderboard().subscribe((data) => {
       console.log(data);
     });
+  }
+
+  loadPlayerRgscs() {
+    if (!this.isReroll) return;
+
+    this.tavisService
+      ?.getPlayerRgscs(this.selectedPlayer!)
+      .subscribe((data: any) => {
+        this.playerRgscInfo = data;
+      });
   }
 }

@@ -1,108 +1,127 @@
-<section
-  *ngIf="bcmPlayerSummary !== null && rgscSummary !== null"
-  style="display: flex; flex-direction: column; align-items: center"
->
-  <div
-    class="m-4 w-full max-w-sm rounded-lg border border-gray-700 bg-gray-800 shadow"
+<div>
+  <section
+    *ngIf="bcmPlayerSummary !== null && rgscSummary !== null"
+    class="flex flex-col items-center justify-center"
   >
-    <div class="flex flex-col items-center p-4">
-      <img
-        class="mb-3 h-24 w-24 rounded-full shadow-lg"
-        src="{{ playerAvatar }}"
-      />
-      <h5 class="mb-1 text-xl font-medium text-white">
-        {{ bcmPlayerSummary.player.user.gamertag }} ({{
-          bcmPlayerSummary.ranking.rank | ordinal
-        }})
-      </h5>
-      <span
-        class="text-sm text-gray-400"
-        *ngIf="
-          bcmPlayerSummary.player.user.region &&
-          bcmPlayerSummary.player.user.area
-        "
-        >{{ bcmPlayerSummary.player.user.region }} -
-        {{ bcmPlayerSummary.player.user.area }}</span
-      >
+    <div
+      class="m-4 w-full max-w-sm rounded-lg border border-gray-700 bg-gray-800 shadow"
+    >
+      <div class="flex flex-col items-center p-4">
+        <img
+          class="mb-3 h-24 w-24 rounded-full shadow-lg"
+          src="{{ playerAvatar }}"
+        />
+        <h5 class="mb-1 text-xl font-medium text-white">
+          {{ bcmPlayerSummary.player.user.gamertag }} ({{
+            bcmPlayerSummary.ranking.rank | ordinal
+          }})
+        </h5>
+        <span
+          class="text-sm text-gray-400"
+          *ngIf="
+            bcmPlayerSummary.player.user.region &&
+            bcmPlayerSummary.player.user.area
+          "
+          >{{ bcmPlayerSummary.player.user.region }} -
+          {{ bcmPlayerSummary.player.user.area }}</span
+        >
+      </div>
+      <div class="p flex flex-col items-center pb-4 text-xs text-gray-300">
+        <span>Total Score: {{ bcmPlayerSummary.score }}</span>
+      </div>
     </div>
-    <div class="p flex flex-col items-center pb-4 text-xs text-gray-300">
-      <span>Total Score: {{ bcmPlayerSummary.score }}</span>
+
+    <ul class="w-full list-inside space-y-1 text-center text-gray-400">
+      <li>
+        RGSC:
+        <span class="font-semibold text-white"
+          >{{ rgscSummary.rgscsCompleted }}/11</span
+        >
+        with
+        <span class="font-semibold text-white">{{
+          rgscSummary.rerollsRemaining
+        }}</span>
+        rerolls left
+      </li>
+    </ul>
+
+    <ul class="flex list-inside gap-x-2 text-center text-gray-400">
+      <li class="flex">
+        <span>Participation:&nbsp;</span>
+        <span class="font-semibold text-white">0/11</span>
+      </li>
+      <li class="flex">
+        <span>ABC:&nbsp;</span>
+        <span class="font-semibold text-white"
+          >{{ bcmYearlySummary.completionLetters.length }}/25</span
+        >
+      </li>
+    </ul>
+    <ul class="flex list-inside gap-x-2 text-center text-gray-400">
+      <li class="flex">
+        <span>Odd Jobs:&nbsp;</span>
+        <span class="font-semibold text-white">
+          {{ bcmYearlySummary.oddJobCompletions.length }}/5</span
+        >
+      </li>
+      <li class="flex">
+        <span>Yearlies:&nbsp;</span
+        ><span class="font-semibold text-white">0/50</span>
+      </li>
+    </ul>
+
+    <div class="m-5 inline-flex rounded-md shadow-sm">
+      <a
+        class="rounded-l-lg border border-gray-600 bg-gray-700 px-4 py-2 text-sm font-medium text-white hover:bg-gray-600 hover:text-white focus:z-10 focus:text-white focus:ring-2 focus:ring-green-500"
+        [routerLink]="['/player', playerName, 'completed-games']"
+        routerLinkActive="bg-green-900 text-white"
+      >
+        Completions
+      </a>
+      <a
+        aria-current="page"
+        class="border border-gray-600 bg-gray-700 px-4 py-2 text-sm font-medium text-white hover:bg-gray-600 hover:text-white focus:z-10 focus:text-white focus:ring-2 focus:ring-blue-500"
+        [routerLink]="['/player', playerName, 'rgsc']"
+        routerLinkActive="bg-green-900 text-white"
+      >
+        RGSC
+      </a>
+      <a
+        class="border border-gray-600 bg-gray-700 px-4 py-2 text-sm font-medium text-white hover:bg-gray-600 hover:text-white focus:z-10 focus:text-white focus:ring-2 focus:ring-blue-500"
+        [routerLink]="['/player', playerName, 'monthlies']"
+        routerLinkActive="bg-green-900 text-white"
+      >
+        Monthlies
+      </a>
+      <a
+        class="border border-gray-600 bg-gray-700 px-4 py-2 text-sm font-medium text-white hover:bg-gray-600 hover:text-white focus:z-10 focus:text-white focus:ring-2 focus:ring-blue-500"
+        [routerLink]="['/player', playerName, 'abc']"
+        routerLinkActive="bg-green-900 text-white"
+      >
+        ABC
+      </a>
+      <a
+        class="border border-gray-600 bg-gray-700 px-4 py-2 text-sm font-medium text-white hover:bg-gray-600 hover:text-white focus:z-10 focus:text-white focus:ring-2 focus:ring-blue-500"
+        [routerLink]="['/player', playerName, 'oddjobs']"
+        routerLinkActive="bg-green-900 text-white"
+      >
+        Odd Jobs
+      </a>
+      <a
+        class="rounded-r-md border border-gray-600 bg-gray-700 px-4 py-2 text-sm font-medium text-white hover:bg-gray-600 hover:text-white focus:z-10 focus:text-white focus:ring-2 focus:ring-blue-500"
+        [routerLink]="['/player', playerName, 'yearlies']"
+        routerLinkActive="bg-green-900 text-white"
+      >
+        Yearlies
+      </a>
     </div>
+
+    <div class="mx-auto hidden md:block">
+      <router-outlet></router-outlet>
+    </div>
+  </section>
+
+  <div class="mx-auto sm:block md:hidden">
+    <router-outlet></router-outlet>
   </div>
-
-  <ul class="list-inside space-y-1 text-center text-gray-400">
-    <li>
-      RGSC:
-      <span class="font-semibold text-white"
-        >{{ rgscSummary.rgscsCompleted }}/11</span
-      >
-      with
-      <span class="font-semibold text-white">{{
-        rgscSummary.rerollsRemaining
-      }}</span>
-      rerolls left
-    </li>
-    <li>
-      Participation:
-      <span class="font-semibold text-white">0/11</span>
-      | ABC:
-      <span class="font-semibold text-white"
-        >{{ bcmYearlySummary.completionLetters.length }}/25</span
-      >
-      | Odd Jobs:
-      <span class="font-semibold text-white">
-        {{ bcmYearlySummary.oddJobCompletions.length }}/5</span
-      >
-      | Yearlies:
-      <span class="font-semibold text-white">0/50</span>
-    </li>
-  </ul>
-
-  <div class="m-5 inline-flex rounded-md shadow-sm">
-    <a
-      class="rounded-l-lg border border-gray-600 bg-gray-700 px-4 py-2 text-sm font-medium text-white hover:bg-gray-600 hover:text-white focus:z-10 focus:text-white focus:ring-2 focus:ring-green-500"
-      [routerLink]="['/player', playerName, 'completed-games']"
-      routerLinkActive="bg-green-900 text-white"
-    >
-      Completions
-    </a>
-    <a
-      aria-current="page"
-      class="border border-gray-600 bg-gray-700 px-4 py-2 text-sm font-medium text-white hover:bg-gray-600 hover:text-white focus:z-10 focus:text-white focus:ring-2 focus:ring-blue-500"
-      [routerLink]="['/player', playerName, 'rgsc']"
-      routerLinkActive="bg-green-900 text-white"
-    >
-      RGSC
-    </a>
-    <a
-      class="border border-gray-600 bg-gray-700 px-4 py-2 text-sm font-medium text-white hover:bg-gray-600 hover:text-white focus:z-10 focus:text-white focus:ring-2 focus:ring-blue-500"
-      [routerLink]="['/player', playerName, 'monthlies']"
-      routerLinkActive="bg-green-900 text-white"
-    >
-      Monthlies
-    </a>
-    <a
-      class="border border-gray-600 bg-gray-700 px-4 py-2 text-sm font-medium text-white hover:bg-gray-600 hover:text-white focus:z-10 focus:text-white focus:ring-2 focus:ring-blue-500"
-      [routerLink]="['/player', playerName, 'abc']"
-      routerLinkActive="bg-green-900 text-white"
-    >
-      ABC
-    </a>
-    <a
-      class="border border-gray-600 bg-gray-700 px-4 py-2 text-sm font-medium text-white hover:bg-gray-600 hover:text-white focus:z-10 focus:text-white focus:ring-2 focus:ring-blue-500"
-      [routerLink]="['/player', playerName, 'oddjobs']"
-      routerLinkActive="bg-green-900 text-white"
-    >
-      Odd Jobs
-    </a>
-    <a
-      class="rounded-r-md border border-gray-600 bg-gray-700 px-4 py-2 text-sm font-medium text-white hover:bg-gray-600 hover:text-white focus:z-10 focus:text-white focus:ring-2 focus:ring-blue-500"
-      [routerLink]="['/player', playerName, 'yearlies']"
-      routerLinkActive="bg-green-900 text-white"
-    >
-      Yearlies
-    </a>
-  </div>
-
-  <router-outlet></router-outlet>
-</section>
+</div>

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Game } from 'src/models/game';
@@ -8,11 +8,10 @@ import { environment } from '../../environments/environment';
 const baseUrl = environment.api.baseUrl;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TavisService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   fullSync(): Observable<any> {
     return this.http.get(baseUrl + `datasync/full`);
@@ -22,8 +21,18 @@ export class TavisService {
     return this.http.get(baseUrl + `datasync/syncInfo`);
   }
 
-  verifyRandomGameEligibility(): Observable<any> {
-    return this.http.get(baseUrl + `bcm/verifyRandomGameEligibility`);
+  rollRandom(
+    selectedPlayer: string | null,
+    selectedGameId: number | null
+  ): Observable<any> {
+    return this.http.post(baseUrl + `bcm/rollRandom`, {
+      selectedPlayer,
+      selectedGameId,
+    });
+  }
+
+  getBcmPlayerList(): Observable<any> {
+    return this.http.get(baseUrl + `bcm/getPlayerList`);
   }
 
   updateGameInfo(): Observable<any> {
@@ -33,25 +42,21 @@ export class TavisService {
   testGwgParse(): Observable<any> {
     return this.http.get(baseUrl + `datasync/testGwgParse`);
   }
-  
+
   syncLastMonthsCompletions(): Observable<any> {
     return this.http.get(baseUrl + `datasync/lastmonthscompletions`);
-  }
-
-  produceBcmReport(): Observable<any> {
-    return this.http.get(baseUrl + `bcm/produceBcmReport`);
   }
 
   produceStatReport(): Observable<any> {
     return this.http.get(baseUrl + `bcm/produceStatReport`);
   }
 
-  produceCompletedGamesReport(): Observable<any> {
-    return this.http.get(baseUrl + `bcm/produceCompletedGamesReport`);
-  }
-
   recalcBcmLeaderboard(): Observable<any> {
     return this.http.get(baseUrl + `bcm/recalcBcmLeaderboard`);
+  }
+
+  getPlayerRgscs(player: string): Observable<any> {
+    return this.http.get(baseUrl + `rgsc/getPlayersGames?player=${player}`);
   }
 
   unique14chars(): Observable<any> {
@@ -63,7 +68,9 @@ export class TavisService {
   }
 
   getAvailableAreas(region: string): Observable<any> {
-    return this.http.get(baseUrl + `user/availableAreas?selectedRegion=` + region);
+    return this.http.get(
+      baseUrl + `user/availableAreas?selectedRegion=` + region
+    );
   }
 
   create(data: any): Observable<any> {
