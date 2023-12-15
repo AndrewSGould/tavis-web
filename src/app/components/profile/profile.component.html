@@ -188,7 +188,7 @@
           formControlName="state"
           class="block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-green-500 focus:ring-green-500"
         >
-          <option *ngFor="let state of states" [value]="state.code">
+          <option *ngFor="let state of states" [value]="state.name">
             {{ state.name }}
           </option>
         </select>
@@ -196,7 +196,7 @@
 
       <button
         type="submit"
-        class="me-2 my-4 mb-2 rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-800"
+        class="me-2 my-4 mb-2 flex content-center items-center justify-center rounded-lg bg-green-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-800"
         (click)="updateUserLocation()"
         [disabled]="locationLoading"
       >

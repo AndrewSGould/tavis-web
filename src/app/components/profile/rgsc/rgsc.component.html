@@ -1,13 +1,27 @@
 <div *ngIf="rgscSummary">
-  <h3>Randoms:</h3>
-  <ul>
+  <ul
+    class="grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3"
+  >
     <li *ngFor="let random of rgscSummary.currentRandoms">
-      <div>
-        <p><strong>Title:</strong> {{ random.game.title }}</p>
-        <p>
-          <strong>Issued:</strong> {{ random.rgsc.issued | date : "MMM y" }}
-        </p>
-        <br />
+      <div
+        class="flex flex-col rounded-lg border border-gray-700 bg-gray-800 shadow hover:bg-gray-700"
+      >
+        <div class="flex flex-col justify-between p-4 leading-normal">
+          <h5
+            class="mb-2 text-center text-xl font-bold tracking-tight text-white"
+          >
+            {{ random.game.title }}
+          </h5>
+          <span class="-mt-3 block text-center text-xs opacity-50">
+            {{ random.game.publisher }} - {{ random.game.developer }}</span
+          >
+          <div class="mt-4 font-normal text-gray-400">
+            <div class="flex place-content-between">
+              <span>~{{ random.game.fullCompletionEstimate }} hours</span>
+              <span>{{ random.game.siteRatio | number : "1.2-2" }} ratio</span>
+            </div>
+          </div>
+        </div>
       </div>
     </li>
   </ul>

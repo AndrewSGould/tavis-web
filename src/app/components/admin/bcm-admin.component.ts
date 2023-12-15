@@ -7,20 +7,40 @@ import { RandomGamesDialogComponent } from 'src/app/dialogs/random-games/random-
   selector: 'app-bcm-admin',
   templateUrl: './bcm-admin.component.html',
 })
-export class BcmAdminComponent {
+export class BcmAdminComponent implements OnInit {
   constructor(private tavisService: TavisService, public dialog: MatDialog) {}
 
-  rollRandom() {
-    this.tavisService?.rollRandom().subscribe({
-      next: (data) => {
-        this.dialog.open(RandomGamesDialogComponent, {
-          data: data,
-        });
-      },
-      error: () => {
-        alert('No one left to roll!');
-      },
+  ngOnInit(): void {
+    this.getPlayerList();
+  }
+
+  selectedPlayer: string | null = null;
+  players: { player: string }[] = [];
+  selectedGameId: number | null = null;
+  isReroll: boolean = false;
+  playerRgscInfo: any | undefined = undefined;
+
+  getPlayerList = () => {
+    this.tavisService?.getBcmPlayerList().subscribe((playerList: any) => {
+      this.players = playerList;
     });
+  };
+
+  rollRandom() {
+    this.tavisService
+      ?.rollRandom(this.selectedPlayer, this.selectedGameId)
+      .subscribe({
+        next: (data) => {
+          this.dialog.open(RandomGamesDialogComponent, {
+            data: data,
+          });
+
+          this.loadPlayerRgscs();
+        },
+        error: () => {
+          alert('No one left to roll!');
+        },
+      });
   }
 
   produceStatReport() {
@@ -33,5 +53,15 @@ export class BcmAdminComponent {
     this.tavisService?.recalcBcmLeaderboard().subscribe((data) => {
       console.log(data);
     });
+  }
+
+  loadPlayerRgscs() {
+    if (!this.isReroll) return;
+
+    this.tavisService
+      ?.getPlayerRgscs(this.selectedPlayer!)
+      .subscribe((data: any) => {
+        this.playerRgscInfo = data;
+      });
   }
 }

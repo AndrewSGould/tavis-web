@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  NavigationStart,
+  Router,
+} from '@angular/router';
 import { BcmService } from 'src/app/services/bcm.service';
 import { OpenXblService } from 'src/app/services/openxbl.service';
 import { PlayerService } from 'src/app/services/player.service';
@@ -29,8 +34,6 @@ export class PlayerComponent implements OnInit {
       alert('no player found?');
       return;
     }
-
-    this.router.navigate(['completed-games'], { relativeTo: this.route });
 
     this.bcmService.getBcmPlayer(this.playerName).subscribe((data) => {
       this.bcmPlayerSummary = data;

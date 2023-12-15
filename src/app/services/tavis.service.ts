@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Game } from 'src/models/game';
@@ -21,8 +21,18 @@ export class TavisService {
     return this.http.get(baseUrl + `datasync/syncInfo`);
   }
 
-  rollRandom(): Observable<any> {
-    return this.http.post(baseUrl + `bcm/rollRandom`, {});
+  rollRandom(
+    selectedPlayer: string | null,
+    selectedGameId: number | null
+  ): Observable<any> {
+    return this.http.post(baseUrl + `bcm/rollRandom`, {
+      selectedPlayer,
+      selectedGameId,
+    });
+  }
+
+  getBcmPlayerList(): Observable<any> {
+    return this.http.get(baseUrl + `bcm/getPlayerList`);
   }
 
   updateGameInfo(): Observable<any> {
@@ -43,6 +53,10 @@ export class TavisService {
 
   recalcBcmLeaderboard(): Observable<any> {
     return this.http.get(baseUrl + `bcm/recalcBcmLeaderboard`);
+  }
+
+  getPlayerRgscs(player: string): Observable<any> {
+    return this.http.get(baseUrl + `rgsc/getPlayersGames?player=${player}`);
   }
 
   unique14chars(): Observable<any> {

@@ -1,7 +1,64 @@
 <div class="inline-flex flex-col gap-4">
-  <div>
+  <div
+    class="max-w-sm rounded-lg border border-gray-700 bg-gray-800 p-6 shadow"
+  >
+    <a href="#">
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-white">RGSC</h5>
+    </a>
+    <p class="mb-3 font-normal text-gray-400">
+      Supply a user to force a random pick or leave it blank for a random user.
+    </p>
+    <p class="mb-3 font-normal text-gray-400">
+      If a user has been rolled within the past 4 hours, they will not be rolled
+      again unless specified.
+    </p>
+    <div>
+      <select
+        id="players"
+        class="my-4 block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
+        [(ngModel)]="selectedPlayer"
+      >
+        <option></option>
+        <option *ngFor="let player of players" [value]="player">
+          {{ player }}
+        </option>
+      </select>
+      <div
+        *ngIf="!!selectedPlayer"
+        class="mb-5 flex content-center items-center"
+      >
+        <div class="flex h-5 items-center">
+          <input
+            id="reroll"
+            type="checkbox"
+            [(ngModel)]="isReroll"
+            class="focus:ring-3 h-4 w-4 rounded border border-gray-600 bg-gray-700 ring-offset-gray-800 focus:ring-green-600 focus:ring-offset-gray-800"
+            (change)="loadPlayerRgscs()"
+          />
+        </div>
+        <label for="reroll" class="ms-2 ml-2 text-sm font-medium text-gray-300"
+          >Reroll?</label
+        >
+        <span *ngIf="playerRgscInfo" class="ml-4 text-xs text-slate-300">
+          Player has {{ playerRgscInfo.rerollsRemaining }} rerolls remaining
+        </span>
+      </div>
+      <select
+        id="games"
+        class="my-4 block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
+        [(ngModel)]="selectedGameId"
+        *ngIf="isReroll"
+      >
+        <option
+          *ngFor="let random of playerRgscInfo.randoms"
+          [value]="random.gameId"
+        >
+          {{ random.title }}
+        </option>
+      </select>
+    </div>
     <button
-      class="me-2 group relative mb-2 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-purple-600 to-green-500 p-0.5 text-sm font-medium text-white hover:text-white focus:outline-none focus:ring-4 focus:ring-green-800 group-hover:from-purple-600 group-hover:to-green-500"
+      class="me-2 group relative mb-2 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-red-600 to-red-500 p-0.5 text-sm font-medium text-white hover:text-white focus:outline-none focus:ring-4 focus:ring-red-800 group-hover:from-red-600 group-hover:to-red-500"
       (click)="rollRandom()"
     >
       <span
