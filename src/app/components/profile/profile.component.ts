@@ -229,7 +229,7 @@ export class ProfileComponent implements OnInit {
           this.discordCheckLoading = false;
           this.rolesCheckLoading = false;
           this.regCheckLoading = false;
-          if (!err.includes('403 Forbidden') || !err.includes('403 OK'))
+          if (!err.includes('403 Forbidden') && !err.includes('403 OK'))
             alert(err);
           console.error(err);
         },
@@ -262,7 +262,7 @@ export class ProfileComponent implements OnInit {
           this.discordCheckLoading = false;
           this.rolesCheckLoading = false;
           this.regCheckLoading = false;
-          if (!err.includes('403 Forbidden') || !err.includes('403 OK'))
+          if (!err.includes('403 Forbidden') && !err.includes('403 OK'))
             alert(err);
           console.error(err);
         },
@@ -335,7 +335,7 @@ export class ProfileComponent implements OnInit {
         this.rolesCheckLoading = false;
         this.regCheckLoading = false;
 
-        if (!err.includes('403 Forbidden') || !err.includes('403 OK'))
+        if (!err.includes('403 Forbidden') && !err.includes('403 OK'))
           alert(err);
         console.error(err);
         this.regCheckLoading = false;
