@@ -41,6 +41,7 @@ export class ProfileComponent implements OnInit {
   form: FormGroup;
   countries: { code: string; name: string }[] = [];
   states: { code: string; name: string }[] = [];
+  roles: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -70,6 +71,20 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     isoCountries.registerLocale(en);
+
+    this.userService.user$.subscribe((data) => {
+      if (data.roles.length === 0 && !localStorage.getItem('roles'))
+        this.userService.fetchRoles().subscribe((data: string[]) => {
+          this.roles = data;
+          console.log(data);
+          this.userService.updateUserRoles(data);
+          this.rolesCheckLoading = false;
+        });
+      else {
+        this.roles = JSON.parse(localStorage.getItem('roles')!);
+        this.rolesCheckLoading = false;
+      }
+    });
 
     this.countries = Object.entries(isoCountries.getNames('en'))
       .map(([code, name]) => ({ code, name }))
@@ -209,7 +224,14 @@ export class ProfileComponent implements OnInit {
 
           this.retrieveDiscord();
         },
-        error: (err: HttpErrorResponse) => console.error(err),
+        error: (err: any) => {
+          this.authCheckLoading = false;
+          this.discordCheckLoading = false;
+          this.rolesCheckLoading = false;
+          this.regCheckLoading = false;
+          if (!err.includes('403 Forbidden')) alert(err);
+          console.error(err);
+        },
       });
   };
 
@@ -228,12 +250,20 @@ export class ProfileComponent implements OnInit {
           localStorage.setItem('refreshToken', response.refreshToken);
           localStorage.setItem('roles', JSON.stringify(response.roles));
           this.userService.updateUser({ roles: response.roles });
+          this.roles = JSON.parse(localStorage.getItem('roles')!);
 
           this.location.replaceState(this.location.path().split('#')[0]);
 
           this.retrieveDiscord();
         },
-        error: (err: HttpErrorResponse) => console.error(err),
+        error: (err: any) => {
+          this.authCheckLoading = false;
+          this.discordCheckLoading = false;
+          this.rolesCheckLoading = false;
+          this.regCheckLoading = false;
+          if (!err.includes('403 Forbidden')) alert(err);
+          console.error(err);
+        },
       });
   };
 
@@ -243,18 +273,13 @@ export class ProfileComponent implements OnInit {
         if (data) this.discordUser = data.globalName;
         this.discordCheckLoading = false;
       },
-      error: (err: any) => console.error(err),
-    });
-
-    this.userService.user$.subscribe((data) => {
-      if (data.roles.length === 0 && !localStorage.getItem('roles'))
-        this.userService.fetchRoles().subscribe((data: string[]) => {
-          this.userService.updateUserRoles(data);
-          // this.userService.user$.subscribe((data) => console.log(data));
-
-          this.rolesCheckLoading = false;
-        });
-      else this.rolesCheckLoading = false;
+      error: (err: any) => {
+        this.authCheckLoading = false;
+        this.discordCheckLoading = false;
+        this.rolesCheckLoading = false;
+        this.regCheckLoading = false;
+        console.error(err);
+      },
     });
   };
 
@@ -272,7 +297,12 @@ export class ProfileComponent implements OnInit {
       });
 
       dialog.afterClosed().subscribe((data: any) => {
-        this.bcmRegDate = data;
+        if (data) {
+          this.bcmRegDate = data.registrationDate.regDate;
+          this.roles = data.roles;
+          localStorage.setItem('roles', JSON.stringify(data.roles));
+          this.userService.updateUser({ roles: data.roles });
+        }
       });
     } else {
       let dialog = this.dialog.open(BcmUnregDialogComponent, {
@@ -298,6 +328,12 @@ export class ProfileComponent implements OnInit {
         }
       },
       error: (err: any) => {
+        this.authCheckLoading = false;
+        this.discordCheckLoading = false;
+        this.rolesCheckLoading = false;
+        this.regCheckLoading = false;
+
+        if (!err.includes('403 Forbidden')) alert(err);
         console.error(err);
         this.regCheckLoading = false;
       },
@@ -308,7 +344,13 @@ export class ProfileComponent implements OnInit {
         if (data) this.discordUser = data.globalName;
         this.discordCheckLoading = false;
       },
-      error: (err: any) => console.error(err),
+      error: (err: any) => {
+        this.authCheckLoading = false;
+        this.discordCheckLoading = false;
+        this.rolesCheckLoading = false;
+        this.regCheckLoading = false;
+        console.error(err);
+      },
     });
   }
 

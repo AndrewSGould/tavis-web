@@ -1,5 +1,5 @@
 <main
-  class="text-center"
+  class="flex flex-col items-center gap-10"
   *ngIf="
     isUserAuthenticated &&
     !(
@@ -9,220 +9,303 @@
     )
   "
 >
-  <h1 class="text-2xl underline">User Profile</h1>
-  <p class="mt-2 mb-0 pt-1 text-sm font-semibold text-slate-50">
-    <a
-      href="{{ discordSignin }}"
-      class="inline-flex items-center space-x-4 rounded-md bg-indigo-500 px-5 py-3 text-xl font-bold transition duration-75 hover:bg-gray-600"
-      *ngIf="!discordUser"
+  <div class="flex flex-col items-center gap-10 md:flex-row">
+    <div
+      class="w-full max-w-sm self-start rounded-lg border border-gray-700 bg-gray-800 p-4 text-left shadow sm:p-6"
     >
-      <span>Connect your Discord!</span>
-    </a>
-    <span *ngIf="!discordUser" class="font-sm font-light text-red-400"
-      ><br /><br />
-      You are required to connect your Discord before you can participate in our
-      events.
-      <br />
-      If you haven't joined our Discord yet, connecting will do that for you!
-      Welcome aboard!</span
-    >
-    <span
-      *ngIf="discordUser"
-      class="inline-flex items-center gap-2 text-gray-300"
-      ><img
-        src="../../../assets/discord-icon-svgrepo-com.svg"
-        class="inline h-5"
-      />
-      connected as {{ discordUser }}!</span
-    >
-  </p>
-  <section [ngClass]="{ 'opacity-20': !discordUser }">
-    <h1 class="my-4 mb-4 text-xl font-semibold text-white">Registration</h1>
-    <ul
-      class="inline-block rounded-lg border border-gray-600 bg-gray-700 text-sm font-medium text-white"
-    >
-      <li class="w-full rounded-t-lg border-b border-gray-600">
-        <div class="ps-3 flex items-center">
-          <input
-            id="bcmx-checkbox"
-            type="checkbox"
-            [(ngModel)]="bcmRegStatus"
-            [ngClass]="{
-              'cursor-pointer': discordUser || !this.bcmRegDate,
-              'mx-2 h-4 w-4 rounded border-gray-500 bg-gray-600 text-green-600 ring-offset-gray-700 focus:ring-2 focus:ring-green-600 focus:ring-offset-gray-700': true
-            }"
-            (change)="onBcmReg($event)"
-            [disabled]="!discordUser || !!this.bcmRegDate"
-          />
-          <label
-            for="bcmx-checkbox"
-            [ngClass]="{
-              'cursor-pointer': discordUser && !this.bcmRegDate,
-              'ms-2 flex-grow py-3 text-left text-sm font-medium text-gray-300': true
-            }"
-            >BCMX</label
-          >
-          <button
-            type="button"
-            class="mx-5 whitespace-nowrap rounded-lg border border-green-500 px-2.5 py-1 text-center text-sm font-medium text-green-500 hover:bg-green-500 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-800"
-            [routerLink]="['/player/', gamertag]"
-            *ngIf="bcmRegDate"
-          >
-            Player Profile
-          </button>
-          <span
-            *ngIf="!!this.bcmRegDate"
-            class="mx-3 text-xs font-extralight text-slate-400"
-            >Registered: {{ bcmRegDate | date : "MM/dd/yy" }}</span
-          >
-        </div>
-      </li>
-      <li class="w-full rounded-t-lg border-b border-gray-600">
-        <div class="ps-3 flex items-center">
-          <input
-            id="calproj-checkbox"
-            type="checkbox"
-            value=""
-            class="mx-2 h-4 w-4 rounded border-gray-500 bg-gray-600 text-green-600 opacity-20 ring-offset-gray-700 focus:ring-2 focus:ring-green-600 focus:ring-offset-gray-700"
-            disabled
-          />
-          <label
-            for="calproj-checkbox"
-            class="ms-2 flex-grow py-3 text-left text-sm font-medium text-gray-300 opacity-20"
-            >Calendar Project</label
-          >
-          <span class="mx-4 text-[8px]">COMING SOON&#8482;</span>
-          <span class="mx-2 text-[8px]">
-            <img
-              src="../../../assets/patreon-svgrepo-com.svg"
-              class="mr-0.5 inline-block h-3"
-            />
-            FIRST</span
-          >
-        </div>
-      </li>
-      <li class="w-full rounded-t-lg border-b border-gray-600">
-        <div class="ps-3 flex items-center">
-          <input
-            id="raidboss-checkbox"
-            type="checkbox"
-            value=""
-            class="mx-2 h-4 w-4 rounded border-gray-500 bg-gray-600 text-green-600 opacity-20 ring-offset-gray-700 focus:ring-2 focus:ring-green-600 focus:ring-offset-gray-700"
-            disabled
-          />
-          <label
-            for="raidboss-checkbox"
-            class="ms-2 flex-grow py-3 text-left text-sm font-medium text-gray-300 opacity-20"
-            >Raid Boss</label
-          >
-          <span class="mx-4 text-[8px]">COMING... LATER&#8482;</span>
-          <span class="mx-2 text-[8px]">
-            <img
-              src="../../../assets/patreon-svgrepo-com.svg"
-              class="mr-0.5 inline-block h-3"
-            />
-            FIRST</span
-          >
-        </div>
-      </li>
-      <li class="w-full rounded-t-lg border-b border-gray-600">
-        <div class="ps-3 flex items-center">
-          <input
-            id="throwdown-checkbox"
-            type="checkbox"
-            value=""
-            class="mx-2 h-4 w-4 rounded border-gray-500 bg-gray-600 text-green-600 opacity-20 ring-offset-gray-700 focus:ring-2 focus:ring-green-600 focus:ring-offset-gray-700"
-            disabled
-          />
-          <label
-            for="throwdown-checkbox"
-            class="ms-2 flex-grow py-3 text-left text-sm font-medium text-gray-300 opacity-20"
-            >Throwdown</label
-          >
-          <span class="mx-4 text-[8px]">COMING... LATER&#8482;</span>
-          <span class="mx-2 text-[8px]">
-            <img
-              src="../../../assets/patreon-svgrepo-com.svg"
-              class="mr-0.5 inline-block h-3"
-            />
-            FIRST</span
-          >
-        </div>
-      </li>
-    </ul>
-  </section>
-  <hr class="my-8 mx-auto w-20" />
-  <section>
-    <h1 class="my-4 mb-4 text-xl font-semibold text-white">Info</h1>
-    <span class="font-xs mb-6 inline-block font-light opacity-70"
-      >Optionally provide your general area to be tracked on additional BCMX
-      Leaderboards!</span
-    >
-    <form [formGroup]="form" class="mx-auto flex max-w-sm flex-col gap-y-4">
-      <div>
-        <label
-          for="country"
-          class="mb-2 block text-left text-sm font-medium text-white"
-        >
-          Select your country
-        </label>
-        <select
-          id="country"
-          formControlName="country"
-          class="block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-green-500 focus:ring-green-500"
-          (change)="resetStateSelection()"
-        >
-          <option *ngFor="let country of countries" [value]="country.code">
-            {{ country.name }}
-          </option>
-        </select>
-      </div>
-      <div *ngIf="form.get('country')?.value === 'US'">
-        <label
-          for="state"
-          class="mb-2 block text-left text-sm font-medium text-white"
-        >
-          Select your state
-        </label>
-        <select
-          id="state"
-          formControlName="state"
-          class="block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-green-500 focus:ring-green-500"
-        >
-          <option *ngFor="let state of states" [value]="state.name">
-            {{ state.name }}
-          </option>
-        </select>
-      </div>
-
-      <button
-        type="submit"
-        class="me-2 my-4 mb-2 flex content-center items-center justify-center rounded-lg bg-green-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-800"
-        (click)="updateUserLocation()"
-        [disabled]="locationLoading"
+      <section
+        [ngClass]="{
+          'opacity-20': !(this.roles.length > 0),
+          'mb-4 md:mb-0 md:mr-4': true
+        }"
       >
-        <ng-container *ngIf="!locationLoading">Update</ng-container>
-        <ng-container *ngIf="locationLoading"
-          ><svg
-            aria-hidden="true"
-            class="h-6 w-6 animate-spin fill-green-600 text-gray-200 dark:text-gray-600"
-            viewBox="0 0 100 101"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+        <h1 class="mb-4 text-xl font-semibold text-white">Registration</h1>
+        <ul
+          class="inline-block rounded-lg border border-gray-600 bg-gray-700 text-sm font-medium text-white"
+        >
+          <li class="w-full rounded-t-lg border-b border-gray-600">
+            <div class="ps-3 flex items-center">
+              <input
+                id="bcmx-checkbox"
+                type="checkbox"
+                [(ngModel)]="bcmRegStatus"
+                [ngClass]="{
+                  'cursor-pointer': this.roles.length > 0,
+                  'mx-2 h-4 w-4 rounded border-gray-500 bg-gray-600 text-green-600 ring-offset-gray-700 focus:ring-2 focus:ring-green-600 focus:ring-offset-gray-700': true
+                }"
+                (change)="onBcmReg($event)"
+                [disabled]="!(this.roles.length > 0) || !!this.bcmRegDate"
+              />
+              <label
+                for="bcmx-checkbox"
+                [ngClass]="{
+                  'cursor-pointer': discordUser && !this.bcmRegDate,
+                  'ms-2 flex-grow py-3 text-left text-sm font-medium text-gray-300': true
+                }"
+                >BCMX</label
+              >
+              <button
+                type="button"
+                class="mx-5 whitespace-nowrap rounded-lg border border-green-500 px-2.5 py-1 text-center text-sm font-medium text-green-500 hover:bg-green-500 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-800"
+                [routerLink]="['/player/', gamertag]"
+                *ngIf="bcmRegDate"
+              >
+                Player Profile
+              </button>
+              <span
+                *ngIf="!!this.bcmRegDate"
+                class="mx-3 text-xs font-extralight text-slate-400"
+                >Registered: {{ bcmRegDate | date : "MM/dd/yy" }}</span
+              >
+            </div>
+          </li>
+          <li class="w-full rounded-t-lg border-b border-gray-600">
+            <div class="ps-3 flex items-center">
+              <input
+                id="calproj-checkbox"
+                type="checkbox"
+                value=""
+                class="mx-2 h-4 w-4 rounded border-gray-500 bg-gray-600 text-green-600 opacity-20 ring-offset-gray-700 focus:ring-2 focus:ring-green-600 focus:ring-offset-gray-700"
+                disabled
+              />
+              <label
+                for="calproj-checkbox"
+                class="ms-2 flex-grow py-3 text-left text-sm font-medium text-gray-300 opacity-20"
+                >The Calendar Project</label
+              >
+              <span class="mx-4 text-[8px]">COMING SOON&#8482;</span>
+              <span class="mx-2 text-[8px]">
+                <img
+                  src="../../../assets/patreon-svgrepo-com.svg"
+                  class="mr-0.5 inline-block h-3"
+                />
+                FIRST</span
+              >
+            </div>
+          </li>
+          <li class="w-full rounded-t-lg border-b border-gray-600">
+            <div class="ps-3 flex items-center">
+              <input
+                id="raidboss-checkbox"
+                type="checkbox"
+                value=""
+                class="mx-2 h-4 w-4 rounded border-gray-500 bg-gray-600 text-green-600 opacity-20 ring-offset-gray-700 focus:ring-2 focus:ring-green-600 focus:ring-offset-gray-700"
+                disabled
+              />
+              <label
+                for="raidboss-checkbox"
+                class="ms-2 flex-grow py-3 text-left text-sm font-medium text-gray-300 opacity-20"
+                >Raid Boss</label
+              >
+              <span class="mx-4 text-[8px]">COMING... LATER&#8482;</span>
+              <span class="mx-2 text-[8px]">
+                <img
+                  src="../../../assets/patreon-svgrepo-com.svg"
+                  class="mr-0.5 inline-block h-3"
+                />
+                FIRST</span
+              >
+            </div>
+          </li>
+          <li class="w-full rounded-t-lg border-b border-gray-600">
+            <div class="ps-3 flex items-center">
+              <input
+                id="throwdown-checkbox"
+                type="checkbox"
+                value=""
+                class="mx-2 h-4 w-4 rounded border-gray-500 bg-gray-600 text-green-600 opacity-20 ring-offset-gray-700 focus:ring-2 focus:ring-green-600 focus:ring-offset-gray-700"
+                disabled
+              />
+              <label
+                for="throwdown-checkbox"
+                class="ms-2 flex-grow py-3 text-left text-sm font-medium text-gray-300 opacity-20"
+                >Throwdown</label
+              >
+              <span class="mx-4 text-[8px]">COMING... LATER&#8482;</span>
+              <span class="mx-2 text-[8px]">
+                <img
+                  src="../../../assets/patreon-svgrepo-com.svg"
+                  class="mr-0.5 inline-block h-3"
+                />
+                FIRST</span
+              >
+            </div>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <section class="mb-4 md:mb-0 md:flex-shrink-0">
+      <div
+        class="w-full max-w-sm rounded-lg border border-gray-700 bg-gray-800 p-4 text-left shadow sm:p-6"
+      >
+        <h5 class="mb-3 text-base font-semibold text-white md:text-xl">
+          Discord Connection
+        </h5>
+        <div>
+          <p class="my-8 mb-0 pt-1 text-sm font-semibold text-slate-50">
+            <a
+              href="{{ discordSignin }}"
+              class="inline-flex items-center space-x-4 rounded-md bg-indigo-500 px-5 py-3 text-xl font-bold transition duration-75 hover:bg-gray-600"
+              *ngIf="!discordUser"
+            >
+              <span>Connect your Discord!</span>
+            </a>
+            <span
+              *ngIf="!discordUser && !(this.roles.length > 0)"
+              class="font-sm font-light text-red-400"
+              ><br /><br />
+              You are required to connect your Discord before you can
+              participate in our events.
+              <br />
+              If you haven't joined our Discord yet, connecting will do that for
+              you! Welcome aboard!</span
+            >
+            <span
+              *ngIf="discordUser"
+              class="inline-flex items-center gap-2 text-gray-300"
+              ><img
+                src="../../../assets/discord-icon-svgrepo-com.svg"
+                class="inline h-5"
+              />
+              connected as {{ discordUser }}!</span
+            >
+          </p>
+          <div
+            *ngIf="this.roles.length > 0"
+            class="m-4 rounded border border-white p-4 text-xs text-gray-400"
           >
-            <path
-              d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-              fill="currentColor"
-            />
-            <path
-              d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-              fill="currentFill"
-            /></svg
-        ></ng-container>
-      </button>
-      <div *ngIf="locUpdated" class="text-green-400">Updated!</div>
-    </form>
-  </section>
+            We currently know you to have the following roles. If these are
+            outdated, resync Discord!
+          </div>
+          <ul class="my-4 space-y-3">
+            <li *ngFor="let role of roles">
+              <div
+                href="#"
+                [ngClass]="{
+                  group: true,
+                  flex: true,
+                  'items-center': true,
+                  'rounded-lg': true,
+                  'bg-gray-600': true,
+                  'p-3': true,
+                  'text-base': true,
+                  'font-bold': true,
+                  'text-white': true,
+                  'border-l-8': true,
+                  border: true,
+                  'border-[#f3e04c] text-[#f3e04c]': role === 'Sponsor',
+                  'border-[#8b3624] text-[#8b3624]': role === 'Admin',
+                  'border-[#c04db8] text-[#c04db8]': role === 'BCM Founder',
+                  'border-[#5cb99b] text-[#5cb99b]': role === 'Mod',
+                  'border-[#8a50ff] text-[#8a50ff]': role === 'Stream Team',
+                  'border-[#eee700] text-[#eee700]': role === 'Cyberhacker',
+                  'border-[#e488ff] text-[#e488ff]': role === 'Server Booster',
+                  'border-[#bed987] text-[#bed987]':
+                    role === 'Enthusiast' ||
+                    role === 'Homie' ||
+                    role === 'Participant',
+                  'border-[#bd94b7] text-[#bd94b7]': role === 'Guest'
+                }"
+              >
+                <span class="ms-3 flex-1 whitespace-nowrap">{{ role }}</span>
+                <span
+                  *ngIf="
+                    role === 'Sponsor' ||
+                    role === 'Enthusiast' ||
+                    role === 'Homie' ||
+                    role === 'BCM Founder'
+                  "
+                  class="ms-3 inline-flex items-center justify-center rounded bg-gray-700 px-2 py-0.5 text-xs font-medium text-gray-400"
+                  >Thank You!</span
+                >
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div
+    [ngClass]="{
+      'max-w-sm rounded-lg border border-gray-700 bg-gray-800 p-4 text-left shadow sm:p-6': true,
+      'opacity-20': !(this.roles.length > 0)
+    }"
+  >
+    <section>
+      <h1 class="my-4 mb-4 text-xl font-semibold text-white">Info</h1>
+      <span class="font-xs mb-6 inline-block font-light opacity-70"
+        >Optionally provide your general area to be tracked on additional BCMX
+        Leaderboards!</span
+      >
+      <form [formGroup]="form" class="flex max-w-sm flex-col gap-y-4">
+        <div>
+          <label
+            for="country"
+            class="mb-2 block text-left text-sm font-medium text-white"
+          >
+            Select your country
+          </label>
+          <select
+            id="country"
+            formControlName="country"
+            class="block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-green-500 focus:ring-green-500"
+            (change)="resetStateSelection()"
+            [disabled]="!(this.roles.length > 0)"
+          >
+            <option *ngFor="let country of countries" [value]="country.code">
+              {{ country.name }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="form.get('country')?.value === 'US'">
+          <label
+            for="state"
+            class="mb-2 block text-left text-sm font-medium text-white"
+          >
+            Select your state
+          </label>
+          <select
+            id="state"
+            formControlName="state"
+            class="block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-green-500 focus:ring-green-500"
+          >
+            <option *ngFor="let state of states" [value]="state.name">
+              {{ state.name }}
+            </option>
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          class="me-2 my-4 mb-2 flex content-center items-center justify-center rounded-lg bg-green-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-800"
+          (click)="updateUserLocation()"
+          [disabled]="locationLoading || !(this.roles.length > 0)"
+        >
+          <ng-container *ngIf="!locationLoading">Update</ng-container>
+          <ng-container *ngIf="locationLoading"
+            ><svg
+              aria-hidden="true"
+              class="h-6 w-6 animate-spin fill-green-600 text-gray-200 dark:text-gray-600"
+              viewBox="0 0 100 101"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                fill="currentColor"
+              />
+              <path
+                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                fill="currentFill"
+              /></svg
+          ></ng-container>
+        </button>
+        <div *ngIf="locUpdated" class="text-green-400">Updated!</div>
+      </form>
+    </section>
+  </div>
 </main>
 <main
   class="text-center"
