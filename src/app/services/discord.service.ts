@@ -14,4 +14,8 @@ export class DiscordService {
   getConnection(): Observable<any> {
     return this.http.get(baseUrl + `discord/getconnection`);
   }
+
+  refreshDiscordRoles(): Observable<any> {
+    return this.http.get(baseUrl + `discord/refreshDiscordRoles`);
+  }
 }

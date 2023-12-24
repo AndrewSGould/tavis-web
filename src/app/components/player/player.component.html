@@ -12,9 +12,13 @@
           src="{{ playerAvatar }}"
         />
         <h5 class="mb-1 text-xl font-medium text-white">
-          {{ bcmPlayerSummary.player.user.gamertag }} ({{
-            bcmPlayerSummary.ranking.rank | ordinal
-          }})
+          {{ bcmPlayerSummary.player.user.gamertag }}
+          <ng-container *ngIf="bcmPlayerSummary.ranking"
+            >({{ bcmPlayerSummary.ranking?.rank | ordinal }})</ng-container
+          >
+          <ng-container *ngIf="!bcmPlayerSummary.ranking"
+            >(unranked)</ng-container
+          >
         </h5>
         <span
           class="text-sm text-gray-400"
