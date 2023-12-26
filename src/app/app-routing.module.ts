@@ -15,11 +15,13 @@ import { CompletedGamesComponent } from './components/profile/completed-games/co
 import { OddJobsComponent } from './components/profile/oddjobs/oddjobs.component';
 import { YearliesComponent } from './components/profile/yearlies/yearlies.component';
 import { MonthliesComponent } from './components/profile/monthlies/monthlies.component';
+import { JanBonusComponent } from './components/jan-bonus/jan-bonus.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'jan-bonus', component: JanBonusComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
   {
     path: 'player/:player',

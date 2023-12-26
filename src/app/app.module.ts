@@ -36,6 +36,7 @@ import {
   GlobalErrorHandlerService,
   GlobalHttpInterceptorService,
 } from './services/error.service';
+import { JanBonusComponent } from './components/jan-bonus/jan-bonus.component';
 
 export function tokenGetter() {
   return localStorage.getItem('jwt');
@@ -63,6 +64,7 @@ export function tokenGetter() {
     OddJobsComponent,
     RgscComponent,
     YearliesComponent,
+    JanBonusComponent,
   ],
   imports: [
     BrowserModule,
