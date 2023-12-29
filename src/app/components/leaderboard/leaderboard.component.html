@@ -122,18 +122,25 @@
           scope="row"
           class="flex items-center whitespace-nowrap px-1 py-4 text-white"
         >
-          <svg
-            class="-left-1 h-6 w-6 text-gray-400 sm:h-8 sm:w-8"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
+          <ng-container *ngIf="player.user.avatar"
+            ><img
+              class="h-6 w-6 rounded-full sm:h-8 sm:w-8"
+              src="{{ player.user.avatar }}"
+          /></ng-container>
+          <ng-container *ngIf="!player.user.avatar">
+            <svg
+              class="-left-1 h-6 w-6 text-gray-400 sm:h-8 sm:w-8"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </ng-container>
           <div class="pl-2 sm:pl-3">
             <div class="font-normal sm:font-semibold">
               {{ player.user.gamertag }}

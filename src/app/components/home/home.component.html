@@ -1,21 +1,69 @@
-<section class="margin-auto m-auto flex max-w-2xl flex-col gap-6">
-  <h3 class="text-xl font-semibold">Welcome, fellow Achievement Hunters!</h3>
-  <p>
-    Our website is still under construction, just like that secret room in your
-    favorite RPG that you're convinced holds the ultimate loot.
-    <br /><br />But, while we're building this place, join our merry band of
-    achievement aficionados in the Discord and stay tuned for leaderboards,
-    stats, and more badges than a scout's sash... <br /><br />Until then, keep
-    gaming, keep conquering, and keep chasing those achievements like they owe
-    you money! <br /><br />Cheers, The BCMX Team (Work-in-Progress Edition)*
-  </p>
-  <iframe
-    src="https://discord.com/widget?id=1075212224467046430&theme=dark"
-    width="350"
-    height="300"
-    allowtransparency="true"
-    frameborder="0"
-    sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-    class="mt-6 self-center"
-  ></iframe>
+<section
+  class="flex flex-col place-items-center justify-center gap-20 md:flex-row"
+>
+  <div class="flex max-w-md flex-col">
+    <section>
+      <h3 class="text-xl font-semibold">
+        Welcome to Better Completions Matter e(X)perimental Edition!
+      </h3>
+      <p class="text-sm text-gray-400">
+        This year we are moving to a web based system instead of the
+        spreadsheets of the past for a multitude of reasons. There's still
+        plenty of work to do, so keep checking back for updates as we'll likely
+        release a handful of features every month!
+        <br /><br />
+        Sign in with the profile icon on the top right and follow the
+        instructions to be a part of the crew! Welcome aboard!
+      </p>
+    </section>
+    <section class="self-center">
+      <iframe
+        src="https://discord.com/widget?id=1075212224467046430&theme=dark"
+        width="350"
+        height="300"
+        allowtransparency="true"
+        frameborder="0"
+        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+        class="mt-6 self-center"
+      ></iframe>
+    </section>
+  </div>
+  <div class="flex max-w-sm self-center md:self-start">
+    <section>
+      <ol class="border-s relative border-gray-700">
+        <li class="ms-4 mb-10">
+          <time class="mb-1 text-sm font-normal leading-none text-gray-500"
+            >January 2024</time
+          >
+          <h3 class="text-lg font-semibold text-white">
+            Blast Through The Past
+          </h3>
+          <p class="mb-4 text-base font-normal text-gray-400">
+            Complete games across the years, the older the release date, the
+            more the points! Don't forget to complete at least one Xbox 360 game
+            to qualify for the Community Bonus!
+          </p>
+          <a
+            routerLink="/jan-bonus"
+            class="inline-flex items-center rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-sm font-medium text-gray-400 hover:bg-gray-700 hover:text-white focus:z-10 focus:text-blue-700 focus:outline-none focus:ring-4 focus:ring-gray-700"
+            >Read the Details
+            <svg
+              class="ms-2 ml-2 h-3 w-3 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 10"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M1 5h12m0 0L9 1m4 4L9 9"
+              /></svg
+          ></a>
+        </li>
+      </ol>
+    </section>
+  </div>
 </section>
