@@ -16,39 +16,41 @@ import { OddJobsComponent } from './components/profile/oddjobs/oddjobs.component
 import { YearliesComponent } from './components/profile/yearlies/yearlies.component';
 import { MonthliesComponent } from './components/profile/monthlies/monthlies.component';
 import { JanBonusComponent } from './components/jan-bonus/jan-bonus.component';
+import { MaintenanceComponent } from './components/maintenance/maintenance.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'signin', component: SigninComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'jan-bonus', component: JanBonusComponent },
-  { path: 'leaderboard', component: LeaderboardComponent },
-  {
-    path: 'player/:player',
-    component: PlayerComponent,
-    children: [
-      { path: 'rgsc', component: RgscComponent },
-      { path: 'abc', component: AbcComponent },
-      { path: 'completed-games', component: CompletedGamesComponent },
-      { path: 'oddjobs', component: OddJobsComponent },
-      { path: 'monthlies', component: MonthliesComponent },
-      { path: 'yearlies', component: YearliesComponent },
-    ],
-  },
-  { path: 'profile', component: ProfileComponent },
-  {
-    path: 'sync',
-    component: SyncManagerComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['Admin'] },
-  },
-  {
-    path: 'admin',
-    component: BcmAdminComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['Admin'] },
-  },
-  { path: '**', component: PageNotFoundComponent },
+  // { path: '', component: HomeComponent },
+  // { path: 'signin', component: SigninComponent },
+  // { path: 'home', component: HomeComponent },
+  // { path: 'jan-bonus', component: JanBonusComponent },
+  // { path: 'leaderboard', component: LeaderboardComponent },
+  // {
+  //   path: 'player/:player',
+  //   component: PlayerComponent,
+  //   children: [
+  //     { path: 'rgsc', component: RgscComponent },
+  //     { path: 'abc', component: AbcComponent },
+  //     { path: 'completed-games', component: CompletedGamesComponent },
+  //     { path: 'oddjobs', component: OddJobsComponent },
+  //     { path: 'monthlies', component: MonthliesComponent },
+  //     { path: 'yearlies', component: YearliesComponent },
+  //   ],
+  // },
+  // { path: 'profile', component: ProfileComponent },
+  // {
+  //   path: 'sync',
+  //   component: SyncManagerComponent,
+  //   canActivate: [AuthGuard],
+  //   data: { roles: ['Admin'] },
+  // },
+  // {
+  //   path: 'admin',
+  //   component: BcmAdminComponent,
+  //   canActivate: [AuthGuard],
+  //   data: { roles: ['Admin'] },
+  // },
+  // { path: '**', component: PageNotFoundComponent },
+  { path: '**', component: MaintenanceComponent },
 ];
 
 @NgModule({
