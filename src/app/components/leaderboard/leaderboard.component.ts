@@ -23,6 +23,11 @@ export class LeaderboardComponent implements OnInit {
     });
   }
 
+  handleImageLoad(event: Event) {
+    const imageElement = event.target as HTMLImageElement;
+    imageElement.src = '../../../assets/no-login_robot.png';
+  }
+
   sortColumn(column: string): void {
     if (this.currentSort.column === column) {
       this.currentSort.direction =

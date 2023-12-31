@@ -1,4 +1,13 @@
-<div *ngIf="rgscSummary">
+<div
+  class="absolute top-[65px] left-0 h-[calc(100%-65px)] w-full bg-black bg-opacity-50"
+  *ngIf="this.isLoading"
+>
+  <img
+    src="../../../assets/infinite-spinner.svg"
+    class="absolute top-[45%] left-[46%] h-16"
+  />
+</div>
+<div *ngIf="!isLoading">
   <ul
     class="grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3"
   >
@@ -25,7 +34,7 @@
       </div>
     </li>
   </ul>
-  <h3>Roll History:</h3>
+  <h3 class="mt-4">Roll History:</h3>
   <ul>
     <li *ngFor="let random of rgscSummary.randomsRolledAway">
       <div>
