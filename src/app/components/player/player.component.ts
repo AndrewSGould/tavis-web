@@ -19,6 +19,8 @@ export class PlayerComponent implements OnInit {
   rgscSummary: any = null;
   playerAvatar: string = '../../../../../assets/no-login_robot.png';
   bcmYearlySummary: any = null;
+  isLoading: boolean = true;
+  rgscLoading: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,19 +34,30 @@ export class PlayerComponent implements OnInit {
 
     if (!this.playerName) {
       alert('no player found?');
+      this.isLoading = false;
       return;
     }
 
-    this.bcmService.getBcmPlayer(this.playerName).subscribe((data) => {
-      this.bcmPlayerSummary = data;
+    this.bcmService.getBcmPlayer(this.playerName).subscribe({
+      next: (data) => {
+        this.bcmPlayerSummary = data;
+        this.isLoading = false;
+        console.log(data);
+      },
+      error: (err: any) => {
+        this.isLoading = false;
+        alert(err);
+      },
     });
 
-    this.bcmService.getYearlySummary(this.playerName).subscribe((data) => {
-      this.bcmYearlySummary = data;
-    });
+    // this.bcmService.getYearlySummary(this.playerName).subscribe((data) => {
+    //   this.bcmYearlySummary = data;
+    // });
 
     this.bcmService.getRgscSummary(this.playerName).subscribe((data) => {
       this.rgscSummary = data;
+      this.rgscLoading = false;
+      console.log(data);
     });
 
     this.route.paramMap.subscribe((params) => {
@@ -58,5 +71,10 @@ export class PlayerComponent implements OnInit {
         ).value;
       });
     });
+  }
+
+  handleImageLoad(event: Event) {
+    const imageElement = event.target as HTMLImageElement;
+    imageElement.src = '../../../assets/no-login_robot.png';
   }
 }

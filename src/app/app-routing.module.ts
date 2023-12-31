@@ -19,7 +19,11 @@ import { JanBonusComponent } from './components/jan-bonus/jan-bonus.component';
 import { MaintenanceComponent } from './components/maintenance/maintenance.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'home',
+  },
   { path: 'signin', component: SigninComponent },
   { path: 'home', component: HomeComponent },
   { path: 'jan-bonus', component: JanBonusComponent },
@@ -28,7 +32,7 @@ const routes: Routes = [
     path: 'player/:player',
     component: PlayerComponent,
     children: [
-      { path: 'rgsc', component: RgscComponent },
+      // { path: 'rgsc', component: RgscComponent },
       { path: 'abc', component: AbcComponent },
       { path: 'completed-games', component: CompletedGamesComponent },
       { path: 'oddjobs', component: OddJobsComponent },
@@ -36,6 +40,7 @@ const routes: Routes = [
       { path: 'yearlies', component: YearliesComponent },
     ],
   },
+  { path: 'player/:player/rgsc', component: RgscComponent },
   { path: 'profile', component: ProfileComponent },
   {
     path: 'sync',

@@ -126,6 +126,7 @@
             ><img
               class="h-6 w-6 rounded-full sm:h-8 sm:w-8"
               src="{{ player.user.avatar }}"
+              (error)="handleImageLoad($event)"
           /></ng-container>
           <ng-container *ngIf="!player.user.avatar">
             <svg
