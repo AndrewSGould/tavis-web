@@ -10,16 +10,23 @@ export class LeaderboardComponent implements OnInit {
 
   public leaderboard: any = null;
   public lastScan: Date | null = null;
+  public isLoading: boolean = true;
   currentSort: { column: string; direction: string } = {
     column: '',
     direction: 'asc',
   };
 
   ngOnInit(): void {
-    this.bcmService.getBcmLeaderboardList().subscribe((data) => {
-      this.leaderboard = data;
-      console.log(data);
-      this.lastScan = this.leaderboard![0].lastSync; //TODO: improve this
+    this.bcmService.getBcmLeaderboardList().subscribe({
+      next: (data) => {
+        this.leaderboard = data;
+        this.isLoading = false;
+        this.lastScan = this.leaderboard![0].lastSync; //TODO: improve this
+      },
+      error: (err) => {
+        alert(err);
+        this.isLoading = false;
+      },
     });
   }
 

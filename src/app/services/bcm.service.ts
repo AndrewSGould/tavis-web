@@ -21,8 +21,12 @@ export class BcmService {
     return this.http.get(baseUrl + `bcm/getBcmPlayer?player=` + player);
   }
 
-  getYearlySummary(player: string): Observable<any> {
-    return this.http.get(baseUrl + `bcm/yearly-summary?player=` + player);
+  getAbcSummary(player: string): Observable<any> {
+    return this.http.get(baseUrl + `bcm/player/abcSummary?player=` + player);
+  }
+
+  getOddjobSummary(player: string): Observable<any> {
+    return this.http.get(baseUrl + `bcm/player/oddjobSummary?player=` + player);
   }
 
   getRgscSummary(player: string): Observable<any> {
