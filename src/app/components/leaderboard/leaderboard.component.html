@@ -80,7 +80,14 @@
         </th>
       </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="isLoading">
+      <tr>
+        <td colspan="9" class="h-60 w-full bg-black bg-opacity-50">
+          <img src="../../../assets/infinite-spinner.svg" class="m-auto h-16" />
+        </td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="!isLoading">
       <tr
         *ngFor="let player of leaderboard"
         [routerLink]="['/player/', player.user.gamertag]"

@@ -17,6 +17,7 @@ import { YearliesComponent } from './components/profile/yearlies/yearlies.compon
 import { MonthliesComponent } from './components/profile/monthlies/monthlies.component';
 import { JanBonusComponent } from './components/jan-bonus/jan-bonus.component';
 import { MaintenanceComponent } from './components/maintenance/maintenance.component';
+import { MiscStatsComponent } from './components/misc-stats/misc-stats.component';
 
 const routes: Routes = [
   {
@@ -33,14 +34,18 @@ const routes: Routes = [
     component: PlayerComponent,
     children: [
       // { path: 'rgsc', component: RgscComponent },
-      { path: 'abc', component: AbcComponent },
-      { path: 'completed-games', component: CompletedGamesComponent },
       { path: 'oddjobs', component: OddJobsComponent },
       { path: 'monthlies', component: MonthliesComponent },
       { path: 'yearlies', component: YearliesComponent },
     ],
   },
   { path: 'player/:player/rgsc', component: RgscComponent },
+  { path: 'player/:player/abc', component: AbcComponent },
+  {
+    path: 'player/:player/completed-games',
+    component: CompletedGamesComponent,
+  },
+  { path: 'player/:player/misc-stats', component: MiscStatsComponent },
   { path: 'profile', component: ProfileComponent },
   {
     path: 'sync',

@@ -20,10 +20,6 @@ export class AbcComponent implements OnInit {
       alert('no player found?');
       return;
     }
-
-    this.bcmService.getYearlySummary(this.playerName).subscribe((data) => {
-      this.highlightedLetters = data.completionLetters;
-    });
   }
 
   exists(letter: string): boolean {

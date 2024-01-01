@@ -22,9 +22,9 @@ export class OddJobsComponent implements OnInit {
       return;
     }
 
-    this.bcmService.getYearlySummary(this.playerName).subscribe((data) => {
-      this.oddjobs = data.oddJobCompletions;
-    });
+    // this.bcmService.getYearlySummary(this.playerName).subscribe((data) => {
+    //   this.oddjobs = data.oddJobCompletions;
+    // });
   }
 
   getGamesWithGenre(genre: string): any[] {

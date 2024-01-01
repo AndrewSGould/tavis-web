@@ -38,6 +38,7 @@ import {
 } from './services/error.service';
 import { JanBonusComponent } from './components/jan-bonus/jan-bonus.component';
 import { MaintenanceComponent } from './components/maintenance/maintenance.component';
+import { MiscStatsComponent } from './components/misc-stats/misc-stats.component';
 
 export function tokenGetter() {
   return localStorage.getItem('jwt');
@@ -67,6 +68,7 @@ export function tokenGetter() {
     YearliesComponent,
     JanBonusComponent,
     MaintenanceComponent,
+    MiscStatsComponent,
   ],
   imports: [
     BrowserModule,

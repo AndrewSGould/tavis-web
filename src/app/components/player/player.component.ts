@@ -13,23 +13,37 @@ import { PlayerService } from 'src/app/services/player.service';
   selector: 'app-player',
   templateUrl: './player.component.html',
 })
-export class PlayerComponent implements OnInit {
+export class PlayerComponent {
   playerName: string | null = null;
   bcmPlayerSummary: any = null;
   rgscSummary: any = null;
   playerAvatar: string = '../../../../../assets/no-login_robot.png';
-  bcmYearlySummary: any = null;
+  abcSummary: any = null;
+  oddjobSummary: any = null;
+
   isLoading: boolean = true;
   rgscLoading: boolean = true;
+  abcLoading: boolean = true;
+  oddjobLoading: boolean = true;
+
+  alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  highlightedLetters: any = null;
 
   constructor(
     private route: ActivatedRoute,
     private bcmService: BcmService,
-    private openxblService: OpenXblService,
-    private router: Router
-  ) {}
+    private openxblService: OpenXblService
+  ) {
+    this.route.params.subscribe((params) => {
+      this.loadPage();
+    });
+  }
 
-  ngOnInit(): void {
+  loadPage() {
+    this.isLoading = true;
+    this.rgscLoading = true;
+    this.abcLoading = true;
+
     this.playerName = this.route.snapshot.paramMap.get('player');
 
     if (!this.playerName) {
@@ -42,7 +56,6 @@ export class PlayerComponent implements OnInit {
       next: (data) => {
         this.bcmPlayerSummary = data;
         this.isLoading = false;
-        console.log(data);
       },
       error: (err: any) => {
         this.isLoading = false;
@@ -50,31 +63,28 @@ export class PlayerComponent implements OnInit {
       },
     });
 
-    // this.bcmService.getYearlySummary(this.playerName).subscribe((data) => {
-    //   this.bcmYearlySummary = data;
-    // });
+    this.bcmService.getAbcSummary(this.playerName).subscribe((data) => {
+      this.abcSummary = data;
+      this.abcLoading = false;
+    });
+
+    this.bcmService.getOddjobSummary(this.playerName).subscribe((data) => {
+      this.oddjobSummary = data;
+      this.oddjobLoading = false;
+    });
 
     this.bcmService.getRgscSummary(this.playerName).subscribe((data) => {
       this.rgscSummary = data;
       this.rgscLoading = false;
-      console.log(data);
-    });
-
-    this.route.paramMap.subscribe((params) => {
-      let player = params.get('player');
-      if (!player) console.error('No player provided in the URL!');
-      player = decodeURIComponent(player!);
-
-      this.openxblService.getUser(player).subscribe((data: any) => {
-        this.playerAvatar = data.settings.find(
-          (x: any) => x.id === 'GameDisplayPicRaw'
-        ).value;
-      });
     });
   }
 
   handleImageLoad(event: Event) {
     const imageElement = event.target as HTMLImageElement;
     imageElement.src = '../../../assets/no-login_robot.png';
+  }
+
+  exists(letter: string): boolean {
+    return this.abcSummary?.includes(letter);
   }
 }
