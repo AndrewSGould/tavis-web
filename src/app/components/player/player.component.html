@@ -89,19 +89,26 @@
             <div class="flex justify-between">
               <span class="w-24 opacity-50">Avg Ratio:</span>
               <span class="ml-2">{{
-                bcmPlayerSummary.bcmStats.averageRatio
+                bcmPlayerSummary.bcmStats.averageRatio | number : "1.3-3"
               }}</span>
             </div>
             <div class="flex justify-between">
               <span class="w-24 opacity-50">Avg Length:</span>
-              <span class="ml-2">{{
-                bcmPlayerSummary.bcmStats.averageTimeEstimate
-              }}</span>
+              <span class="ml-2"
+                >{{
+                  bcmPlayerSummary.bcmStats.averageTimeEstimate
+                    | number : "1.0-0"
+                }}
+                hours</span
+              >
             </div>
             <div class="flex justify-between">
               <span class="w-24 opacity-50">Avg Score:</span>
               <span class="ml-2"
-                >{{ bcmPlayerSummary.bcmStats.averagePoints }}
+                >{{
+                  bcmPlayerSummary.bcmStats.averagePoints | number : "1.0-0"
+                }}
+                points
               </span>
             </div>
           </div>
