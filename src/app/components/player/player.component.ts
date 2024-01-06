@@ -76,8 +76,17 @@ export class PlayerComponent {
     this.bcmService.getRgscSummary(this.playerName).subscribe((data) => {
       this.rgscSummary = data;
       this.rgscLoading = false;
+      console.log(data);
     });
   }
+
+  getOddJobGame = (genre: string) => {
+    return (
+      this.oddjobSummary.find((x: any) =>
+        x.gameGenres.find((x: any) => x.genreId.name === genre)
+      )?.title ?? '--'
+    );
+  };
 
   handleImageLoad(event: Event) {
     const imageElement = event.target as HTMLImageElement;

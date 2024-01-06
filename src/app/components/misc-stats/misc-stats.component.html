@@ -1,1 +1,42 @@
-<p>misc-stats works!</p>
+<div
+  class="absolute top-[65px] left-0 h-[calc(100%-65px)] w-full bg-black bg-opacity-50"
+  *ngIf="isPlayerLoading"
+>
+  <img
+    src="../../../assets/infinite-spinner.svg"
+    class="absolute top-[45%] left-[46%] h-16"
+  />
+</div>
+<div class="flex flex-col justify-center" *ngIf="!isPlayerLoading">
+  <section class="flex flex-col items-center justify-center align-middle">
+    <div
+      class="m-4 max-w-md rounded-lg border border-gray-700 bg-gray-900 px-6 shadow"
+    >
+      <div class="relative flex items-center gap-8 p-4">
+        <img
+          class="h-20 w-20 rounded-full shadow-lg"
+          src="{{ bcmPlayerSummary.player.user.avatar }}"
+          (error)="handleImageLoad($event)"
+        />
+        <div class="self-start text-sm text-gray-400">
+          <ul>
+            <li>
+              <h5 class="text-lg font-medium text-white">
+                {{ bcmPlayerSummary.player.user.gamertag }}'s Misc Stats
+              </h5>
+            </li>
+            <li></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="min-w-[14rem] max-w-xl rounded-lg border border-gray-700 bg-gray-800 p-6 shadow"
+  ></section>
+
+  heat map https://swimlane.github.io/ngx-charts/#/ngx-charts/calendar
+  (completions) gauge https://swimlane.github.io/ngx-charts/#/ngx-charts/gauge
+  (gs by platform)
+</div>

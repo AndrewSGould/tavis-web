@@ -21,6 +21,12 @@ export class BcmService {
     return this.http.get(baseUrl + `bcm/getBcmPlayer?player=` + player);
   }
 
+  getBcmPlayerWithGames(player: string): Observable<any> {
+    return this.http.get(
+      baseUrl + `bcm/getBcmPlayerWithGames?player=` + player
+    );
+  }
+
   getAbcSummary(player: string): Observable<any> {
     return this.http.get(baseUrl + `bcm/player/abcSummary?player=` + player);
   }

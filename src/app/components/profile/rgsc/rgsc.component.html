@@ -1,13 +1,62 @@
 <div
   class="absolute top-[65px] left-0 h-[calc(100%-65px)] w-full bg-black bg-opacity-50"
-  *ngIf="this.isLoading"
+  *ngIf="this.isPlayerLoading || this.isRgscLoading"
 >
   <img
     src="../../../assets/infinite-spinner.svg"
     class="absolute top-[45%] left-[46%] h-16"
   />
 </div>
-<div *ngIf="!isLoading">
+<div *ngIf="!this.isPlayerLoading && !this.isRgscLoading">
+  <section class="flex flex-col items-center justify-center align-middle">
+    <div
+      class="m-4 max-w-md rounded-lg border border-gray-700 bg-gray-900 px-6 shadow"
+    >
+      <div class="relative flex items-center gap-8 p-4">
+        <img
+          class="h-20 w-20 rounded-full shadow-lg"
+          src="{{ bcmPlayerSummary.user.avatar }}"
+          (error)="handleImageLoad($event)"
+        />
+        <div class="self-start text-sm text-gray-400">
+          <ul>
+            <li>
+              <h5 class="text-lg font-medium text-white">
+                {{ bcmPlayerSummary.user.gamertag }}'s RGSC
+              </h5>
+            </li>
+            <li>
+              <span class="text-gray-600">Completed:&nbsp;</span
+              ><span class="text-green-500">{{
+                rgscSummary?.rgscsCompleted ?? 0
+              }}</span>
+              / 11
+            </li>
+            <li>
+              <span class="text-gray-600">Rerolls Left:&nbsp;</span
+              >{{ rgscSummary?.rerollsRemaining ?? "--" }}
+            </li>
+            <li>
+              <span class="text-gray-600">Pool Size:&nbsp;</span>
+              <span
+                [ngClass]="{
+                  'text-red-600':
+                    rgscSummary.currentRandoms?.poolSize < 50 &&
+                    rgscSummary.currentRandoms[0]?.rgsc?.poolSize < 50
+                }"
+                >{{
+                  rgscSummary.currentRandoms[0]?.rgsc?.poolSize ??
+                    rgscSummary.currentRandoms?.poolSize ??
+                    0
+                }}</span
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <ul
     class="grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3"
   >
@@ -15,7 +64,11 @@
       <div
         class="flex flex-col rounded-lg border border-gray-700 bg-gray-800 shadow hover:bg-gray-700"
       >
-        <div class="flex flex-col justify-between p-4 leading-normal">
+        <div class="relative flex flex-col justify-between p-4 leading-normal">
+          <span
+            class="absolute top-0 right-0 rounded-tr bg-green-600 py-1 px-2 text-xs font-bold"
+            >{{ determineChallengeMonth(random.rgsc.challenge) }}</span
+          >
           <h5
             class="mb-2 text-center text-xl font-bold tracking-tight text-white"
           >
@@ -32,18 +85,30 @@
           </div>
         </div>
       </div>
-    </li>
-  </ul>
-  <h3 class="mt-4">Roll History:</h3>
-  <ul>
-    <li *ngFor="let random of rgscSummary.randomsRolledAway">
-      <div>
-        <p><strong>Title:</strong> {{ random.game.title }}</p>
-        <p>
-          <strong>Issued:</strong> {{ random.rgsc.issued | date : "MMM y" }}
-        </p>
-        <br />
-      </div>
+      <ng-container *ngFor="let rolledRandom of rgscSummary.randomsRolledAway">
+        <ng-container
+          *ngIf="random.rgsc.challenge === rolledRandom.rgsc.challenge"
+        >
+          <div
+            class="flex items-center justify-between gap-x-6 rounded-b-lg border border-t-0 border-gray-700 bg-gray-900 px-2 py-1 text-xs font-thin text-gray-400 opacity-50 shadow hover:bg-gray-800"
+          >
+            <h5 class="flex-1 tracking-tight">
+              {{ rolledRandom.game.title }}
+            </h5>
+            <span
+              >{{ rolledRandom.game.siteRatio | number : "1.2-2" }} Ratio &nbsp;
+              ~{{ rolledRandom.game.fullCompletionEstimate }} Hours</span
+            >
+            <span class="flex gap-1 text-white">
+              <img
+                src="../../../../assets/dice-gambling-game-svgrepo-com.svg"
+                class="h-5 w-5"
+              />Rerolled
+              {{ rolledRandom.rgsc.rerollDate | date : "MMM d" }}</span
+            >
+          </div>
+        </ng-container>
+      </ng-container>
     </li>
   </ul>
 </div>
