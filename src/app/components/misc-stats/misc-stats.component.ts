@@ -11,6 +11,7 @@ export class MiscStatsComponent implements OnInit {
   playerName: string | null | undefined = null;
   bcmPlayerSummary: any = null;
   isPlayerLoading: boolean = true;
+  fullgenres: any = null;
   currentSort: { column: string; direction: string } = {
     column: '',
     direction: 'asc',
@@ -53,12 +54,18 @@ export class MiscStatsComponent implements OnInit {
     });
 
     this.bcmService.getPlayersGenres(this.playerName).subscribe((data: any) => {
-      this.single = data.slice(0, 10);
+      this.single = data.filter((x: any) => x.name !== 'None').slice(0, 8);
+      this.fullgenres = data.filter((x: any) => x.name !== 'None');
+      console.log(this.fullgenres);
     });
   }
 
   handleImageLoad(event: Event): void {
     const imageElement = event.target as HTMLImageElement;
     imageElement.src = '../../../assets/no-login_robot.png';
+  }
+
+  calculateMiddleIndex(): number {
+    return Math.floor(this.fullgenres.length / 2);
   }
 }

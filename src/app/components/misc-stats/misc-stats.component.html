@@ -36,19 +36,58 @@
     </div>
   </section>
 
-  <section class="min-w-[20rem] max-w-lg">
-    <h3 class="text-lg font-bold text-white">Genres</h3>
-    <ngx-charts-pie-chart
-      [results]="single"
-      [labels]="true"
-      [maxLabelLength]="20"
-      (select)="onSelect($event)"
-      (activate)="onActivate($event)"
-      (deactivate)="onDeactivate($event)"
-      class="inline-block rounded-lg border border-gray-700 bg-gray-800 fill-slate-50 p-6 shadow"
+  <div class="flex flex-wrap gap-5">
+    <section
+      class="min-w-[20rem] max-w-lg rounded-lg border border-gray-700 bg-gray-800 fill-slate-50 p-6 shadow"
     >
-    </ngx-charts-pie-chart>
-  </section>
+      <h3 class="text-lg font-bold text-white">
+        Genres <span class="text-sm font-thin text-gray-200">(Top 8)</span>
+      </h3>
+      <ngx-charts-pie-chart
+        [results]="single"
+        [labels]="true"
+        [maxLabelLength]="20"
+        (select)="onSelect($event)"
+        (activate)="onActivate($event)"
+        (deactivate)="onDeactivate($event)"
+        class="inline-block"
+      >
+      </ngx-charts-pie-chart>
+    </section>
+
+    <section
+      class="min-w-[20rem] max-w-lg rounded-lg border border-gray-700 bg-gray-800 fill-slate-50 p-6 shadow"
+    >
+      <h3 class="mb-4 text-lg font-bold text-white">Full Genre Breakdown</h3>
+      <div class="max-h-96 overflow-x-auto p-6">
+        <div
+          *ngFor="let genre of fullgenres; let i = index"
+          class="relative flex w-full justify-between"
+        >
+          <div
+            [ngClass]="{
+              'mb-10': i === calculateMiddleIndex()
+            }"
+          >
+            {{ genre.name }}
+          </div>
+          <div
+            *ngIf="i === calculateMiddleIndex()"
+            class="absolute top-7 w-[200px] border border-red-600 bg-red-500 p-1"
+          >
+            Lower 50%
+          </div>
+          <div
+            [ngClass]="{
+              'mb-10': i === calculateMiddleIndex()
+            }"
+          >
+            {{ genre.value ?? 0 }}
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 
   <!-- heat map https://swimlane.github.io/ngx-charts/#/ngx-charts/calendar
   (completions) gauge https://swimlane.github.io/ngx-charts/#/ngx-charts/gauge
