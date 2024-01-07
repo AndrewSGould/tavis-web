@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { LegendPosition } from '@swimlane/ngx-charts';
 import { BcmService } from 'src/app/services/bcm.service';
 @Component({
   selector: 'app-misc-stats',
@@ -14,6 +15,20 @@ export class MiscStatsComponent implements OnInit {
     column: '',
     direction: 'asc',
   };
+
+  single: any[] = [];
+
+  onSelect(data: any): void {
+    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+  }
+
+  onActivate(data: any): void {
+    console.log('Activate', JSON.parse(JSON.stringify(data)));
+  }
+
+  onDeactivate(data: any): void {
+    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+  }
 
   constructor(private route: ActivatedRoute, private bcmService: BcmService) {}
 
@@ -35,6 +50,10 @@ export class MiscStatsComponent implements OnInit {
         this.isPlayerLoading = false;
         alert(err);
       },
+    });
+
+    this.bcmService.getPlayersGenres(this.playerName).subscribe((data: any) => {
+      this.single = data.slice(0, 10);
     });
   }
 

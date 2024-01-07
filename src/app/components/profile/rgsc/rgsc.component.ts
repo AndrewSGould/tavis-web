@@ -74,4 +74,20 @@ export class RgscComponent implements OnInit {
     const imageElement = event.target as HTMLImageElement;
     imageElement.src = '../../../assets/no-login_robot.png';
   }
+
+  isGameCompleted(randomGameId: number): boolean {
+    return !!this.rgscSummary?.rgscsCompleted.find(
+      (x: any) => x.rgsc.gameId === randomGameId
+    );
+  }
+
+  getGameCompletion(randomGameId: number): string | null {
+    const completionDate = this.rgscSummary?.currentRandoms
+      ?.find((x: any) => x.rgsc?.gameId === randomGameId)
+      ?.rgsc?.bcmPlayer?.bcmPlayerGames?.find(
+        (x: any) => x.gameId === randomGameId
+      )?.completionDate;
+
+    return completionDate || null;
+  }
 }

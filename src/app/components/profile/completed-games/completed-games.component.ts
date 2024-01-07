@@ -31,7 +31,9 @@ export class CompletedGamesComponent implements OnInit {
       next: (data) => {
         this.bcmPlayerSummary = data;
         this.isPlayerLoading = false;
-        console.log(data);
+        this.currentSort.column = 'date';
+        this.currentSort.direction = 'asc';
+        this.sortColumn('date');
       },
       error: (err: any) => {
         this.isPlayerLoading = false;
@@ -54,29 +56,40 @@ export class CompletedGamesComponent implements OnInit {
       this.currentSort.direction = 'asc';
     }
 
-    this.bcmPlayerSummary.games.sort((a: any, b: any) => {
-      const direction = this.currentSort.direction === 'asc' ? 1 : -1;
+    this.bcmPlayerSummary.games = [...this.bcmPlayerSummary.games].sort(
+      (a: any, b: any) => {
+        const direction = this.currentSort.direction === 'asc' ? 1 : -1;
 
-      if (column === 'date') {
-        return (
-          new Date(a.game.completionDate).getTime() -
-          new Date(b.game.completionDate).getTime() * direction
-        );
-      } else if (column === 'title') {
-        return a.game.game.title.localeCompare(b.game.game.title) * direction;
-      } else if (column === 'ratio') {
-        return (a.game.game.siteRatio - b.game.game.siteRatio) * direction;
-      } else if (column === 'estimate') {
-        return (
-          (a.game.game.fullCompletionEstimate -
-            b.game.game.fullCompletionEstimate) *
-          direction
-        );
-      } else if (column === 'points') {
-        return (a.points - b.points) * direction;
-      } else {
-        return 0;
+        if (column === 'date') {
+          const dateA = new Date(a.game.completionDate);
+          const dateB = new Date(b.game.completionDate);
+
+          // Check if dates are valid before comparison
+          if (isNaN(dateA.getTime()) && isNaN(dateB.getTime())) {
+            return 0;
+          } else if (isNaN(dateA.getTime())) {
+            return 1 * direction;
+          } else if (isNaN(dateB.getTime())) {
+            return -1 * direction;
+          }
+
+          return (dateA.getDate() - dateB.getDate()) * direction;
+        } else if (column === 'title') {
+          return a.game.game.title.localeCompare(b.game.game.title) * direction;
+        } else if (column === 'ratio') {
+          return (a.game.game.siteRatio - b.game.game.siteRatio) * direction;
+        } else if (column === 'estimate') {
+          return (
+            (a.game.game.fullCompletionEstimate -
+              b.game.game.fullCompletionEstimate) *
+            direction
+          );
+        } else if (column === 'points') {
+          return (a.points - b.points) * direction;
+        } else {
+          return 0;
+        }
       }
-    });
+    );
   }
 }

@@ -41,6 +41,7 @@ import { MaintenanceComponent } from './components/maintenance/maintenance.compo
 import { MiscStatsComponent } from './components/misc-stats/misc-stats.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 export function tokenGetter() {
   return localStorage.getItem('jwt');
@@ -87,6 +88,7 @@ export function tokenGetter() {
     CommonModule,
     NgxDatatableModule,
     ReactiveFormsModule,
+    NgxChartsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

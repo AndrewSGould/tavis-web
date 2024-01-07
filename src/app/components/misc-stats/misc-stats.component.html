@@ -1,12 +1,10 @@
-<div
-  class="absolute top-[65px] left-0 h-[calc(100%-65px)] w-full bg-black bg-opacity-50"
-  *ngIf="isPlayerLoading"
->
-  <img
-    src="../../../assets/infinite-spinner.svg"
-    class="absolute top-[45%] left-[46%] h-16"
-  />
-</div>
+<ng-container *ngIf="this.isPlayerLoading">
+  <main
+    class="absolute top-[65px] left-0 flex h-[calc(100%-65px)] w-full items-center justify-center bg-black bg-opacity-50"
+  >
+    <img src="../../../assets/infinite-spinner.svg" class="h-16" />
+  </main>
+</ng-container>
 <div class="flex flex-col justify-center" *ngIf="!isPlayerLoading">
   <section class="flex flex-col items-center justify-center align-middle">
     <div
@@ -27,16 +25,32 @@
             </li>
             <li></li>
           </ul>
+          <button
+            [routerLink]="['/player/', playerName]"
+            class="me-2 my-2 rounded-lg border border-green-700 px-3 py-1.5 text-center text-sm font-medium text-green-700 hover:bg-green-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-300 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-600 dark:hover:text-white dark:focus:ring-green-800"
+          >
+            Return to Profile
+          </button>
         </div>
       </div>
     </div>
   </section>
 
-  <section
-    class="min-w-[14rem] max-w-xl rounded-lg border border-gray-700 bg-gray-800 p-6 shadow"
-  ></section>
+  <section class="min-w-[20rem] max-w-lg">
+    <h3 class="text-lg font-bold text-white">Genres</h3>
+    <ngx-charts-pie-chart
+      [results]="single"
+      [labels]="true"
+      [maxLabelLength]="20"
+      (select)="onSelect($event)"
+      (activate)="onActivate($event)"
+      (deactivate)="onDeactivate($event)"
+      class="inline-block rounded-lg border border-gray-700 bg-gray-800 fill-slate-50 p-6 shadow"
+    >
+    </ngx-charts-pie-chart>
+  </section>
 
-  heat map https://swimlane.github.io/ngx-charts/#/ngx-charts/calendar
+  <!-- heat map https://swimlane.github.io/ngx-charts/#/ngx-charts/calendar
   (completions) gauge https://swimlane.github.io/ngx-charts/#/ngx-charts/gauge
-  (gs by platform)
+  (gs by platform) -->
 </div>
