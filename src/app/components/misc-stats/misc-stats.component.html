@@ -1,1 +1,95 @@
-<p>misc-stats works!</p>
+<ng-container *ngIf="this.isPlayerLoading">
+  <main
+    class="absolute top-[65px] left-0 flex h-[calc(100%-65px)] w-full items-center justify-center bg-black bg-opacity-50"
+  >
+    <img src="../../../assets/infinite-spinner.svg" class="h-16" />
+  </main>
+</ng-container>
+<div class="flex flex-col justify-center" *ngIf="!isPlayerLoading">
+  <section class="flex flex-col items-center justify-center align-middle">
+    <div
+      class="m-4 max-w-md rounded-lg border border-gray-700 bg-gray-900 px-6 shadow"
+    >
+      <div class="relative flex items-center gap-8 p-4">
+        <img
+          class="h-20 w-20 rounded-full shadow-lg"
+          src="{{ bcmPlayerSummary.player.user.avatar }}"
+          (error)="handleImageLoad($event)"
+        />
+        <div class="self-start text-sm text-gray-400">
+          <ul>
+            <li>
+              <h5 class="text-lg font-medium text-white">
+                {{ bcmPlayerSummary.player.user.gamertag }}'s Misc Stats
+              </h5>
+            </li>
+            <li></li>
+          </ul>
+          <button
+            [routerLink]="['/player/', playerName]"
+            class="me-2 my-2 rounded-lg border border-green-700 px-3 py-1.5 text-center text-sm font-medium text-green-700 hover:bg-green-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-300 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-600 dark:hover:text-white dark:focus:ring-green-800"
+          >
+            Return to Profile
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="flex flex-wrap gap-5">
+    <section
+      class="min-w-[20rem] max-w-lg rounded-lg border border-gray-700 bg-gray-800 fill-slate-50 p-6 shadow"
+    >
+      <h3 class="text-lg font-bold text-white">
+        Genres <span class="text-sm font-thin text-gray-200">(Top 8)</span>
+      </h3>
+      <ngx-charts-pie-chart
+        [results]="single"
+        [labels]="true"
+        [maxLabelLength]="20"
+        (select)="onSelect($event)"
+        (activate)="onActivate($event)"
+        (deactivate)="onDeactivate($event)"
+        class="inline-block"
+      >
+      </ngx-charts-pie-chart>
+    </section>
+
+    <section
+      class="min-w-[20rem] max-w-lg rounded-lg border border-gray-700 bg-gray-800 fill-slate-50 p-6 shadow"
+    >
+      <h3 class="mb-4 text-lg font-bold text-white">Full Genre Breakdown</h3>
+      <div class="max-h-96 overflow-x-auto p-6">
+        <div
+          *ngFor="let genre of fullgenres; let i = index"
+          class="relative flex w-full justify-between"
+        >
+          <div
+            [ngClass]="{
+              'mb-10': i === calculateMiddleIndex()
+            }"
+          >
+            {{ genre.name }}
+          </div>
+          <div
+            *ngIf="i === calculateMiddleIndex()"
+            class="absolute top-7 w-[200px] border border-red-600 bg-red-500 p-1"
+          >
+            Lower 50%
+          </div>
+          <div
+            [ngClass]="{
+              'mb-10': i === calculateMiddleIndex()
+            }"
+          >
+            {{ genre.value ?? 0 }}
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- heat map https://swimlane.github.io/ngx-charts/#/ngx-charts/calendar
+  (completions) gauge https://swimlane.github.io/ngx-charts/#/ngx-charts/gauge
+  (gs by platform) -->
+</div>

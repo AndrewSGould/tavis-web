@@ -20,11 +20,13 @@ export class PlayerComponent {
   playerAvatar: string = '../../../../../assets/no-login_robot.png';
   abcSummary: any = null;
   oddjobSummary: any = null;
+  gamesSummary: any = null;
 
   isLoading: boolean = true;
   rgscLoading: boolean = true;
   abcLoading: boolean = true;
   oddjobLoading: boolean = true;
+  gamesLoading: boolean = true;
 
   alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
   highlightedLetters: any = null;
@@ -63,6 +65,12 @@ export class PlayerComponent {
       },
     });
 
+    this.bcmService.getBcmPlayerWithGames(this.playerName).subscribe((data) => {
+      this.gamesSummary = data;
+      console.log(data);
+      this.gamesLoading = false;
+    });
+
     this.bcmService.getAbcSummary(this.playerName).subscribe((data) => {
       this.abcSummary = data;
       this.abcLoading = false;
@@ -78,6 +86,14 @@ export class PlayerComponent {
       this.rgscLoading = false;
     });
   }
+
+  getOddJobGame = (genre: string) => {
+    return (
+      this.oddjobSummary.find((x: any) =>
+        x.gameGenres.find((x: any) => x.genreId.name === genre)
+      )?.title ?? '--'
+    );
+  };
 
   handleImageLoad(event: Event) {
     const imageElement = event.target as HTMLImageElement;

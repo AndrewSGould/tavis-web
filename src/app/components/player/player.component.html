@@ -1,11 +1,8 @@
 <ng-container *ngIf="this.isLoading">
   <main
-    class="absolute top-[65px] left-0 h-[calc(100%-65px)] w-full bg-black bg-opacity-50"
+    class="absolute top-[65px] left-0 flex h-[calc(100%-65px)] w-full items-center justify-center bg-black bg-opacity-50"
   >
-    <img
-      src="../../../assets/infinite-spinner.svg"
-      class="absolute top-[45%] left-[46%] h-16"
-    />
+    <img src="../../../assets/infinite-spinner.svg" class="h-16" />
   </main>
 </ng-container>
 <ng-container *ngIf="!this.isLoading">
@@ -15,9 +12,16 @@
         class="m-4 w-full max-w-sm rounded-lg border border-gray-700 bg-gray-900 shadow"
       >
         <div class="relative flex flex-col items-center p-4">
-          <span class="absolute right-1 top-1 text-xs opacity-25"
+          <span
+            *ngIf="bcmPlayerSummary?.lastSync"
+            class="absolute right-1 top-1 text-xs opacity-25"
             >Updated:
-            {{ bcmPlayerSummary.lastSync | date : "MM/dd/yy" : "UTC" }}</span
+            {{ bcmPlayerSummary?.lastSync | date : "MM/dd/yy" : "UTC" }}</span
+          >
+          <span
+            *ngIf="!bcmPlayerSummary?.lastSync"
+            class="absolute right-1 top-1 text-xs opacity-25"
+            >Updated: Never</span
           >
           <img
             class="mb-3 h-24 w-24 rounded-full shadow-lg"
@@ -65,7 +69,7 @@
         </div>
         <div class="p flex flex-col items-center pb-4 text-gray-300">
           <span
-            >Total Score: {{ bcmPlayerSummary.bcmStats.totalPoints ?? 0 }}</span
+            >Total Score: {{ bcmPlayerSummary.bcmStats?.basePoints ?? 0 }}</span
           >
         </div>
       </div>
@@ -78,45 +82,57 @@
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-white">
           Completions
         </h5>
-        <div class="mb-3 font-normal text-gray-400">
-          <div class="mb-3 text-sm font-normal text-gray-400">
-            <div class="flex justify-between">
-              <span class="w-24 opacity-50">Total #:</span>
-              <span class="ml-2">{{
-                bcmPlayerSummary.bcmStats.completions
-              }}</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="w-24 opacity-50">Avg Ratio:</span>
-              <span class="ml-2">{{
-                bcmPlayerSummary.bcmStats.averageRatio | number : "1.3-3"
-              }}</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="w-24 opacity-50">Avg Length:</span>
-              <span class="ml-2"
-                >{{
-                  bcmPlayerSummary.bcmStats.averageTimeEstimate
-                    | number : "1.0-0"
-                }}
-                hours</span
-              >
-            </div>
-            <div class="flex justify-between">
-              <span class="w-24 opacity-50">Avg Score:</span>
-              <span class="ml-2"
-                >{{
-                  bcmPlayerSummary.bcmStats.averagePoints | number : "1.0-0"
-                }}
-                points
-              </span>
+        <ng-container *ngIf="gamesLoading">
+          <main class="flex justify-center">
+            <img
+              src="../../../assets/infinite-spinner.svg"
+              class="my-8 block h-8"
+            />
+          </main>
+        </ng-container>
+        <ng-container *ngIf="!gamesLoading">
+          <div class="mb-3 font-normal text-gray-400">
+            <div class="mb-3 text-sm font-normal text-gray-400">
+              <div class="flex justify-between">
+                <span class="w-24 opacity-50">Total #:</span>
+                <span class="ml-2">{{ gamesSummary.games.length ?? 0 }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="w-24 opacity-50">Avg Ratio:</span>
+                <span class="ml-2">{{
+                  gamesSummary?.avgRatio ?? 0 | number : "1.3-3"
+                }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="w-24 opacity-50">Highest Ratio:</span>
+                <span class="ml-2">{{
+                  gamesSummary?.highestRatio ?? 0 | number : "1.3-3"
+                }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="w-24 opacity-50">Avg Length:</span>
+                <span class="ml-2"
+                  >{{
+                    gamesSummary?.avgTime ?? 0 | number : "1.0-0"
+                  }}
+                  hours</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="w-24 opacity-50">Longest:</span>
+                <span class="ml-2"
+                  >{{
+                    gamesSummary?.highestTime ?? 0 | number : "1.0-0"
+                  }}
+                  hours</span
+                >
+              </div>
             </div>
           </div>
-        </div>
+        </ng-container>
         <button
           [routerLink]="['/player', playerName, 'completed-games']"
-          class="inline-flex items-center rounded-lg bg-green-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-800 disabled:pointer-events-none disabled:opacity-60 disabled:grayscale"
-          disabled
+          class="inline-flex items-center rounded-lg bg-green-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-800"
         >
           2024 Completions
           <svg
@@ -145,7 +161,9 @@
             RGSC
           </h5>
           <div *ngIf="!rgscLoading" class="text-2xl">
-            <span class="text-green-500">{{ rgscSummary.rgscsCompleted }}</span>
+            <span class="text-green-500">{{
+              rgscSummary?.rgscsCompleted?.length ?? 0
+            }}</span>
             / 11
           </div>
         </div>
@@ -162,7 +180,7 @@
             <div class="flex justify-between">
               <div>
                 <span class="text-red-600">{{
-                  rgscSummary.rerollsRemaining
+                  rgscSummary?.rerollsRemaining ?? "--"
                 }}</span>
                 Rerolls Left
               </div>
@@ -172,24 +190,30 @@
                   [ngClass]="{
                     'text-xs opacity-50': true,
                     'text-red-600':
+                      rgscSummary.currentRandoms?.poolSize < 50 &&
                       rgscSummary.currentRandoms[0]?.rgsc?.poolSize < 50
                   }"
                 >
-                  {{ rgscSummary.currentRandoms[0]?.rgsc?.poolSize ?? 0 }}</span
+                  {{
+                    rgscSummary.currentRandoms[0]?.rgsc?.poolSize ??
+                      rgscSummary.currentRandoms?.poolSize ??
+                      0
+                  }}</span
                 >
               </div>
             </div>
             <span class="mt-4">{{
-              rgscSummary.currentRandoms[0]?.game?.title
+              rgscSummary.currentRandoms[0]?.game?.title ?? "None drawn"
             }}</span>
             <div class="text-xs opacity-50">
               <div>
                 {{
-                  rgscSummary.currentRandoms[0]?.game?.siteRatio
+                  rgscSummary.currentRandoms[0]?.game?.siteRatio ?? 0
                     | number : "1.2-2"
                 }}
                 Ratio &nbsp; ~{{
-                  rgscSummary.currentRandoms[0]?.game?.fullCompletionEstimate
+                  rgscSummary.currentRandoms[0]?.game?.fullCompletionEstimate ??
+                    0
                 }}
                 Hours
               </div>
@@ -400,23 +424,25 @@
           <div class="mb-3 text-sm font-normal text-gray-400">
             <div class="flex justify-between">
               <span class="w-24 opacity-50">Arcade Racing:</span>
-              <span class="ml-2">--</span>
+              <span class="ml-2">{{
+                getOddJobGame("Arcade Racing") ?? 0
+              }}</span>
             </div>
             <div class="flex justify-between">
               <span class="w-24 opacity-50">Card & Board:</span>
-              <span class="ml-2">--</span>
+              <span class="ml-2">{{ getOddJobGame("Card & Board") ?? 0 }}</span>
             </div>
             <div class="flex justify-between">
               <span class="w-24 opacity-50">On Rails:</span>
-              <span class="ml-2">--</span>
+              <span class="ml-2">{{ getOddJobGame("On Rails") ?? 0 }}</span>
             </div>
             <div class="flex justify-between">
               <span class="w-24 opacity-50">Real Time:</span>
-              <span class="ml-2">--</span>
+              <span class="ml-2">{{ getOddJobGame("Real Time") ?? 0 }}</span>
             </div>
             <div class="flex justify-between">
               <span class="w-24 opacity-50">Stealth:</span>
-              <span class="ml-2">--</span>
+              <span class="ml-2">{{ getOddJobGame("Stealth") ?? 0 }}</span>
             </div>
           </div>
         </ng-container>
@@ -444,8 +470,7 @@
         </div>
         <button
           [routerLink]="['/player', playerName, 'misc-stats']"
-          class="inline-flex items-center rounded-lg bg-green-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-800 disabled:pointer-events-none disabled:opacity-60 disabled:grayscale"
-          disabled
+          class="inline-flex items-center rounded-lg bg-green-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-800"
         >
           More
           <svg

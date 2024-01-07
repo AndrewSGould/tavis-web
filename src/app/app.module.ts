@@ -39,6 +39,9 @@ import {
 import { JanBonusComponent } from './components/jan-bonus/jan-bonus.component';
 import { MaintenanceComponent } from './components/maintenance/maintenance.component';
 import { MiscStatsComponent } from './components/misc-stats/misc-stats.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 export function tokenGetter() {
   return localStorage.getItem('jwt');
@@ -79,10 +82,13 @@ export function tokenGetter() {
     MatProgressBarModule,
     MatButtonModule,
     MatDialogModule,
+    MatTableModule,
+    MatSortModule,
     BrowserAnimationsModule,
     CommonModule,
     NgxDatatableModule,
     ReactiveFormsModule,
+    NgxChartsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
