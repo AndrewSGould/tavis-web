@@ -41,13 +41,17 @@ export class LeaderboardComponent implements OnInit {
         this.currentSort.direction === 'asc' ? 'desc' : 'asc';
     } else {
       this.currentSort.column = column;
-      this.currentSort.direction = 'asc';
+      this.currentSort.direction = 'desc';
     }
 
     this.leaderboard.sort((a: any, b: any) => {
       const direction = this.currentSort.direction === 'asc' ? 1 : -1;
 
       if (column === 'totalPoints') {
+        return (a.bcmStats.totalPoints - b.bcmStats.totalPoints) * direction;
+      } else if (column === 'bonusPoints') {
+        return (a.bcmStats.bonusPoints - b.bcmStats.bonusPoints) * direction;
+      } else if (column === 'basePoints') {
         return (a.bcmStats.basePoints - b.bcmStats.basePoints) * direction;
       } else if (column === 'player') {
         return a.user.gamertag.localeCompare(b.user.gamertag) * direction;

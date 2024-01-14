@@ -69,7 +69,7 @@
         </div>
         <div class="p flex flex-col items-center pb-4 text-gray-300">
           <span
-            >Total Score: {{ bcmPlayerSummary.bcmStats?.basePoints ?? 0 }}</span
+            >Total Score: {{ bcmPlayerSummary.bcmStats?.totalPoints ?? 0 }}</span
           >
         </div>
       </div>
@@ -253,24 +253,43 @@
           <h6 class="mb-2 text-lg font-semibold">
             Blast Through the Past <span class="italic opacity-50">(Jan)</span>
           </h6>
+          <ng-container *ngIf="monthlyLoading">
+            <main class="flex justify-center">
+              <img
+                src="../../../assets/infinite-spinner.svg"
+                class="my-8 block h-8"
+              />
+            </main>
+          </ng-container>
+          <ng-container *ngIf="!monthlyLoading">
           <div class="mb-3 text-sm font-normal text-gray-400">
             <div class="flex justify-between">
               <span class="w-48 opacity-50">Participation:</span>
-              <span class="ml-2">TBD</span>
+              <span class="ml-2">
+                <span *ngIf="monthlySummary.participation" class="text-green-600 font-semibold">Yes</span>
+                <span *ngIf="!monthlySummary.participation" class="text-red-600 font-thin">No</span>
+              </span>
             </div>
             <div class="flex justify-between">
               <span class="w-48 opacity-50">All Buckets:</span>
-              <span class="ml-2">TBD</span>
+              <span class="ml-2">
+                <span *ngIf="monthlySummary.allBuckets" class="text-green-600 font-bold">Yes</span>
+                <span *ngIf="!monthlySummary.allBuckets" class="text-red-600 font-thin">No</span>
+              </span>
             </div>
             <div class="flex justify-between">
-              <span class="w-48 opacity-50">Community Bonus Eligible:</span>
-              <span class="ml-2">TBD</span>
+              <span class="w-48 opacity-50">Community Bonus:</span>
+              <span class="ml-2">
+                <span *ngIf="monthlySummary.communityBonus" class="text-green-600 font-bold">Yes</span>
+                <span *ngIf="!monthlySummary.communityBonus" class="text-red-600 font-thin">No</span>
+              </span>
             </div>
             <div class="flex justify-between">
               <span class="w-48 opacity-50">Month's Bonus Score:</span>
-              <span class="ml-2">--</span>
+              <span class="ml-2">{{ monthlySummary.bonusPoints | number : "0.0-0" }}</span>
             </div>
           </div>
+          </ng-container>
         </div>
         <button
           [routerLink]="['/player', playerName, 'rgsc']"
