@@ -14,7 +14,7 @@ export class BcmService {
   constructor(private http: HttpClient) {}
 
   getBcmLeaderboardList(): Observable<any> {
-    return this.http.get(baseUrl + `bcm/getBcmLeaderboardList`);
+    return this.http.get(baseUrl + `stats/getBcmLeaderboardList`);
   }
 
   getBcmPlayer(player: string): Observable<any> {
@@ -29,6 +29,10 @@ export class BcmService {
     return this.http.get(
       baseUrl + `bcm/getBcmPlayerWithGames?player=` + player
     );
+  }
+
+  getMonthlySummary(player: string): Observable<any> {
+    return this.http.get(baseUrl + `bcm/monthly/jan?player=` + player);
   }
 
   getAbcSummary(player: string): Observable<any> {

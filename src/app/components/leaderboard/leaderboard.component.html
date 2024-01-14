@@ -39,16 +39,30 @@
         <th
           scope="col"
           class="cursor-pointer px-4 py-2 text-center hover:text-green-500 sm:px-6 sm:py-3"
+          (click)="sortColumn('bonusPoints')"
+        >
+          Bonus Points
+        </th>
+        <th
+          scope="col"
+          class="cursor-pointer px-4 py-2 text-center hover:text-green-500 sm:px-6 sm:py-3"
+          (click)="sortColumn('basePoints')"
+        >
+          Base Points
+        </th>
+        <th
+          scope="col"
+          class="cursor-pointer px-4 py-2 text-center hover:text-green-500 sm:px-6 sm:py-3"
           (click)="sortColumn('avgBcmPoints')"
         >
-          Avg BCM Points
+          Avg Points
         </th>
         <th
           scope="col"
           class="cursor-pointer px-4 py-2 text-center hover:text-green-500 sm:px-6 sm:py-3"
           (click)="sortColumn('completes')"
         >
-          Completes
+          Completed
         </th>
         <th
           scope="col"
@@ -82,7 +96,7 @@
     </thead>
     <tbody *ngIf="isLoading">
       <tr>
-        <td colspan="9" class="h-60 w-full bg-black bg-opacity-50">
+        <td colspan="11" class="h-60 w-full bg-black bg-opacity-50">
           <img src="../../../assets/infinite-spinner.svg" class="m-auto h-16" />
         </td>
       </tr>
@@ -160,6 +174,12 @@
             </div>
           </div>
         </th>
+        <td class="px-2 py-2 text-center font-bold">
+          {{ player.bcmStats?.totalPoints | number : "0.0-0" }}
+        </td>
+        <td class="px-2 py-2 text-center font-bold">
+          {{ player.bcmStats?.bonusPoints | number : "0.0-0" }}
+        </td>
         <td class="px-2 py-2 text-center font-bold">
           {{ player.bcmStats?.basePoints | number : "0.0-0" }}
         </td>

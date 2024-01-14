@@ -14,6 +14,7 @@ export class BcmAdminComponent implements OnInit {
     this.getPlayerList();
   }
 
+  randomIsLoading: boolean = false;
   selectedPlayer: string | null = null;
   players: { player: string }[] = [];
   selectedGameId: number | null = null;
@@ -22,11 +23,12 @@ export class BcmAdminComponent implements OnInit {
 
   getPlayerList = () => {
     this.tavisService?.getBcmPlayerList().subscribe((playerList: any) => {
-      this.players = playerList;
+      this.players = playerList.sort();
     });
   };
 
   rollRandom() {
+    this.randomIsLoading = true;
     this.tavisService
       ?.rollRandom(this.selectedPlayer, this.selectedGameId)
       .subscribe({
@@ -36,6 +38,7 @@ export class BcmAdminComponent implements OnInit {
           });
 
           this.loadPlayerRgscs();
+          this.randomIsLoading = false;
         },
         error: () => {
           alert('No one left to roll!');

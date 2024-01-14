@@ -83,6 +83,15 @@
               Leaderboard
             </a>
 
+            <a
+              href="#"
+              routerLink="jan-bonus"
+              routerLinkActive="bg-green-900 text-white"
+              class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-green-700"
+            >
+              Jan Bonus
+            </a>
+
             <ng-container *ngIf="this.userService?.xblUser$ | async as xblUser">
               <a
                 href="#"
@@ -256,6 +265,15 @@
         class="block rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-green-700 hover:text-white"
       >
         Leaderboard
+      </a>
+
+      <a
+        href="#"
+        routerLink="jan-bonus"
+        routerLinkActive="bg-green-900 text-white"
+        class="block rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-green-700 hover:text-white"
+      >
+        Jan Bonus
       </a>
 
       <ng-container *ngIf="this.userService?.xblUser$ | async as xblUser">

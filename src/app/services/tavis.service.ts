@@ -52,7 +52,7 @@ export class TavisService {
   }
 
   recalcBcmLeaderboard(): Observable<any> {
-    return this.http.get(baseUrl + `bcm/recalcBcmLeaderboard`);
+    return this.http.post(baseUrl + `stats/recalcBcmLeaderboard`, {});
   }
 
   getPlayerRgscs(player: string): Observable<any> {

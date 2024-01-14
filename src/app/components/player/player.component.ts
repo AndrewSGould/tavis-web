@@ -1,13 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  NavigationStart,
-  Router,
-} from '@angular/router';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BcmService } from 'src/app/services/bcm.service';
-import { OpenXblService } from 'src/app/services/openxbl.service';
-import { PlayerService } from 'src/app/services/player.service';
 
 @Component({
   selector: 'app-player',
@@ -21,22 +14,20 @@ export class PlayerComponent {
   abcSummary: any = null;
   oddjobSummary: any = null;
   gamesSummary: any = null;
+  monthlySummary: any = null;
 
   isLoading: boolean = true;
   rgscLoading: boolean = true;
   abcLoading: boolean = true;
   oddjobLoading: boolean = true;
   gamesLoading: boolean = true;
+  monthlyLoading: boolean = true;
 
   alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
   highlightedLetters: any = null;
 
-  constructor(
-    private route: ActivatedRoute,
-    private bcmService: BcmService,
-    private openxblService: OpenXblService
-  ) {
-    this.route.params.subscribe((params) => {
+  constructor(private route: ActivatedRoute, private bcmService: BcmService) {
+    this.route.params.subscribe(() => {
       this.loadPage();
     });
   }
@@ -45,6 +36,9 @@ export class PlayerComponent {
     this.isLoading = true;
     this.rgscLoading = true;
     this.abcLoading = true;
+    this.oddjobLoading = true;
+    this.gamesLoading = true;
+    this.monthlyLoading = true;
 
     this.playerName = this.route.snapshot.paramMap.get('player');
 
@@ -67,8 +61,13 @@ export class PlayerComponent {
 
     this.bcmService.getBcmPlayerWithGames(this.playerName).subscribe((data) => {
       this.gamesSummary = data;
-      console.log(data);
       this.gamesLoading = false;
+    });
+
+    this.bcmService.getMonthlySummary(this.playerName).subscribe((data) => {
+      this.monthlySummary = data;
+      console.log(data);
+      this.monthlyLoading = false;
     });
 
     this.bcmService.getAbcSummary(this.playerName).subscribe((data) => {

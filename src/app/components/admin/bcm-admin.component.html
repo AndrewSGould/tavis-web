@@ -56,13 +56,18 @@
       </select>
     </div>
     <button
-      class="me-2 group relative mb-2 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-red-600 to-red-500 p-0.5 text-sm font-medium text-white hover:text-white focus:outline-none focus:ring-4 focus:ring-red-800 group-hover:from-red-600 group-hover:to-red-500"
+      class="me-2 group relative mb-2 inline-flex h-[45px] w-[200px] items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-red-600 to-red-500 p-0.5 text-sm font-medium text-white hover:text-white focus:outline-none focus:ring-4 focus:ring-red-800 disabled:pointer-events-none disabled:grayscale group-hover:from-red-600 group-hover:to-red-500"
       (click)="rollRandom()"
+      [disabled]="randomIsLoading"
     >
       <span
         class="relative rounded-md bg-gray-900 px-5 py-2.5 transition-all duration-75 ease-in group-hover:bg-opacity-0"
+        *ngIf="!randomIsLoading"
       >
         Generate Random Game
+      </span>
+      <span *ngIf="randomIsLoading">
+        <img src="../../../assets/infinite-spinner.svg" class="h-6" />
       </span>
     </button>
   </div>
