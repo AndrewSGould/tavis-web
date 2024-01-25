@@ -1,6 +1,6 @@
 <ng-container *ngIf="this.isLoading">
   <main
-    class="absolute top-[65px] left-0 flex h-[calc(100%-65px)] w-full items-center justify-center bg-black bg-opacity-50"
+    class="absolute left-0 top-[65px] flex h-[calc(100%-65px)] w-full items-center justify-center bg-black bg-opacity-50"
   >
     <img src="../../../assets/infinite-spinner.svg" class="h-16" />
   </main>
@@ -21,7 +21,7 @@
           <span
             *ngIf="!bcmPlayerSummary?.lastSync"
             class="absolute right-1 top-1 text-xs opacity-25"
-            >Updated: Never</span
+            >Updated: Waiting...</span
           >
           <img
             class="mb-3 h-24 w-24 rounded-full shadow-lg"
@@ -69,7 +69,8 @@
         </div>
         <div class="p flex flex-col items-center pb-4 text-gray-300">
           <span
-            >Total Score: {{ bcmPlayerSummary.bcmStats?.totalPoints ?? 0 }}</span
+            >Total Score:
+            {{ bcmPlayerSummary.bcmStats?.totalPoints ?? 0 }}</span
           >
         </div>
       </div>
@@ -136,7 +137,7 @@
         >
           2024 Completions
           <svg
-            class="ms-2 ml-2 h-3 w-3 rtl:rotate-180"
+            class="ml-2 ms-2 h-3 w-3 rtl:rotate-180"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -226,7 +227,7 @@
         >
           All Randoms
           <svg
-            class="ms-2 ml-2 h-3 w-3 rtl:rotate-180"
+            class="ml-2 ms-2 h-3 w-3 rtl:rotate-180"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -262,33 +263,59 @@
             </main>
           </ng-container>
           <ng-container *ngIf="!monthlyLoading">
-          <div class="mb-3 text-sm font-normal text-gray-400">
-            <div class="flex justify-between">
-              <span class="w-48 opacity-50">Participation:</span>
-              <span class="ml-2">
-                <span *ngIf="monthlySummary.participation" class="text-green-600 font-semibold">Yes</span>
-                <span *ngIf="!monthlySummary.participation" class="text-red-600 font-thin">No</span>
-              </span>
+            <div class="mb-3 text-sm font-normal text-gray-400">
+              <div class="flex justify-between">
+                <span class="w-48 opacity-50">Participation:</span>
+                <span class="ml-2">
+                  <span
+                    *ngIf="monthlySummary?.participation"
+                    class="font-semibold text-green-600"
+                    >Yes</span
+                  >
+                  <span
+                    *ngIf="!monthlySummary?.participation"
+                    class="font-thin text-red-600"
+                    >No</span
+                  >
+                </span>
+              </div>
+              <div class="flex justify-between">
+                <span class="w-48 opacity-50">All Buckets:</span>
+                <span class="ml-2">
+                  <span
+                    *ngIf="monthlySummary?.allBuckets"
+                    class="font-bold text-green-600"
+                    >Yes</span
+                  >
+                  <span
+                    *ngIf="!monthlySummary?.allBuckets"
+                    class="font-thin text-red-600"
+                    >No</span
+                  >
+                </span>
+              </div>
+              <div class="flex justify-between">
+                <span class="w-48 opacity-50">Community Bonus:</span>
+                <span class="ml-2">
+                  <span
+                    *ngIf="monthlySummary?.communityBonus"
+                    class="font-bold text-green-600"
+                    >Yes</span
+                  >
+                  <span
+                    *ngIf="!monthlySummary?.communityBonus"
+                    class="font-thin text-red-600"
+                    >No</span
+                  >
+                </span>
+              </div>
+              <div class="flex justify-between">
+                <span class="w-48 opacity-50">Month's Bonus Score:</span>
+                <span class="ml-2">{{
+                  monthlySummary?.bonusPoints ?? 0 | number : "0.0-0"
+                }}</span>
+              </div>
             </div>
-            <div class="flex justify-between">
-              <span class="w-48 opacity-50">All Buckets:</span>
-              <span class="ml-2">
-                <span *ngIf="monthlySummary.allBuckets" class="text-green-600 font-bold">Yes</span>
-                <span *ngIf="!monthlySummary.allBuckets" class="text-red-600 font-thin">No</span>
-              </span>
-            </div>
-            <div class="flex justify-between">
-              <span class="w-48 opacity-50">Community Bonus:</span>
-              <span class="ml-2">
-                <span *ngIf="monthlySummary.communityBonus" class="text-green-600 font-bold">Yes</span>
-                <span *ngIf="!monthlySummary.communityBonus" class="text-red-600 font-thin">No</span>
-              </span>
-            </div>
-            <div class="flex justify-between">
-              <span class="w-48 opacity-50">Month's Bonus Score:</span>
-              <span class="ml-2">{{ monthlySummary.bonusPoints | number : "0.0-0" }}</span>
-            </div>
-          </div>
           </ng-container>
         </div>
         <button
@@ -298,7 +325,7 @@
         >
           Details
           <svg
-            class="ms-2 ml-2 h-3 w-3 rtl:rotate-180"
+            class="ml-2 ms-2 h-3 w-3 rtl:rotate-180"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -321,32 +348,50 @@
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-white">
           Yearlies
         </h5>
-        <div class="mb-3 text-sm font-normal text-gray-400">
-          <div class="flex justify-between">
-            <span class="w-30 opacity-50">Participation:</span>
-            <span class="ml-2"><span class="text-green-600">0</span> / 11</span>
+        <ng-container *ngIf="yearlyLoading">
+          <main class="flex justify-center">
+            <img
+              src="../../../assets/infinite-spinner.svg"
+              class="my-8 block h-8"
+            />
+          </main>
+        </ng-container>
+        <ng-container *ngIf="!yearlyLoading">
+          <div class="mb-3 text-sm font-normal text-gray-400">
+            <div class="flex justify-between">
+              <span class="w-30 opacity-50">Participation:</span>
+              <span class="ml-2"
+                ><span class="text-green-600">{{ yearlySummary ?? 0 }}</span> /
+                11</span
+              >
+            </div>
+            <div class="flex justify-between">
+              <span class="w-30 opacity-50">Community Stars:</span>
+              <span class="ml-2"
+                ><span class="text-green-600">0</span> / 20</span
+              >
+            </div>
+            <div class="flex justify-between">
+              <span class="w-30 opacity-50">The T.A.V.I.S.:</span>
+              <span class="ml-2"
+                ><span class="text-green-600">0</span> / 20</span
+              >
+            </div>
+            <div class="flex justify-between">
+              <span class="w-30 opacity-50">Retirement Party:</span>
+              <span class="ml-2"
+                ><span class="text-green-600">0</span> / 10</span
+              >
+            </div>
           </div>
-          <div class="flex justify-between">
-            <span class="w-30 opacity-50">Community Stars:</span>
-            <span class="ml-2"><span class="text-green-600">0</span> / 20</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="w-30 opacity-50">The T.A.V.I.S.:</span>
-            <span class="ml-2"><span class="text-green-600">0</span> / 20</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="w-30 opacity-50">Retirement Party:</span>
-            <span class="ml-2"><span class="text-green-600">0</span> / 10</span>
-          </div>
-        </div>
+        </ng-container>
         <button
           [routerLink]="['/player', playerName, 'yearlies']"
-          class="inline-flex items-center rounded-lg bg-green-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-800 disabled:pointer-events-none disabled:opacity-60 disabled:grayscale"
-          disabled
+          class="inline-flex items-center rounded-lg bg-green-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-800"
         >
           Details
           <svg
-            class="ms-2 ml-2 h-3 w-3 rtl:rotate-180"
+            class="ml-2 ms-2 h-3 w-3 rtl:rotate-180"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -402,7 +447,7 @@
         >
           Details
           <svg
-            class="ms-2 ml-2 h-3 w-3 rtl:rotate-180"
+            class="ml-2 ms-2 h-3 w-3 rtl:rotate-180"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -473,27 +518,46 @@
         <h5 class="mb-2 block text-2xl font-bold tracking-tight text-white">
           Misc Stats
         </h5>
-        <div class="mb-3 text-sm font-normal text-gray-400">
-          <div class="flex justify-between">
-            <span class="w-48 opacity-50">BCM Tenure:</span>
-            <span class="ml-2">--</span>
+        <ng-container *ngIf="miscLoading || rgscLoading">
+          <main class="flex justify-center">
+            <img
+              src="../../../assets/infinite-spinner.svg"
+              class="my-8 block h-8"
+            />
+          </main>
+        </ng-container>
+        <ng-container *ngIf="!miscLoading && !rgscLoading">
+          <div class="mb-3 text-sm font-normal text-gray-400">
+            <div class="flex justify-between">
+              <span class="w-48 opacity-50">BCM Tenure:</span>
+              <span class="ml-2"> {{ miscSummary?.length + 1 }} year(s)</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="w-48 opacity-50">Best Placement:</span>
+              <span class="ml-2">
+                <span class="text-xs opacity-50">
+                  ({{ getBestPlacement(miscSummary)?.year }})
+                </span>
+                {{ getBestPlacement(miscSummary)?.placement ?? 0 | ordinal }}
+              </span>
+            </div>
+            <div class="flex justify-between">
+              <span class="w-48 opacity-50">Lifetime RGSC Completions:</span>
+              <span class="ml-2"> {{ calcRgscCompletions(miscSummary) }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="w-48 opacity-50">Full Combos:</span>
+              <span class="ml-2">{{ calcFullCombos(miscSummary) }}</span>
+            </div>
           </div>
-          <div class="flex justify-between">
-            <span class="w-48 opacity-50">Lifetime RGSC Completions:</span>
-            <span class="ml-2">--</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="w-48 opacity-50">Full Combos:</span>
-            <span class="ml-2">--</span>
-          </div>
-        </div>
+        </ng-container>
         <button
           [routerLink]="['/player', playerName, 'misc-stats']"
           class="inline-flex items-center rounded-lg bg-green-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-800"
         >
           More
           <svg
-            class="ms-2 ml-2 h-3 w-3 rtl:rotate-180"
+            class="ml-2 ms-2 h-3 w-3 rtl:rotate-180"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

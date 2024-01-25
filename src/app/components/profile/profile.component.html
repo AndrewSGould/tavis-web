@@ -24,7 +24,7 @@
           class="inline-block rounded-lg border border-gray-600 bg-gray-700 text-sm font-medium text-white"
         >
           <li class="w-full rounded-t-lg border-b border-gray-600">
-            <div class="ps-3 flex items-center">
+            <div class="flex items-center ps-3">
               <input
                 id="bcmx-checkbox"
                 type="checkbox"
@@ -44,14 +44,6 @@
                 }"
                 >BCMX</label
               >
-              <button
-                type="button"
-                class="mx-5 whitespace-nowrap rounded-lg border border-green-500 px-2.5 py-1 text-center text-sm font-medium text-green-500 hover:bg-green-500 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-800"
-                [routerLink]="['/player/', gamertag]"
-                *ngIf="bcmRegDate"
-              >
-                Player Profile
-              </button>
               <span
                 *ngIf="!!this.bcmRegDate"
                 class="mx-3 text-xs font-extralight text-slate-400"
@@ -60,7 +52,7 @@
             </div>
           </li>
           <li class="w-full rounded-t-lg border-b border-gray-600">
-            <div class="ps-3 flex items-center">
+            <div class="flex items-center ps-3">
               <input
                 id="calproj-checkbox"
                 type="checkbox"
@@ -84,7 +76,7 @@
             </div>
           </li>
           <li class="w-full rounded-t-lg border-b border-gray-600">
-            <div class="ps-3 flex items-center">
+            <div class="flex items-center ps-3">
               <input
                 id="raidboss-checkbox"
                 type="checkbox"
@@ -108,7 +100,7 @@
             </div>
           </li>
           <li class="w-full rounded-t-lg border-b border-gray-600">
-            <div class="ps-3 flex items-center">
+            <div class="flex items-center ps-3">
               <input
                 id="throwdown-checkbox"
                 type="checkbox"
@@ -278,7 +270,7 @@
 
         <button
           type="submit"
-          class="me-2 my-4 mb-2 flex content-center items-center justify-center rounded-lg bg-green-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-800"
+          class="my-4 mb-2 me-2 flex content-center items-center justify-center rounded-lg bg-green-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-800"
           (click)="updateUserLocation()"
           [disabled]="locationLoading || !(this.roles.length > 0)"
         >
@@ -321,7 +313,7 @@
   <span>Please sign in</span>
 </main>
 <main
-  class="absolute top-[65px] left-0 h-[calc(100%-65px)] w-full bg-black bg-opacity-50"
+  class="absolute left-0 top-[65px] h-[calc(100%-65px)] w-full bg-black bg-opacity-50"
   *ngIf="
     this.authCheckLoading ||
     this.discordCheckLoading ||
@@ -331,6 +323,6 @@
 >
   <img
     src="../../../assets/infinite-spinner.svg"
-    class="absolute top-[45%] left-[46%] h-16"
+    class="absolute left-[46%] top-[45%] h-16"
   />
 </main>

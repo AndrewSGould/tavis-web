@@ -25,7 +25,7 @@ export class TavisService {
     selectedPlayer: string | null,
     selectedGameId: number | null
   ): Observable<any> {
-    return this.http.post(baseUrl + `bcm/rollRandom`, {
+    return this.http.post(baseUrl + `rgsc/rollRandom`, {
       selectedPlayer,
       selectedGameId,
     });

@@ -15,6 +15,8 @@ export class PlayerComponent {
   oddjobSummary: any = null;
   gamesSummary: any = null;
   monthlySummary: any = null;
+  yearlySummary: any = null;
+  miscSummary: any = null;
 
   isLoading: boolean = true;
   rgscLoading: boolean = true;
@@ -22,6 +24,8 @@ export class PlayerComponent {
   oddjobLoading: boolean = true;
   gamesLoading: boolean = true;
   monthlyLoading: boolean = true;
+  yearlyLoading: boolean = true;
+  miscLoading: boolean = true;
 
   alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
   highlightedLetters: any = null;
@@ -39,6 +43,8 @@ export class PlayerComponent {
     this.oddjobLoading = true;
     this.gamesLoading = true;
     this.monthlyLoading = true;
+    this.yearlyLoading = true;
+    this.miscLoading = true;
 
     this.playerName = this.route.snapshot.paramMap.get('player');
 
@@ -66,7 +72,6 @@ export class PlayerComponent {
 
     this.bcmService.getMonthlySummary(this.playerName).subscribe((data) => {
       this.monthlySummary = data;
-      console.log(data);
       this.monthlyLoading = false;
     });
 
@@ -83,6 +88,17 @@ export class PlayerComponent {
     this.bcmService.getRgscSummary(this.playerName).subscribe((data) => {
       this.rgscSummary = data;
       this.rgscLoading = false;
+    });
+
+    this.bcmService.getYearlySummary(this.playerName).subscribe((data) => {
+      this.yearlySummary = data;
+      this.yearlyLoading = false;
+    });
+
+    this.bcmService.getMiscSummary(this.playerName).subscribe((data) => {
+      this.miscSummary = data;
+      this.miscLoading = false;
+      console.log(data);
     });
   }
 
@@ -101,5 +117,30 @@ export class PlayerComponent {
 
   exists(letter: string): boolean {
     return this.abcSummary?.includes(letter);
+  }
+
+  calcFullCombos(miscSummary: any): number {
+    if (!miscSummary) return 0;
+
+    return miscSummary.filter((x: any) => x.fullCombo).length;
+  }
+
+  calcRgscCompletions(miscSummary: any): number {
+    if (!miscSummary) return this.rgscSummary?.rgscsCompleted?.length ?? 0;
+
+    return (
+      miscSummary.reduce((sum: any, x: any) => sum + (x.rgsc || 0), 0) +
+        this.rgscSummary?.rgscsCompleted?.length ?? 0
+    );
+  }
+
+  getBestPlacement(miscSummary: any[]): any | undefined {
+    if (!miscSummary) return undefined;
+
+    const sortedSummary = miscSummary
+      .slice()
+      .sort((a, b) => a.placement - b.placement);
+
+    return sortedSummary[0];
   }
 }
