@@ -35,6 +35,14 @@ export class BcmService {
     return this.http.get(baseUrl + `bcm/monthly/jan?player=` + player);
   }
 
+  getMiscSummary(player: string): Observable<any> {
+    return this.http.get(baseUrl + `stats/miscSummary?player=` + player);
+  }
+
+  getYearlySummary(player: string): Observable<any> {
+    return this.http.get(baseUrl + `bcm/yearlySummary?player=` + player);
+  }
+
   getAbcSummary(player: string): Observable<any> {
     return this.http.get(baseUrl + `bcm/player/abcSummary?player=` + player);
   }

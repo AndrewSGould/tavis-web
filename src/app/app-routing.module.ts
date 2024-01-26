@@ -12,12 +12,11 @@ import { AuthGuard } from './guards/auth.guards';
 import { RgscComponent } from './components/profile/rgsc/rgsc.component';
 import { AbcComponent } from './components/profile/abc/abc.component';
 import { CompletedGamesComponent } from './components/profile/completed-games/completed-games.component';
-import { OddJobsComponent } from './components/profile/oddjobs/oddjobs.component';
 import { YearliesComponent } from './components/profile/yearlies/yearlies.component';
 import { MonthliesComponent } from './components/profile/monthlies/monthlies.component';
 import { JanBonusComponent } from './components/jan-bonus/jan-bonus.component';
-import { MaintenanceComponent } from './components/maintenance/maintenance.component';
 import { MiscStatsComponent } from './components/misc-stats/misc-stats.component';
+import { FebBonusComponent } from './components/feb-bonus/feb-bonus.component';
 
 const routes: Routes = [
   {
@@ -28,19 +27,16 @@ const routes: Routes = [
   { path: 'signin', component: SigninComponent },
   { path: 'home', component: HomeComponent },
   { path: 'jan-bonus', component: JanBonusComponent },
+  { path: 'feb-bonus', component: FebBonusComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
   {
     path: 'player/:player',
     component: PlayerComponent,
-    children: [
-      // { path: 'rgsc', component: RgscComponent },
-      { path: 'oddjobs', component: OddJobsComponent },
-      { path: 'monthlies', component: MonthliesComponent },
-      { path: 'yearlies', component: YearliesComponent },
-    ],
+    children: [{ path: 'monthlies', component: MonthliesComponent }],
   },
   { path: 'player/:player/rgsc', component: RgscComponent },
   { path: 'player/:player/abc', component: AbcComponent },
+  { path: 'player/:player/yearlies', component: YearliesComponent },
   {
     path: 'player/:player/completed-games',
     component: CompletedGamesComponent,

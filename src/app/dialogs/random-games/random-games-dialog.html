@@ -18,24 +18,22 @@
       <dl class="mx-auto grid max-w-screen-xl grid-cols-3 gap-8 p-8 text-white">
         <div class="flex flex-col items-center justify-center">
           <dt class="mb-2 text-center text-xl font-extrabold">
-            {{ data.result.bcmPlayersGames.achievementCount }} / {{
-            data.result.games.achievementCount }}
+            {{ data.result.achievementCount }} / {{
+            data.result.game.achievementCount }}
           </dt>
           <dd class="text-gray-400">Achievement Progress</dd>
         </div>
         <div class="flex flex-col items-center justify-center">
           <dt class="mb-2 text-center text-xl font-extrabold">
-            {{ data.result.bcmPlayersGames.startedDate ?
-            (data.result.bcmPlayersGames.startedDate | date: 'MM/dd/yy') : 'Not
-            Started' }}
+            {{ data.result.startedDate ? (data.result.startedDate | date:
+            'MM/dd/yy') : 'Not Started' }}
           </dt>
           <dd class="text-gray-400">Started</dd>
         </div>
         <div class="flex flex-col items-center justify-center">
           <dt class="mb-2 text-center text-xl font-extrabold">
-            {{ data.result.bcmPlayersGames.lastUnlock ?
-            (data.result.bcmPlayersGames.lastUnlock | date: 'MM/dd/yy') : 'Not
-            Started' }}
+            {{ data.result.lastUnlock ? (data.result.lastUnlock | date:
+            'MM/dd/yy') : 'Not Started' }}
           </dt>
           <dd class="text-gray-400">Last Unlock</dd>
         </div>
@@ -43,7 +41,7 @@
     </div>
   </div>
   <div>
-    <dt class="mb-2 text-4xl font-extrabold">{{ data.result.games.title }}</dt>
+    <dt class="mb-2 text-4xl font-extrabold">{{ data.result.game.title }}</dt>
     <div
       class="rounded-lg bg-gray-800 p-4 md:p-8"
       id="stats"
@@ -53,31 +51,31 @@
       <dl class="mx-auto grid max-w-screen-xl grid-cols-3 gap-8 p-8 text-white">
         <div class="flex flex-col items-center justify-center">
           <dt class="mb-2 text-center text-xl font-extrabold">
-            {{ data.result.games.publisher }}
+            {{ data.result.game.publisher }}
           </dt>
           <dd class="text-gray-400">Publisher</dd>
         </div>
         <div class="flex flex-col items-center justify-center">
           <dt class="mb-2 text-xl font-extrabold" text-center>
-            {{ data.result.games.fullCompletionEstimate }} hours
+            {{ data.result.game.fullCompletionEstimate }} hours
           </dt>
           <dd class="text-gray-400">Estimate</dd>
         </div>
         <div class="flex flex-col items-center justify-center">
           <dt class="mb-2 text-center text-xl font-extrabold">
-            {{ data.result.games.releaseDate | date: 'MM/dd/yy' }}
+            {{ data.result.game.releaseDate | date: 'MM/dd/yy' }}
           </dt>
           <dd class="text-gray-400">Release Date</dd>
         </div>
         <div class="flex flex-col items-center justify-center">
           <dt class="mb-2 text-center text-xl font-extrabold">
-            {{ data.result.games.developer }}
+            {{ data.result.game.developer }}
           </dt>
           <dd class="text-gray-400">Developer</dd>
         </div>
         <div class="flex flex-col items-center justify-center">
           <dt class="mb-2 text-center text-xl font-extrabold">
-            {{ data.result.games.siteRatio }}
+            {{ data.result.game.siteRatio }}
           </dt>
           <dd class="text-gray-400">Ratio</dd>
         </div>
@@ -89,7 +87,7 @@
             <img
               class="inline h-[24px]"
               src="../../../assets/360up.png"
-              *ngIf="data.result.bcmPlayersGames.platform.value === 1"
+              *ngIf="data.result.platform.value === 1"
             />
           </dt>
           <dd class="text-gray-400">BCM Value</dd>

@@ -26,7 +26,6 @@ import { JwtInterceptorService, JwtService } from './services/jwt.service';
 import { CompletedGamesComponent } from './components/profile/completed-games/completed-games.component';
 import { AbcComponent } from './components/profile/abc/abc.component';
 import { MonthliesComponent } from './components/profile/monthlies/monthlies.component';
-import { OddJobsComponent } from './components/profile/oddjobs/oddjobs.component';
 import { RgscComponent } from './components/profile/rgsc/rgsc.component';
 import { YearliesComponent } from './components/profile/yearlies/yearlies.component';
 import { BcmRegDialogComponent } from './dialogs/bcm-reg/bcm-reg-dialog';
@@ -42,6 +41,7 @@ import { MiscStatsComponent } from './components/misc-stats/misc-stats.component
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { FebBonusComponent } from './components/feb-bonus/feb-bonus.component';
 
 export function tokenGetter() {
   return localStorage.getItem('jwt');
@@ -66,10 +66,10 @@ export function tokenGetter() {
     CompletedGamesComponent,
     AbcComponent,
     MonthliesComponent,
-    OddJobsComponent,
     RgscComponent,
     YearliesComponent,
     JanBonusComponent,
+    FebBonusComponent,
     MaintenanceComponent,
     MiscStatsComponent,
   ],
