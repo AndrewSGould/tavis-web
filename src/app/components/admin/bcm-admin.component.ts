@@ -33,6 +33,7 @@ export class BcmAdminComponent implements OnInit {
       ?.rollRandom(this.selectedPlayer, this.selectedGameId)
       .subscribe({
         next: (data) => {
+          console.log(data);
           this.dialog.open(RandomGamesDialogComponent, {
             data: data,
           });
