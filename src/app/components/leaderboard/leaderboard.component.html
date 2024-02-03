@@ -1,4 +1,6 @@
-<div class="relative max-h-[calc(100vh-120px)] overflow-x-auto shadow-md sm:rounded-lg">
+<div
+  class="relative max-h-[calc(100vh-120px)] overflow-x-auto shadow-md sm:rounded-lg"
+>
   <table
     class="w-full min-w-[1200px] text-left text-sm text-gray-400 rtl:text-right"
   >
@@ -13,7 +15,9 @@
         defaulting users in descending order of Total Points
       </p>
     </caption>
-    <thead class="bg-gray-700 top-0 text-[.6rem] uppercase sticky text-gray-400">
+    <thead
+      class="sticky top-0 bg-gray-700 text-[.6rem] uppercase text-gray-400"
+    >
       <tr>
         <th
           scope="col"
@@ -105,25 +109,26 @@
       <tr
         *ngFor="let player of leaderboard"
         [routerLink]="['/player/', player.user.gamertag]"
-        class="border-b border-gray-700 bg-gray-800 hover:cursor-pointer group"
+        class="group border-b border-gray-700 bg-gray-800 hover:cursor-pointer"
       >
-        <td class="w-1 p-1 text-center sm:w-2 sm:p-2 group-hover:bg-gray-600">
+        <td class="w-1 p-1 text-center group-hover:bg-gray-600 sm:w-2 sm:p-2">
           <span
             *ngIf="player.bcmStats?.rank === 1"
-            class="text-lg font-bold text-yellow-400"
+            class="text-2xl font-bold text-yellow-400"
             >{{ player.bcmStats.rank | ordinal }}
           </span>
           <span
             *ngIf="player.bcmStats?.rank === 2"
-            class="text-lg font-bold text-slate-500"
+            class="text-xl font-bold text-slate-500"
             >{{ player.bcmStats.rank | ordinal }}</span
           >
           <span
             *ngIf="player.bcmStats?.rank === 3"
-            class="text-lg font-bold text-amber-800"
+            class="text-xl font-bold text-amber-800"
             >{{ player.bcmStats.rank | ordinal }}</span
           >
           <span
+            class="text-lg"
             *ngIf="
               player.bcmStats?.rank !== 1 &&
               player.bcmStats?.rank !== 2 &&
@@ -134,9 +139,14 @@
           >
           <span *ngIf="!player.bcmStats">--</span>
           <span
-            class="text-center text-xs font-light"
+            [ngClass]="{
+              'text-center text-xs font-light opacity-70': true,
+              'text-green-400': player.bcmStats?.rankMovement > 0,
+              'text-red-400': player.bcmStats?.rankMovement < 0
+            }"
             *ngIf="player.bcmStats?.rankMovement"
-            ><br />({{ player.bcmStats?.rankMovement }})</span
+            ><br />({{ player.bcmStats?.rankMovement > 0 ? "+" : ""
+            }}{{ player.bcmStats?.rankMovement }})</span
           >
         </td>
         <th
@@ -174,10 +184,14 @@
             </div>
           </div>
         </th>
-        <td class="px-2 py-2 text-center text-yellow-400 group-hover:bg-gray-600  font-bold">
+        <td
+          class="px-2 py-2 text-center font-bold text-yellow-400 group-hover:bg-gray-600"
+        >
           {{ player.bcmStats?.totalPoints | number : "0.0-0" }}
         </td>
-        <td class="px-2 py-2 text-violet-400 group-hover:bg-gray-600 text-center">
+        <td
+          class="px-2 py-2 text-center text-violet-400 group-hover:bg-gray-600"
+        >
           {{ player.bcmStats?.bonusPoints | number : "0.0-0" }}
         </td>
         <td class="px-2 py-2 text-center group-hover:bg-gray-600">
