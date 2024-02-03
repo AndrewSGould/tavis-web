@@ -140,7 +140,7 @@
           <span *ngIf="!player.bcmStats">--</span>
           <span
             [ngClass]="{
-              'text-center text-xs font-light opacity-70': true,
+              'text-center text-xs font-light': true,
               'text-green-400': player.bcmStats?.rankMovement > 0,
               'text-red-400': player.bcmStats?.rankMovement < 0
             }"
