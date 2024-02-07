@@ -45,7 +45,7 @@
         </p>
         <!-- Nested accordion -->
         <div id="accordion-nested-collapse" data-accordion="collapse">
-          <ng-container *ngFor="let item of communityStarItems; let i = index">
+          <ng-container *ngFor="let item of commStarData; let i = index">
             <h2 [id]="'accordion-nested-collapse-heading-' + i">
               <button
                 type="button"
@@ -53,10 +53,27 @@
                 aria-expanded="false"
                 (click)="toggleStarSection(i)"
               >
-                <span>{{ item.title }}</span>
+                <span class="flex-1 text-left">{{
+                  item.yearlyChallenge.title
+                }}</span>
+                <span class="flex items-center gap-2"
+                  >{{ item.playerYearlyChallenge?.game?.title }}
+                  <img
+                    *ngIf="item.playerYearlyChallenge?.approved === false"
+                    src="../../../../assets/warning-svgrepo-com.svg"
+                    class="mt-1 h-6 w-6"
+                    title="This submission is awaiting approval"
+                  />
+                  <img
+                    *ngIf="item.playerYearlyChallenge?.approved === true"
+                    src="../../../../assets/checkmark-seal-svgrepo-com.svg"
+                    class="mt-1 h-6 w-6"
+                    title="This submission has been approved"
+                  />
+                </span>
                 <svg
                   data-accordion-icon
-                  class="h-3 w-3 shrink-0 rotate-180"
+                  class="ml-8 h-3 w-3 shrink-0 rotate-180"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -80,16 +97,15 @@
                 class="flex flex-col border border-b-0 border-gray-700 bg-slate-800 p-5"
               >
                 <p class="text-sm text-gray-400">
-                  {{ item.description }}
+                  {{ item.yearlyChallenge.description }}
                   <select
                     [id]="'communityStarOption' + i"
                     class="my-4 block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-green-500 focus:ring-green-500"
                     [(ngModel)]="item.option"
+                    [disabled]="playerName !== currentUser"
                   >
                     <option></option>
-                    <option value="writein">
-                      &nbsp;&nbsp;Write-In&nbsp;&nbsp;
-                    </option>
+                    <option value="writein">--&nbsp;Write In&nbsp;--</option>
                   </select>
                 </p>
                 <button
@@ -98,7 +114,11 @@
                 >
                   Community Submissions
                 </button>
-                <div *ngIf="item.option === 'writein'">
+                <div
+                  *ngIf="
+                    item.option === 'writein' && playerName === currentUser
+                  "
+                >
                   <div class="mb-5">
                     <label for="base-input" class="text-sm text-gray-400"
                       >Provide a link to the game on TA</label
@@ -107,6 +127,9 @@
                       type="text"
                       id="base-input"
                       class="block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-green-500 focus:ring-green-500"
+                      [(ngModel)]="item?.playerYearlyChallenge.writeIn"
+                      (blur)="saveTaLink(item)"
+                      [disabled]="playerName !== currentUser"
                     />
                   </div>
                   <label for="message" class="text-sm text-gray-400"
@@ -117,6 +140,9 @@
                     rows="4"
                     class="block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-green-500 focus:ring-green-500"
                     placeholder="Reasoning..."
+                    [(ngModel)]="item?.playerYearlyChallenge.reasoning"
+                    (blur)="saveReasoning(item)"
+                    [disabled]="playerName !== currentUser"
                   ></textarea>
                 </div>
               </div>
@@ -138,16 +164,16 @@
         <!-- End: Nested accordion -->
       </div>
     </div>
-    <h2 id="accordion-collapse-heading-2">
+    <h2 id="accordion-collapse-heading-1">
       <button
         type="button"
-        class="flex w-full items-center justify-between gap-3 border border-gray-700 !bg-gray-900 p-5 font-medium !text-gray-400 hover:!bg-gray-800 focus:ring-4 focus:ring-gray-800 rtl:text-right"
-        data-accordion-target="#accordion-collapse-body-2"
-        aria-expanded="false"
-        aria-controls="accordion-collapse-body-2"
+        class="flex w-full items-center justify-between gap-3 rounded-t-xl border border-b-0 border-gray-700 !bg-gray-900 p-5 font-medium !text-gray-400 hover:!bg-gray-800 focus:ring-4 focus:ring-gray-800 rtl:text-right"
+        data-accordion-target="#accordion-collapse-body-1"
+        aria-expanded="true"
+        aria-controls="accordion-collapse-body-1"
         (click)="toggleCategory('theTavis')"
       >
-        <span>Echo's The T.A.V.I.S.</span>
+        <span>Echo's The T. A. V. I. S.</span>
         <svg
           data-accordion-icon
           class="h-3 w-3 shrink-0 rotate-180"
@@ -169,9 +195,8 @@
     <div
       id="accordion-collapse-body-2"
       [attr.class]="theTavisVisible ? 'visible' : 'hidden'"
-      aria-labelledby="accordion-collapse-heading-2"
     >
-      <div class="border border-gray-700 p-5">
+      <div class="border border-b-0 border-gray-700 p-5">
         <p class="mb-5 text-xs text-gray-500">
           Earn an extra 5,000 points for completing a game in each of the
           challenges below. Qualifying games must be 1.5 ratio or above with and
@@ -179,8 +204,8 @@
           ratio)
         </p>
         <!-- Nested accordion -->
-        <div id="accordion-nested-collapse-2" data-accordion="collapse">
-          <ng-container *ngFor="let item of theTavisItems; let i = index">
+        <div id="accordion-nested-collapse" data-accordion="collapse">
+          <ng-container *ngFor="let item of theTavisData; let i = index">
             <h2 [id]="'accordion-nested-collapse-heading-' + i">
               <button
                 type="button"
@@ -188,10 +213,27 @@
                 aria-expanded="false"
                 (click)="toggleTavisSection(i)"
               >
-                <span>{{ item.title }}</span>
+                <span class="flex-1 text-left">{{
+                  item.yearlyChallenge.title
+                }}</span>
+                <span class="flex items-center gap-2"
+                  >{{ item.playerYearlyChallenge?.game?.title }}
+                  <img
+                    *ngIf="item.playerYearlyChallenge?.approved === false"
+                    src="../../../../assets/warning-svgrepo-com.svg"
+                    class="mt-1 h-6 w-6"
+                    title="This submission is awaiting approval"
+                  />
+                  <img
+                    *ngIf="item.playerYearlyChallenge?.approved === true"
+                    src="../../../../assets/checkmark-seal-svgrepo-com.svg"
+                    class="mt-1 h-6 w-6"
+                    title="This submission has been approved"
+                  />
+                </span>
                 <svg
                   data-accordion-icon
-                  class="h-3 w-3 shrink-0 rotate-180"
+                  class="ml-8 h-3 w-3 shrink-0 rotate-180"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -215,16 +257,15 @@
                 class="flex flex-col border border-b-0 border-gray-700 bg-slate-800 p-5"
               >
                 <p class="text-sm text-gray-400">
-                  {{ item.description }}
+                  {{ item.yearlyChallenge.description }}
                   <select
                     [id]="'communityStarOption' + i"
                     class="my-4 block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-green-500 focus:ring-green-500"
                     [(ngModel)]="item.option"
+                    [disabled]="playerName !== currentUser"
                   >
                     <option></option>
-                    <option value="writein">
-                      &nbsp;&nbsp;Write-In&nbsp;&nbsp;
-                    </option>
+                    <option value="writein">--&nbsp;Write In&nbsp;--</option>
                   </select>
                 </p>
                 <button
@@ -233,7 +274,11 @@
                 >
                   Community Submissions
                 </button>
-                <div *ngIf="item.option === 'writein'">
+                <div
+                  *ngIf="
+                    item.option === 'writein' && playerName === currentUser
+                  "
+                >
                   <div class="mb-5">
                     <label for="base-input" class="text-sm text-gray-400"
                       >Provide a link to the game on TA</label
@@ -242,6 +287,9 @@
                       type="text"
                       id="base-input"
                       class="block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-green-500 focus:ring-green-500"
+                      [(ngModel)]="item?.playerYearlyChallenge.writeIn"
+                      (blur)="saveTaLink(item)"
+                      [disabled]="playerName !== currentUser"
                     />
                   </div>
                   <label for="message" class="text-sm text-gray-400"
@@ -252,6 +300,9 @@
                     rows="4"
                     class="block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-green-500 focus:ring-green-500"
                     placeholder="Reasoning..."
+                    [(ngModel)]="item?.playerYearlyChallenge.reasoning"
+                    (blur)="saveReasoning(item)"
+                    [disabled]="playerName !== currentUser"
                   ></textarea>
                 </div>
               </div>
@@ -259,7 +310,8 @@
           </ng-container>
           <div *ngIf="currentUser === playerName">
             <button
-              class="group relative my-4 mb-2 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-purple-600 to-green-500 p-0.5 text-sm font-medium text-white hover:text-white focus:outline-none focus:ring-4 focus:ring-green-800 group-hover:from-purple-600 group-hover:to-green-500"
+              class="group relative my-4 mb-2 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-purple-600 to-green-500 p-0.5 text-sm font-medium text-white hover:text-white focus:outline-none focus:ring-4 focus:ring-green-800 disabled:pointer-events-none disabled:cursor-default disabled:grayscale group-hover:from-purple-600 group-hover:to-green-500"
+              disabled
             >
               <span
                 class="relative rounded-md bg-gray-900 px-5 py-2.5 transition-all duration-75 ease-in group-hover:bg-opacity-0"
@@ -272,13 +324,13 @@
         <!-- End: Nested accordion -->
       </div>
     </div>
-    <h2 id="accordion-collapse-heading-3">
+    <h2 id="accordion-collapse-heading-1">
       <button
         type="button"
-        class="flex w-full items-center justify-between gap-3 border border-gray-700 !bg-gray-900 p-5 font-medium !text-gray-400 hover:!bg-gray-800 focus:ring-4 focus:ring-gray-800 rtl:text-right"
-        data-accordion-target="#accordion-collapse-body-3"
-        aria-expanded="false"
-        aria-controls="accordion-collapse-body-3"
+        class="flex w-full items-center justify-between gap-3 rounded-t-xl border border-b-0 border-gray-700 !bg-gray-900 p-5 font-medium !text-gray-400 hover:!bg-gray-800 focus:ring-4 focus:ring-gray-800 rtl:text-right"
+        data-accordion-target="#accordion-collapse-body-1"
+        aria-expanded="true"
+        aria-controls="accordion-collapse-body-1"
         (click)="toggleCategory('retirementParty')"
       >
         <span>Iron's Retirement Party</span>
@@ -303,9 +355,8 @@
     <div
       id="accordion-collapse-body-3"
       [attr.class]="retirementParty ? 'visible' : 'hidden'"
-      aria-labelledby="accordion-collapse-heading-3"
     >
-      <div class="border border-gray-700 p-5">
+      <div class="border border-b-0 border-gray-700 p-5">
         <p class="mb-5 text-xs text-gray-500">
           Earn an extra 2,500 points for completing a game in each of the
           challenges below. Qualifying games must be 1.5 ratio or above with and
@@ -313,10 +364,8 @@
           ratio)
         </p>
         <!-- Nested accordion -->
-        <div id="accordion-nested-collapse-2" data-accordion="collapse">
-          <ng-container
-            *ngFor="let item of retirementPartyItems; let i = index"
-          >
+        <div id="accordion-nested-collapse" data-accordion="collapse">
+          <ng-container *ngFor="let item of retirementData; let i = index">
             <h2 [id]="'accordion-nested-collapse-heading-' + i">
               <button
                 type="button"
@@ -324,10 +373,27 @@
                 aria-expanded="false"
                 (click)="togglePartySection(i)"
               >
-                <span>{{ item.title }}</span>
+                <span class="flex-1 text-left">{{
+                  item.yearlyChallenge.title
+                }}</span>
+                <span class="flex items-center gap-2"
+                  >{{ item.playerYearlyChallenge?.game?.title }}
+                  <img
+                    *ngIf="item.playerYearlyChallenge?.approved === false"
+                    src="../../../../assets/warning-svgrepo-com.svg"
+                    class="mt-1 h-6 w-6"
+                    title="This submission is awaiting approval"
+                  />
+                  <img
+                    *ngIf="item.playerYearlyChallenge?.approved === true"
+                    src="../../../../assets/checkmark-seal-svgrepo-com.svg"
+                    class="mt-1 h-6 w-6"
+                    title="This submission has been approved"
+                  />
+                </span>
                 <svg
                   data-accordion-icon
-                  class="h-3 w-3 shrink-0 rotate-180"
+                  class="ml-8 h-3 w-3 shrink-0 rotate-180"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -351,16 +417,15 @@
                 class="flex flex-col border border-b-0 border-gray-700 bg-slate-800 p-5"
               >
                 <p class="text-sm text-gray-400">
-                  {{ item.description }}
+                  {{ item.yearlyChallenge.description }}
                   <select
                     [id]="'communityStarOption' + i"
                     class="my-4 block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-green-500 focus:ring-green-500"
                     [(ngModel)]="item.option"
+                    [disabled]="playerName !== currentUser"
                   >
                     <option></option>
-                    <option value="writein">
-                      &nbsp;&nbsp;Write-In&nbsp;&nbsp;
-                    </option>
+                    <option value="writein">--&nbsp;Write In&nbsp;--</option>
                   </select>
                 </p>
                 <button
@@ -369,7 +434,11 @@
                 >
                   Community Submissions
                 </button>
-                <div *ngIf="item.option === 'writein'">
+                <div
+                  *ngIf="
+                    item.option === 'writein' && playerName === currentUser
+                  "
+                >
                   <div class="mb-5">
                     <label for="base-input" class="text-sm text-gray-400"
                       >Provide a link to the game on TA</label
@@ -378,6 +447,9 @@
                       type="text"
                       id="base-input"
                       class="block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-green-500 focus:ring-green-500"
+                      [(ngModel)]="item?.playerYearlyChallenge.writeIn"
+                      (blur)="saveTaLink(item)"
+                      [disabled]="playerName !== currentUser"
                     />
                   </div>
                   <label for="message" class="text-sm text-gray-400"
@@ -388,6 +460,9 @@
                     rows="4"
                     class="block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-green-500 focus:ring-green-500"
                     placeholder="Reasoning..."
+                    [(ngModel)]="item?.playerYearlyChallenge.reasoning"
+                    (blur)="saveReasoning(item)"
+                    [disabled]="playerName !== currentUser"
                   ></textarea>
                 </div>
               </div>
@@ -395,7 +470,8 @@
           </ng-container>
           <div *ngIf="currentUser === playerName">
             <button
-              class="group relative my-4 mb-2 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-purple-600 to-green-500 p-0.5 text-sm font-medium text-white hover:text-white focus:outline-none focus:ring-4 focus:ring-green-800 group-hover:from-purple-600 group-hover:to-green-500"
+              class="group relative my-4 mb-2 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-purple-600 to-green-500 p-0.5 text-sm font-medium text-white hover:text-white focus:outline-none focus:ring-4 focus:ring-green-800 disabled:pointer-events-none disabled:cursor-default disabled:grayscale group-hover:from-purple-600 group-hover:to-green-500"
+              disabled
             >
               <span
                 class="relative rounded-md bg-gray-900 px-5 py-2.5 transition-all duration-75 ease-in group-hover:bg-opacity-0"

@@ -1,8 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Game } from 'src/models/game';
-import { Player } from 'src/models/player';
 import { environment } from '../../environments/environment';
 
 const baseUrl = environment.api.baseUrl;
@@ -29,6 +27,14 @@ export class TavisService {
       selectedPlayer,
       selectedGameId,
     });
+  }
+
+  getYearlies(player: string): Observable<any> {
+    return this.http.get(baseUrl + `yearly/challenges?player=${player}`);
+  }
+
+  saveWriteIn(writeIn: any): Observable<any> {
+    return this.http.post(baseUrl + `yearly/save-writein`, writeIn);
   }
 
   getBcmPlayerList(): Observable<any> {
