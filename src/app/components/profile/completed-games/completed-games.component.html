@@ -81,7 +81,7 @@
           *ngFor="let playersGame of bcmPlayerSummary.games"
         >
           <td class="w-24 whitespace-nowrap px-6 py-4">
-            {{ playersGame.game.completionDate | date : "MMM d" }}
+            {{ playersGame.game.completionDate | date : "MMM d" : "EST" }}
           </td>
           <td
             class="min-w-[16rem] max-w-md flex-1 overflow-hidden text-ellipsis whitespace-nowrap px-6 py-4 font-medium text-white"

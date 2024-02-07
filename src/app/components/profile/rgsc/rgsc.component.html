@@ -1,6 +1,6 @@
 <ng-container *ngIf="this.isPlayerLoading || this.isRgscLoading">
   <main
-    class="absolute top-[65px] left-0 flex h-[calc(100%-65px)] w-full items-center justify-center bg-black bg-opacity-50"
+    class="absolute left-0 top-[65px] flex h-[calc(100%-65px)] w-full items-center justify-center bg-black bg-opacity-50"
   >
     <img src="../../../assets/infinite-spinner.svg" class="h-16" />
   </main>
@@ -26,7 +26,7 @@
             <li>
               <span class="text-gray-600">Completed:&nbsp;</span
               ><span class="text-green-500">{{
-                rgscSummary?.rgscsCompleted.length ?? 0
+                rgscSummary?.rgscsCompleted?.length ?? 0
               }}</span>
               / 11
             </li>
@@ -52,7 +52,7 @@
           </ul>
           <button
             [routerLink]="['/player/', playerName]"
-            class="me-2 my-2 rounded-lg border border-green-700 px-3 py-1.5 text-center text-sm font-medium text-green-700 hover:bg-green-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-300 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-600 dark:hover:text-white dark:focus:ring-green-800"
+            class="my-2 me-2 rounded-lg border border-green-700 px-3 py-1.5 text-center text-sm font-medium text-green-700 hover:bg-green-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-300 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-600 dark:hover:text-white dark:focus:ring-green-800"
           >
             Return to Profile
           </button>
@@ -74,14 +74,14 @@
         <div class="relative flex flex-col justify-between p-4 leading-normal">
           <span
             *ngIf="isGameCompleted(random.game.id)"
-            class="absolute top-0 left-0 flex gap-1 rounded-tl bg-green-600 py-1 px-2 text-xs font-thin"
+            class="absolute left-0 top-0 flex gap-1 rounded-tl bg-green-600 px-2 py-1 text-xs font-thin"
             ><img
               src="../../../../assets/checkmark-seal-svgrepo-com.svg"
               class="mr-0.5 h-4 w-4"
             />{{ getGameCompletion(random.game.id) | date : "MMM d" }}</span
           >
           <span
-            class="absolute top-0 right-0 rounded-tr bg-green-600 py-1 px-2 text-xs font-bold"
+            class="absolute right-0 top-0 rounded-tr bg-green-600 px-2 py-1 text-xs font-bold"
             >{{ determineChallengeMonth(random.rgsc.challenge) }}</span
           >
           <h5
