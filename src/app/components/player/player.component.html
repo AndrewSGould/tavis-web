@@ -371,6 +371,7 @@
                 ></span
               >/ 20
             </div>
+
             <div class="flex justify-between">
               <span class="w-32 opacity-50">The T.A.V.I.S.:</span>
               <span class="ml-2"
@@ -386,8 +387,8 @@
               <span class="w-32 opacity-50">Retirement Party:</span>
               <span class="ml-2"
                 ><span class="text-green-600"
-                  >{{ yearlySummary?.retirementApproved ?? 0
-                  }}<span *ngIf="yearlySummary?.retirementUnapproved">
+                  >{{ yearlySummary?.retirementApproved ?? 0 }}
+                  <span *ngIf="yearlySummary?.retirementUnapproved">
                     (+{{ yearlySummary?.retirementUnapproved }})</span
                   ></span
                 >/ 10</span
