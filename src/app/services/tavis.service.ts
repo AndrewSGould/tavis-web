@@ -61,6 +61,10 @@ export class TavisService {
     return this.http.post(baseUrl + `stats/recalcBcmLeaderboard`, {});
   }
 
+  calcMonthlyBonus(): Observable<any> {
+    return this.http.post(baseUrl + `stats/calcMonthlyBonus`, {});
+  }
+
   getPlayerRgscs(player: string): Observable<any> {
     return this.http.get(baseUrl + `rgsc/getPlayersGames?player=${player}`);
   }

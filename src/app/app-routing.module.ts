@@ -17,6 +17,8 @@ import { MonthliesComponent } from './components/profile/monthlies/monthlies.com
 import { JanBonusComponent } from './components/jan-bonus/jan-bonus.component';
 import { MiscStatsComponent } from './components/misc-stats/misc-stats.component';
 import { FebBonusComponent } from './components/feb-bonus/feb-bonus.component';
+import { JanLeaderboardComponent } from './components/jan-leaderboard/jan-leaderboard.component';
+import { FebLeaderboardComponent } from './components/feb-leaderboard/feb-leaderboard.component';
 
 const routes: Routes = [
   {
@@ -29,6 +31,8 @@ const routes: Routes = [
   { path: 'jan-bonus', component: JanBonusComponent },
   { path: 'feb-bonus', component: FebBonusComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
+  { path: 'jan-leaderboard', component: JanLeaderboardComponent },
+  { path: 'feb-leaderboard', component: FebLeaderboardComponent },
   {
     path: 'player/:player',
     component: PlayerComponent,

@@ -115,6 +115,8 @@ export class YearliesComponent implements OnInit {
     });
 
     this.tavisService?.getYearlies(this.playerName!).subscribe((data: any) => {
+      console.log(data);
+
       data = data.map((el: any) => {
         el.playerYearlyChallenge = el.playerYearlyChallenge ?? {};
 

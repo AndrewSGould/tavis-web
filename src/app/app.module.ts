@@ -42,6 +42,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { FebBonusComponent } from './components/feb-bonus/feb-bonus.component';
+import { JanLeaderboardComponent } from './components/jan-leaderboard/jan-leaderboard.component';
+import { FebLeaderboardComponent } from './components/feb-leaderboard/feb-leaderboard.component';
 
 export function tokenGetter() {
   return localStorage.getItem('jwt');
@@ -72,6 +74,8 @@ export function tokenGetter() {
     FebBonusComponent,
     MaintenanceComponent,
     MiscStatsComponent,
+    JanLeaderboardComponent,
+    FebLeaderboardComponent,
   ],
   imports: [
     BrowserModule,

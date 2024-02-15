@@ -59,6 +59,10 @@ export class BcmAdminComponent implements OnInit {
     });
   }
 
+  calcMonthlyBonus() {
+    this.tavisService?.calcMonthlyBonus().subscribe();
+  }
+
   loadPlayerRgscs() {
     if (!this.isReroll) return;
 
