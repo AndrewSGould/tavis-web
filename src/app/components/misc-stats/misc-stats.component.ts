@@ -45,7 +45,6 @@ export class MiscStatsComponent implements OnInit {
       next: (data) => {
         this.bcmPlayerSummary = data;
         this.isPlayerLoading = false;
-        console.log(data);
       },
       error: (err: any) => {
         this.isPlayerLoading = false;
@@ -56,7 +55,6 @@ export class MiscStatsComponent implements OnInit {
     this.bcmService.getPlayersGenres(this.playerName).subscribe((data: any) => {
       this.single = data.filter((x: any) => x.name !== 'None').slice(0, 8);
       this.fullgenres = data.filter((x: any) => x.name !== 'None');
-      console.log(this.fullgenres);
     });
   }
 

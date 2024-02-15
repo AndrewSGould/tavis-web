@@ -32,7 +32,7 @@ export class BcmService {
   }
 
   getMonthlySummary(player: string): Observable<any> {
-    return this.http.get(baseUrl + `bcm/monthly/jan?player=` + player);
+    return this.http.get(baseUrl + `bcm/monthly/feb?player=` + player);
   }
 
   getMiscSummary(player: string): Observable<any> {

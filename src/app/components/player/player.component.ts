@@ -18,6 +18,12 @@ export class PlayerComponent {
   yearlySummary: any = null;
   miscSummary: any = null;
 
+  cardNBoards: any = null;
+  arcadeRacing: any = null;
+  onRails: any = null;
+  realTime: any = null;
+  stealth: any = null;
+
   isLoading: boolean = true;
   rgscLoading: boolean = true;
   abcLoading: boolean = true;
@@ -73,6 +79,7 @@ export class PlayerComponent {
     this.bcmService.getMonthlySummary(this.playerName).subscribe((data) => {
       this.monthlySummary = data;
       this.monthlyLoading = false;
+      console.log(data);
     });
 
     this.bcmService.getAbcSummary(this.playerName).subscribe((data) => {
@@ -93,21 +100,62 @@ export class PlayerComponent {
     this.bcmService.getYearlySummary(this.playerName).subscribe((data) => {
       this.yearlySummary = data;
       this.yearlyLoading = false;
+      console.log(data);
     });
 
     this.bcmService.getMiscSummary(this.playerName).subscribe((data) => {
       this.miscSummary = data;
       this.miscLoading = false;
-      console.log(data);
     });
   }
 
   getOddJobGame = (genre: string) => {
-    return (
-      this.oddjobSummary.find((x: any) =>
+    if (genre === 'Card & Board') {
+      this.cardNBoards = this.oddjobSummary.filter((x: any) =>
         x.gameGenres.find((x: any) => x.genreId.name === genre)
-      )?.title ?? '--'
-    );
+      );
+
+      if (this.cardNBoards.length === 1) return this.cardNBoards[0].title;
+      if (this.cardNBoards?.length > 1) return this.cardNBoards[1].title;
+    }
+
+    if (genre === 'Arcade Racing') {
+      this.arcadeRacing = this.oddjobSummary.filter((x: any) =>
+        x.gameGenres.find((x: any) => x.genreId.name === genre)
+      );
+
+      if (this.arcadeRacing.length === 1) return this.arcadeRacing[0].title;
+      if (this.arcadeRacing?.length > 1) return this.arcadeRacing[1].title;
+    }
+
+    if (genre === 'On Rails') {
+      this.onRails = this.oddjobSummary.filter((x: any) =>
+        x.gameGenres.find((x: any) => x.genreId.name === genre)
+      );
+
+      if (this.onRails.length === 1) return this.onRails[0].title;
+      if (this.onRails?.length > 1) return this.onRails[1].title;
+    }
+
+    if (genre === 'Real Time') {
+      this.realTime = this.oddjobSummary.filter((x: any) =>
+        x.gameGenres.find((x: any) => x.genreId.name === genre)
+      );
+
+      if (this.realTime.length === 1) return this.realTime[0].title;
+      if (this.realTime?.length > 1) return this.realTime[1].title;
+    }
+
+    if (genre === 'Stealth') {
+      this.stealth = this.oddjobSummary.filter((x: any) =>
+        x.gameGenres.find((x: any) => x.genreId.name === genre)
+      );
+
+      if (this.stealth.length === 1) return this.stealth[0].title;
+      if (this.stealth?.length > 1) return this.stealth[1].title;
+    }
+
+    return null;
   };
 
   handleImageLoad(event: Event) {
