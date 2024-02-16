@@ -213,7 +213,11 @@
             <h2 [id]="'accordion-nested-collapse-heading-' + i">
               <button
                 type="button"
-                class="flex w-full items-center justify-between gap-3 rounded-t-xl border border-b-0 border-gray-700 !bg-gray-900 p-5 font-medium !text-gray-400 hover:!bg-gray-800 focus:ring-4 focus:ring-gray-800 rtl:text-right"
+                [ngClass]="{
+                  'flex w-full items-center justify-between gap-3 rounded-t-xl border border-b-0 border-gray-700 !bg-gray-900 p-5 font-medium !text-gray-400 hover:!bg-gray-800 focus:ring-4 focus:ring-gray-800 rtl:text-right': true,
+                  '!bg-gradient-to-br !from-gray-900 !via-gray-900 !to-green-800':
+                    item.playerYearlyChallenge?.approved === true
+                }"
                 aria-expanded="false"
                 (click)="toggleTavisSection(i)"
               >
@@ -373,7 +377,11 @@
             <h2 [id]="'accordion-nested-collapse-heading-' + i">
               <button
                 type="button"
-                class="flex w-full items-center justify-between gap-3 rounded-t-xl border border-b-0 border-gray-700 !bg-gray-900 p-5 font-medium !text-gray-400 hover:!bg-gray-800 focus:ring-4 focus:ring-gray-800 rtl:text-right"
+                [ngClass]="{
+                  'flex w-full items-center justify-between gap-3 rounded-t-xl border border-b-0 border-gray-700 !bg-gray-900 p-5 font-medium !text-gray-400 hover:!bg-gray-800 focus:ring-4 focus:ring-gray-800 rtl:text-right': true,
+                  '!bg-gradient-to-br !from-gray-900 !via-gray-900 !to-green-800':
+                    item.playerYearlyChallenge?.approved === true
+                }"
                 aria-expanded="false"
                 (click)="togglePartySection(i)"
               >
