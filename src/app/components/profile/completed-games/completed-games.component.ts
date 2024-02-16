@@ -73,6 +73,17 @@ export class CompletedGamesComponent implements OnInit {
             return -1 * direction;
           }
 
+          // Compare years
+          if (dateA.getFullYear() !== dateB.getFullYear()) {
+            return (dateA.getFullYear() - dateB.getFullYear()) * direction;
+          }
+
+          // Compare months
+          if (dateA.getMonth() !== dateB.getMonth()) {
+            return (dateA.getMonth() - dateB.getMonth()) * direction;
+          }
+
+          // Compare days
           return (dateA.getDate() - dateB.getDate()) * direction;
         } else if (column === 'title') {
           return a.game.game.title.localeCompare(b.game.game.title) * direction;
