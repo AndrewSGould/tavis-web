@@ -1,12 +1,5 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Accordion } from 'flowbite';
-import type { AccordionInterface } from 'flowbite';
 import { TavisService } from 'src/app/services/tavis.service';
 import { UserService } from 'src/app/services/user.service';
 

@@ -6,61 +6,251 @@
   </main>
 </ng-container>
 <div class="flex flex-col justify-center" *ngIf="!isLoading">
-  <div
-    class="w-full max-w-4xl self-center overflow-x-auto shadow-md sm:rounded-lg"
-  >
+  <div class="w-full self-center overflow-x-auto shadow-md sm:rounded-lg">
     <table
-      class="w-full bg-gray-700 text-left text-sm text-gray-400 rtl:text-right"
+      class="m-auto bg-gray-700 text-left text-sm text-gray-400 rtl:text-right"
     >
+      <caption
+        class="bg-gray-800 p-5 text-left text-lg font-semibold text-white"
+      >
+        February's 'Spread the Love' Leaderboard
+      </caption>
       <thead>
         <tr class="flex bg-gray-700 text-xs uppercase text-gray-400">
-          <th class="w-24 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4">
-            Date
+          <th
+            class="w-16 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('rank')"
+          >
+            Rank
           </th>
           <th
-            class="min-w-[16rem] max-w-md flex-1 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            class="w-40 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('gamertag')"
           >
-            Title
+            Gamertag
           </th>
-          <th class="w-24 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4">
+          <th
+            class="w-12 cursor-pointer whitespace-nowrap px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('biCompletion')"
+          >
+            x2
+          </th>
+          <th
+            class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('biPoints')"
+          >
             Points
           </th>
-          <th class="w-24 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4">
-            Ratio
+          <th
+            class="w-12 cursor-pointer whitespace-nowrap px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('triCompletion')"
+          >
+            x3
           </th>
-          <th class="w-24 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4">
-            Estimate
+          <th
+            class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('triPoints')"
+          >
+            Points
+          </th>
+          <th
+            class="w-12 cursor-pointer whitespace-nowrap px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('quadCompletion')"
+          >
+            x4
+          </th>
+          <th
+            class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('quadPoints')"
+          >
+            Points
+          </th>
+          <th
+            class="w-12 cursor-pointer whitespace-nowrap px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('quintCompletion')"
+          >
+            x5
+          </th>
+          <th
+            class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('quintPoints')"
+          >
+            Points
+          </th>
+          <th
+            class="w-12 cursor-pointer whitespace-nowrap px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('sexCompletion')"
+          >
+            x6
+          </th>
+          <th
+            class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('sexPoints')"
+          >
+            Points
+          </th>
+          <th
+            class="w-12 cursor-pointer whitespace-nowrap px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('sepCompletion')"
+          >
+            x7
+          </th>
+          <th
+            class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('sepPoints')"
+          >
+            Points
+          </th>
+          <th
+            class="w-12 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('octCompletion')"
+          >
+            x8
+          </th>
+          <th
+            class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('octPoints')"
+          >
+            Points
+          </th>
+          <th
+            class="w-12 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('undeCompletion')"
+          >
+            x9
+          </th>
+          <th
+            class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('undePoints')"
+          >
+            Points
+          </th>
+          <th
+            class="w-12 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('decCompletion')"
+          >
+            x10
+          </th>
+          <th
+            class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('decPoints')"
+          >
+            Points
+          </th>
+          <th
+            class="w-12 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('duodeCompletion')"
+          >
+            x11+
+          </th>
+          <th
+            class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('duodePoints')"
+          >
+            Points
+          </th>
+          <th
+            class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('communityBonus')"
+          >
+            Bonus
+          </th>
+          <th
+            class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('totalPoints')"
+          >
+            Total
           </th>
         </tr>
       </thead>
-      <!-- <tbody>
+      <tbody>
         <tr
-          class="flex border-b border-gray-700 bg-gray-800"
-          *ngFor="let playersGame of bcmPlayerSummary.games"
+          *ngFor="let recap of febRecapData; let i = index"
+          [ngClass]="{
+            'flex border-b border-gray-700': true,
+            'bg-gray-800': i % 2 === 0,
+            'bg-slate-800': i % 2 !== 0
+          }"
         >
-          <td class="w-24 whitespace-nowrap px-6 py-4">
-            {{ playersGame.game.completionDate | date : "MMM d" : "EST" }}
+          <td class="w-16 px-6 py-4">
+            {{ recap.rank | ordinal }}
           </td>
-          <td
-            class="min-w-[16rem] max-w-md flex-1 overflow-hidden text-ellipsis whitespace-nowrap px-6 py-4 font-medium text-white"
-          >
-            {{ playersGame.game.game.title }}
+          <td class="w-40 px-6 py-4">
+            {{ recap.gamertag }}
           </td>
-          <td class="w-24 px-6 py-4">
-            {{
-              playersGame.game.game.fullCompletionEstimate !== null
-                ? playersGame.points
-                : "--"
-            }}
+          <td class="w-12 px-6 py-4">
+            {{ recap.biCompletion }}
           </td>
-          <td class="w-24 px-6 py-4">
-            {{ playersGame.game.game.siteRatio | number : "1.2-2" }}
+          <td class="w-20 px-6 py-4">
+            {{ recap.biPoints | number : "0.0-0" }}
           </td>
-          <td class="w-24 px-6 py-4">
-            {{ playersGame.game.game.fullCompletionEstimate || "--" }}
+          <td class="w-12 px-6 py-4">
+            {{ recap.triCompletion }}
+          </td>
+          <td class="w-20 px-6 py-4">
+            {{ recap.triPoints | number : "0.0-0" }}
+          </td>
+          <td class="w-12 px-6 py-4">
+            {{ recap.quadCompletion }}
+          </td>
+          <td class="w-20 px-6 py-4">
+            {{ recap.quadPoints | number : "0.0-0" }}
+          </td>
+          <td class="w-12 px-6 py-4">
+            {{ recap.quintCompletion }}
+          </td>
+          <td class="w-20 px-6 py-4">
+            {{ recap.quintPoints | number : "0.0-0" }}
+          </td>
+          <td class="w-12 px-6 py-4">
+            {{ recap.sexCompletion }}
+          </td>
+          <td class="w-20 px-6 py-4">
+            {{ recap.sexPoints | number : "0.0-0" }}
+          </td>
+          <td class="w-12 px-6 py-4">
+            {{ recap.sepCompletion }}
+          </td>
+          <td class="w-20 px-6 py-4">
+            {{ recap.sepPoints | number : "0.0-0" }}
+          </td>
+          <td class="w-12 px-6 py-4">
+            {{ recap.octCompletion }}
+          </td>
+          <td class="w-20 px-6 py-4">
+            {{ recap.octPoints | number : "0.0-0" }}
+          </td>
+          <td class="w-12 px-6 py-4">
+            {{ recap.undeCompletion }}
+          </td>
+          <td class="w-20 px-6 py-4">
+            {{ recap.undePoints | number : "0.0-0" }}
+          </td>
+          <td class="w-12 px-6 py-4">
+            {{ recap.decCompletion }}
+          </td>
+          <td class="w-20 px-6 py-4">
+            {{ recap.decPoints | number : "0.0-0" }}
+          </td>
+          <td class="w-12 px-6 py-4">
+            {{ recap.duodeCompletion }}
+          </td>
+          <td class="w-20 px-6 py-4">
+            {{ recap.duodePoints | number : "0.0-0" }}
+          </td>
+          <td class="w-20 px-6 py-4">
+            <span *ngIf="recap.communityBonus" class="font-bold text-green-600"
+              >Yes</span
+            >
+            <span *ngIf="!recap.communityBonus" class="font-thin text-red-500"
+              >No</span
+            >
+          </td>
+          <td class="w-20 px-6 py-4">
+            {{ recap.totalPoints | number : "0.0-0" }}
           </td>
         </tr>
-      </tbody> -->
+      </tbody>
     </table>
   </div>
 </div>

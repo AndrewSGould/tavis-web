@@ -33,6 +33,14 @@ export class TavisService {
     return this.http.get(baseUrl + `yearly/challenges?player=${player}`);
   }
 
+  getJanRecap(): Observable<any> {
+    return this.http.get(baseUrl + `monthly/jan-leaderboard`);
+  }
+
+  getFebRecap(): Observable<any> {
+    return this.http.get(baseUrl + `monthly/feb-leaderboard`);
+  }
+
   saveWriteIn(writeIn: any): Observable<any> {
     return this.http.post(baseUrl + `yearly/save-writein`, writeIn);
   }
@@ -49,8 +57,8 @@ export class TavisService {
     return this.http.get(baseUrl + `datasync/testGwgParse`);
   }
 
-  syncLastMonthsCompletions(): Observable<any> {
-    return this.http.get(baseUrl + `datasync/lastmonthscompletions`);
+  shallowSync(): Observable<any> {
+    return this.http.get(baseUrl + `datasync/shallow`);
   }
 
   produceStatReport(): Observable<any> {

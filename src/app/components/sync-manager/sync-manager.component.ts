@@ -49,10 +49,10 @@ export class SyncManagerComponent implements OnInit {
     });
   }
 
-  syncLastMonthsCompletions() {
-    this.tavisService?.syncLastMonthsCompletions().subscribe((data) => {
-      alert('finished!');
+  shallowSync() {
+    this.tavisService?.shallowSync().subscribe((data) => {
       console.log(data);
+      alert('finished!');
     });
   }
 

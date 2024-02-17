@@ -2,6 +2,10 @@
   Full Sync
 </button>
 <br />
+<button mat-raised-button color="primary" (click)="shallowSync()">
+  Shallow Sync
+</button>
+<br />
 <div>
   <span>Number of Players to Sync: {{ playersToSync }}</span>
   <br />
@@ -31,10 +35,6 @@
 <br />
 <button mat-raised-button color="primary" disabled (click)="testGwgParse()">
   Parse GwG
-</button>
-<br />
-<button mat-raised-button color="primary" (click)="syncLastMonthsCompletions()">
-  Sync Last Months Completions
 </button>
 <br />
 <!-- Add time elapsed for the user -->
