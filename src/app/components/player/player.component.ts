@@ -79,7 +79,6 @@ export class PlayerComponent {
     this.bcmService.getMonthlySummary(this.playerName).subscribe((data) => {
       this.monthlySummary = data;
       this.monthlyLoading = false;
-      console.log(data);
     });
 
     this.bcmService.getAbcSummary(this.playerName).subscribe((data) => {
@@ -100,7 +99,6 @@ export class PlayerComponent {
     this.bcmService.getYearlySummary(this.playerName).subscribe((data) => {
       this.yearlySummary = data;
       this.yearlyLoading = false;
-      console.log(data);
     });
 
     this.bcmService.getMiscSummary(this.playerName).subscribe((data) => {

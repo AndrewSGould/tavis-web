@@ -15,7 +15,7 @@
       <caption
         class="bg-gray-800 p-5 text-left text-lg font-semibold text-white"
       >
-        January's 'Blast Through the Past' Leaderboard
+        March's 'Bounty Board' Leaderboard
       </caption>
       <thead class="sticky top-0">
         <tr class="flex bg-gray-700 text-xs uppercase text-gray-400">
@@ -44,58 +44,28 @@
             Bonus
           </th>
           <th
-            class="w-20 cursor-pointer whitespace-nowrap px-6 py-3 hover:text-green-500 sm:p-4"
-            (click)="sortColumn('bucket1Comps')"
-          >
-            '05-'09
-          </th>
-          <th
             class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
-            (click)="sortColumn('bucket1Points')"
+            (click)="sortColumn('bountyCount')"
           >
-            Points
+            Count
           </th>
           <th
-            class="w-20 cursor-pointer whitespace-nowrap px-6 py-3 hover:text-green-500 sm:p-4"
-            (click)="sortColumn('bucket2Comps')"
+            class="w-40 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('bestBounty')"
           >
-            '10-'14
+            Best Bounty
           </th>
           <th
-            class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
-            (click)="sortColumn('bucket2Points')"
+            class="w-40 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('bountiesClaimed')"
           >
-            Points
-          </th>
-          <th
-            class="w-20 cursor-pointer whitespace-nowrap px-6 py-3 hover:text-green-500 sm:p-4"
-            (click)="sortColumn('bucket3Comps')"
-          >
-            '15-'19
-          </th>
-          <th
-            class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
-            (click)="sortColumn('bucket3Points')"
-          >
-            Points
-          </th>
-          <th
-            class="w-20 cursor-pointer whitespace-nowrap px-6 py-3 hover:text-green-500 sm:p-4"
-            (click)="sortColumn('bucket4Comps')"
-          >
-            '20-'23
-          </th>
-          <th
-            class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
-            (click)="sortColumn('bucket4Points')"
-          >
-            Points
+            Bounties Claimed
           </th>
         </tr>
       </thead>
       <tbody>
         <tr
-          *ngFor="let recap of janRecapData; let i = index"
+          *ngFor="let recap of marRecapData; let i = index"
           [ngClass]="{
             'flex border-b border-gray-700': true,
             'bg-gray-800': i % 2 === 0,
@@ -119,29 +89,14 @@
               >No</span
             >
           </td>
-          <td class="w-20 px-6 py-4">
-            {{ recap.bucket1Comps }}
+          <td class="w-12 px-6 py-4">
+            {{ recap.bountyCount }}
           </td>
-          <td class="w-20 px-6 py-4">
-            {{ recap.bucket1Points | number : "0.0-0" }}
+          <td class="w-40 px-6 py-4">
+            {{ recap.bestBounty }}
           </td>
-          <td class="w-20 px-6 py-4">
-            {{ recap.bucket2Comps }}
-          </td>
-          <td class="w-20 px-6 py-4">
-            {{ recap.bucket2Points | number : "0.0-0" }}
-          </td>
-          <td class="w-20 px-6 py-4">
-            {{ recap.bucket3Comps }}
-          </td>
-          <td class="w-20 px-6 py-4">
-            {{ recap.bucket3Points | number : "0.0-0" }}
-          </td>
-          <td class="w-20 px-6 py-4">
-            {{ recap.bucket4Comps }}
-          </td>
-          <td class="w-20 px-6 py-4">
-            {{ recap.bucket4Points | number : "0.0-0" }}
+          <td class="w-40 px-6 py-4">
+            {{ recap.bountiesClaimed }}
           </td>
         </tr>
       </tbody>

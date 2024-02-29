@@ -44,6 +44,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { FebBonusComponent } from './components/feb-bonus/feb-bonus.component';
 import { JanLeaderboardComponent } from './components/jan-leaderboard/jan-leaderboard.component';
 import { FebLeaderboardComponent } from './components/feb-leaderboard/feb-leaderboard.component';
+import { MarLeaderboardComponent } from './components/mar-leaderboard/mar-leaderboard.component';
+import { MarBonusComponent } from './components/mar-bonus/mar-bonus.component';
 
 export function tokenGetter() {
   return localStorage.getItem('jwt');
@@ -72,10 +74,12 @@ export function tokenGetter() {
     YearliesComponent,
     JanBonusComponent,
     FebBonusComponent,
+    MarBonusComponent,
     MaintenanceComponent,
     MiscStatsComponent,
     JanLeaderboardComponent,
     FebLeaderboardComponent,
+    MarLeaderboardComponent,
   ],
   imports: [
     BrowserModule,

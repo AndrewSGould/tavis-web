@@ -34,10 +34,11 @@ export class FebLeaderboardComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.tavisService?.getFebRecap().subscribe((data: any) => {
       this.febRecapData = data;
       this.sortColumn('rank');
-      console.log(data);
+      this.isLoading = false;
     });
   }
 

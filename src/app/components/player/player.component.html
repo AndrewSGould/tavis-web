@@ -29,9 +29,16 @@
             (error)="handleImageLoad($event)"
           />
           <h5 class="mb-1 text-xl font-medium text-white">
-            {{ bcmPlayerSummary.user.gamertag }}
-            <ng-container *ngIf="bcmPlayerSummary.bcmStats"
-              >(<span
+            <a
+              href="https://www.trueachievements.com/gamercomparison.aspx?gamerid={{
+                bcmPlayerSummary.trueAchievementId
+              }}&friendid=1480739"
+              target="_blank"
+              class="hover:text-green-400 hover:underline"
+              >{{ bcmPlayerSummary.user.gamertag }}</a
+            >
+            <ng-container *ngIf="bcmPlayerSummary.bcmStats">
+              (<span
                 *ngIf="bcmPlayerSummary.bcmStats?.rank === 1"
                 class="font-bold text-yellow-400"
                 >{{ bcmPlayerSummary.bcmStats?.rank | ordinal }}
