@@ -6,7 +6,9 @@
   </main>
 </ng-container>
 <div class="flex flex-col justify-center" *ngIf="!isLoading">
-  <div class="w-full self-center overflow-x-auto shadow-md sm:rounded-lg">
+  <div
+    class="relative max-h-[calc(100vh-120px)] overflow-x-auto shadow-md sm:rounded-lg"
+  >
     <table
       class="m-auto bg-gray-700 text-left text-sm text-gray-400 rtl:text-right"
     >
@@ -15,7 +17,7 @@
       >
         February's 'Spread the Love' Leaderboard
       </caption>
-      <thead>
+      <thead class="sticky top-0">
         <tr class="flex bg-gray-700 text-xs uppercase text-gray-400">
           <th
             class="w-16 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
@@ -28,6 +30,18 @@
             (click)="sortColumn('gamertag')"
           >
             Gamertag
+          </th>
+          <th
+            class="w-20 cursor-pointer px-6 py-3 text-yellow-400 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('totalPoints')"
+          >
+            Total
+          </th>
+          <th
+            class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('communityBonus')"
+          >
+            Bonus
           </th>
           <th
             class="w-12 cursor-pointer whitespace-nowrap px-6 py-3 hover:text-green-500 sm:p-4"
@@ -149,18 +163,6 @@
           >
             Points
           </th>
-          <th
-            class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
-            (click)="sortColumn('communityBonus')"
-          >
-            Bonus
-          </th>
-          <th
-            class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
-            (click)="sortColumn('totalPoints')"
-          >
-            Total
-          </th>
         </tr>
       </thead>
       <tbody>
@@ -177,6 +179,17 @@
           </td>
           <td class="w-40 px-6 py-4">
             {{ recap.gamertag }}
+          </td>
+          <td class="w-20 px-6 py-4 text-yellow-400">
+            {{ recap.totalPoints | number : "0.0-0" }}
+          </td>
+          <td class="w-20 px-6 py-4">
+            <span *ngIf="recap.communityBonus" class="font-bold text-green-600"
+              >Yes</span
+            >
+            <span *ngIf="!recap.communityBonus" class="font-thin text-red-500"
+              >No</span
+            >
           </td>
           <td class="w-12 px-6 py-4">
             {{ recap.biCompletion }}
@@ -237,17 +250,6 @@
           </td>
           <td class="w-20 px-6 py-4">
             {{ recap.duodePoints | number : "0.0-0" }}
-          </td>
-          <td class="w-20 px-6 py-4">
-            <span *ngIf="recap.communityBonus" class="font-bold text-green-600"
-              >Yes</span
-            >
-            <span *ngIf="!recap.communityBonus" class="font-thin text-red-500"
-              >No</span
-            >
-          </td>
-          <td class="w-20 px-6 py-4">
-            {{ recap.totalPoints | number : "0.0-0" }}
           </td>
         </tr>
       </tbody>

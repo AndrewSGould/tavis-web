@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { TavisService } from 'src/app/services/tavis.service';
 
 @Component({
-  selector: 'app-jan-leaderboard',
-  templateUrl: './jan-leaderboard.component.html',
+  selector: 'app-mar-leaderboard',
+  templateUrl: './mar-leaderboard.component.html',
 })
-export class JanLeaderboardComponent implements OnInit {
+export class MarLeaderboardComponent implements OnInit {
   private tavisService: TavisService | null = null;
-  janRecapData: any = null;
+  marRecapData: any = null;
 
   constructor(tavisService: TavisService) {
     this.tavisService = tavisService;
@@ -17,16 +17,11 @@ export class JanLeaderboardComponent implements OnInit {
   displayedColumns: string[] = [
     'rank',
     'gamertag',
-    'bucket1Comps',
-    'bucket1Points',
-    'bucket2Comps',
-    'bucket2Points',
-    'bucket3Comps',
-    'bucket3Points',
-    'bucket4Comps',
-    'bucket4Points',
-    'communityBonus',
     'totalPoints',
+    'communityBonus',
+    'bountyCount',
+    'bestBounty',
+    'bountiesClaimed',
   ];
   currentSort: { column: string; direction: string } = {
     column: '',
@@ -35,8 +30,8 @@ export class JanLeaderboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.tavisService?.getJanRecap().subscribe((data: any) => {
-      this.janRecapData = data;
+    this.tavisService?.getMarRecap().subscribe((data: any) => {
+      this.marRecapData = data;
       this.sortColumn('rank');
       this.isLoading = false;
     });
@@ -51,29 +46,19 @@ export class JanLeaderboardComponent implements OnInit {
       this.currentSort.direction = 'asc';
     }
 
-    this.janRecapData = this.janRecapData.sort((a: any, b: any) => {
+    this.marRecapData = this.marRecapData.sort((a: any, b: any) => {
       const direction = this.currentSort.direction === 'asc' ? 1 : -1;
 
       if (column === 'rank') {
         return (a.rank - b.rank) * direction;
       } else if (column === 'gamertag') {
         return a.gamertag.localeCompare(b.gamertag) * direction;
-      } else if (column === 'bucket1Comps') {
-        return (a.bucket1Comps - b.bucket1Comps) * direction;
-      } else if (column === 'bucket1Points') {
-        return (a.bucket1Points - b.bucket1Points) * direction;
-      } else if (column === 'bucket2Comps') {
-        return (a.bucket2Comps - b.bucket2Comps) * direction;
-      } else if (column === 'bucket2Points') {
-        return (a.bucket2Points - b.bucket2Points) * direction;
-      } else if (column === 'bucket3Comps') {
-        return (a.bucket3Comps - b.bucket3Comps) * direction;
-      } else if (column === 'bucket3Points') {
-        return (a.bucket3Points - b.bucket3Points) * direction;
-      } else if (column === 'bucket4Comps') {
-        return (a.bucket4Comps - b.bucket4Comps) * direction;
-      } else if (column === 'bucket4Points') {
-        return (a.bucket4Points - b.bucket4Points) * direction;
+      } else if (column === 'bestBounty') {
+        return a.bestBounty.localeCompare(b.bestBounty) * direction;
+      } else if (column === 'bountiesClaimed') {
+        return a.bountiesClaimed.localeCompare(b.bountiesClaimed) * direction;
+      } else if (column === 'bountyCount') {
+        return (a.bountyCount - b.bountyCount) * direction;
       } else if (column === 'communityBonus') {
         return (a.communityBonus - b.communityBonus) * direction;
       } else if (column === 'totalPoints') {

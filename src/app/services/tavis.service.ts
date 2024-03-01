@@ -41,6 +41,10 @@ export class TavisService {
     return this.http.get(baseUrl + `monthly/feb-leaderboard`);
   }
 
+  getMarRecap(): Observable<any> {
+    return this.http.get(baseUrl + `monthly/mar-leaderboard`);
+  }
+
   saveWriteIn(writeIn: any): Observable<any> {
     return this.http.post(baseUrl + `yearly/save-writein`, writeIn);
   }

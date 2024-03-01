@@ -19,6 +19,8 @@ import { MiscStatsComponent } from './components/misc-stats/misc-stats.component
 import { FebBonusComponent } from './components/feb-bonus/feb-bonus.component';
 import { JanLeaderboardComponent } from './components/jan-leaderboard/jan-leaderboard.component';
 import { FebLeaderboardComponent } from './components/feb-leaderboard/feb-leaderboard.component';
+import { MarBonusComponent } from './components/mar-bonus/mar-bonus.component';
+import { MarLeaderboardComponent } from './components/mar-leaderboard/mar-leaderboard.component';
 
 const routes: Routes = [
   {
@@ -30,9 +32,11 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'jan-bonus', component: JanBonusComponent },
   { path: 'feb-bonus', component: FebBonusComponent },
+  { path: 'mar-bonus', component: MarBonusComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
   { path: 'jan-leaderboard', component: JanLeaderboardComponent },
   { path: 'feb-leaderboard', component: FebLeaderboardComponent },
+  { path: 'mar-leaderboard', component: MarLeaderboardComponent },
   {
     path: 'player/:player',
     component: PlayerComponent,
