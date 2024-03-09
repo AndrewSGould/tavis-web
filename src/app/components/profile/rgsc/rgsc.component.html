@@ -68,17 +68,19 @@
       <div
         [ngClass]="{
           'flex flex-col rounded-lg border border-gray-700 bg-gray-800 shadow hover:bg-gray-700': true,
-          'border-2 border-green-600': isGameCompleted(random.game.id)
+          'border-2 border-green-600': isGameCompleted(random.game?.id ?? 0)
         }"
       >
         <div class="relative flex flex-col justify-between p-4 leading-normal">
           <span
-            *ngIf="isGameCompleted(random.game.id)"
+            *ngIf="isGameCompleted(random.game?.id ?? 0)"
             class="absolute left-0 top-0 flex gap-1 rounded-tl bg-green-600 px-2 py-1 text-xs font-thin"
             ><img
               src="../../../../assets/checkmark-seal-svgrepo-com.svg"
               class="mr-0.5 h-4 w-4"
-            />{{ getGameCompletion(random.game.id) | date : "MMM d" }}</span
+            />{{
+              getGameCompletion(random.game?.id ?? 0) | date : "MMM d"
+            }}</span
           >
           <span
             class="absolute right-0 top-0 rounded-tr bg-green-600 px-2 py-1 text-xs font-bold"
@@ -87,15 +89,23 @@
           <h5
             class="mb-2 text-center text-xl font-bold tracking-tight text-white"
           >
-            {{ random.game.title }}
+            {{ random.game?.title ?? "None Drawn" }}
           </h5>
           <span class="-mt-3 block text-center text-xs opacity-50">
-            {{ random.game.publisher }} - {{ random.game.developer }}</span
+            {{ random.game?.publisher ?? "Update" }} -
+            {{ random.game?.developer ?? "Your Collection" }}</span
           >
           <div class="mt-4 font-normal text-gray-400">
             <div class="flex place-content-between">
-              <span>~{{ random.game.fullCompletionEstimate }} hours</span>
-              <span>{{ random.game.siteRatio | number : "1.2-2" }} ratio</span>
+              <span
+                >~{{ random.game?.fullCompletionEstimate ?? "??" }} hours</span
+              >
+              <span
+                >{{
+                  random.game?.siteRatio ?? 0 | number : "1.2-2"
+                }}
+                ratio</span
+              >
             </div>
           </div>
         </div>

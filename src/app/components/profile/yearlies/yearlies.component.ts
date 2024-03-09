@@ -14,10 +14,11 @@ export class YearliesComponent implements OnInit {
   commStarData: any = undefined;
   theTavisData: any = undefined;
   retirementData: any = undefined;
-  communityStarVisible: boolean = true;
+  communityStarVisible: boolean = false;
   theTavisVisible: boolean = false;
   retirementParty: boolean = false;
   writeinSaving: boolean = true;
+  optionsArray: any = undefined;
 
   private tavisService: TavisService | null = null;
 
@@ -66,6 +67,7 @@ export class YearliesComponent implements OnInit {
   }
 
   toggleStarSection(index: number) {
+    this.optionsArray = [];
     const ogState = this.commStarData[index].isVisible;
 
     this.commStarData.forEach((item: any) => {
@@ -76,6 +78,7 @@ export class YearliesComponent implements OnInit {
   }
 
   toggleTavisSection(index: number) {
+    this.optionsArray = [];
     const ogState = this.theTavisData[index].isVisible;
 
     this.theTavisData.forEach((item: any) => {
@@ -83,9 +86,21 @@ export class YearliesComponent implements OnInit {
     });
 
     this.theTavisData[index].isVisible = !ogState;
+
+    if (this.theTavisData[index].isVisible === true)
+      this.tavisService
+        ?.getYearlyOptions(
+          this.playerName!,
+          this.theTavisData[index].yearlyChallenge.id
+        )
+        .subscribe((data: any) => {
+          this.optionsArray = data;
+          console.log(data);
+        });
   }
 
   togglePartySection(index: number) {
+    this.optionsArray = [];
     const ogState = this.retirementData[index].isVisible;
 
     this.retirementData.forEach((item: any) => {
@@ -132,7 +147,59 @@ export class YearliesComponent implements OnInit {
     });
   }
 
+  saveAutomatedSelect = (item: any) => {
+    if (!item.option || item.option === 'writein') return;
+
+    if (this.currentUser === this.playerName)
+      this.tavisService!.saveAutomatedGame(item).subscribe((data: any) => {
+        const commIndex = this.commStarData.findIndex(
+          (x: any) => x.yearlyChallenge.id === data.yearlyChallengeId
+        );
+        const tavisIndex = this.theTavisData.findIndex(
+          (x: any) => x.yearlyChallenge.id === data.yearlyChallengeId
+        );
+        const retirementIndex = this.retirementData.findIndex(
+          (x: any) => x.yearlyChallenge.id === data.yearlyChallengeId
+        );
+
+        if (commIndex !== -1) {
+          this.commStarData[commIndex].playerYearlyChallenge.game = data.game;
+
+          if (!data.approved)
+            this.commStarData[commIndex].playerYearlyChallenge.approved =
+              undefined;
+          this.commStarData[commIndex].playerYearlyChallenge.approved =
+            data.approved;
+        }
+        if (tavisIndex !== -1) {
+          this.theTavisData[tavisIndex].playerYearlyChallenge.game = data.game;
+
+          if (!data.approved)
+            this.theTavisData[tavisIndex].playerYearlyChallenge.approved =
+              undefined;
+          this.theTavisData[tavisIndex].playerYearlyChallenge.approved =
+            data.approved;
+        }
+
+        if (retirementIndex !== -1) {
+          this.retirementData[retirementIndex].playerYearlyChallenge.game =
+            data.game;
+
+          if (!data.approved)
+            this.retirementData[
+              retirementIndex
+            ].playerYearlyChallenge.approved = undefined;
+          this.retirementData[retirementIndex].playerYearlyChallenge.approved =
+            data.approved;
+        }
+
+        this.cdr.detectChanges();
+      });
+  };
+
   saveTaLink = (item: any) => {
+    if (!item.option) return;
+
     if (this.currentUser === this.playerName)
       this.tavisService!.saveWriteIn(item).subscribe((data: any) => {
         const commIndex = this.commStarData.findIndex(
@@ -150,13 +217,13 @@ export class YearliesComponent implements OnInit {
           this.commStarData[commIndex].playerYearlyChallenge.approved =
             data.approved;
         }
-        if (tavisIndex === -1) {
+        if (tavisIndex !== -1) {
           this.theTavisData[tavisIndex].playerYearlyChallenge.game = data.game;
           this.theTavisData[tavisIndex].playerYearlyChallenge.approved =
             data.approved;
         }
 
-        if (retirementIndex === -1) {
+        if (retirementIndex !== -1) {
           this.retirementData[retirementIndex].playerYearlyChallenge.game =
             data.game;
           this.retirementData[retirementIndex].playerYearlyChallenge.approved =
@@ -185,13 +252,13 @@ export class YearliesComponent implements OnInit {
           this.commStarData[commIndex].playerYearlyChallenge.approved =
             data.approved;
         }
-        if (tavisIndex === -1) {
+        if (tavisIndex !== -1) {
           this.theTavisData[tavisIndex].playerYearlyChallenge.game = data.game;
           this.theTavisData[tavisIndex].playerYearlyChallenge.approved =
             data.approved;
         }
 
-        if (retirementIndex === -1) {
+        if (retirementIndex !== -1) {
           this.retirementData[retirementIndex].playerYearlyChallenge.game =
             data.game;
           this.retirementData[retirementIndex].playerYearlyChallenge.approved =

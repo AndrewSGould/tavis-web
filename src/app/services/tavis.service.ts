@@ -33,6 +33,12 @@ export class TavisService {
     return this.http.get(baseUrl + `yearly/challenges?player=${player}`);
   }
 
+  getYearlyOptions(player: string, id: number): Observable<any> {
+    return this.http.get(
+      baseUrl + `yearly/options?player=${player}&yearlyId=${id}`
+    );
+  }
+
   getJanRecap(): Observable<any> {
     return this.http.get(baseUrl + `monthly/jan-leaderboard`);
   }
@@ -45,8 +51,12 @@ export class TavisService {
     return this.http.get(baseUrl + `monthly/mar-leaderboard`);
   }
 
-  saveWriteIn(writeIn: any): Observable<any> {
-    return this.http.post(baseUrl + `yearly/save-writein`, writeIn);
+  saveAutomatedGame(submission: any): Observable<any> {
+    return this.http.post(baseUrl + `yearly/save-automatedgame`, submission);
+  }
+
+  saveWriteIn(submission: any): Observable<any> {
+    return this.http.post(baseUrl + `yearly/save-writein`, submission);
   }
 
   getBcmPlayerList(): Observable<any> {

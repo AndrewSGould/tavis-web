@@ -29,6 +29,7 @@ export class CompletedGamesComponent implements OnInit {
 
     this.bcmService.getBcmPlayerWithGames(this.playerName).subscribe({
       next: (data) => {
+        console.log(data);
         this.bcmPlayerSummary = data;
         this.isPlayerLoading = false;
         this.currentSort.column = 'date';

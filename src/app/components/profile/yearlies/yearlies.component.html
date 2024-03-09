@@ -107,8 +107,16 @@
                     class="my-4 block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-green-500 focus:ring-green-500"
                     [(ngModel)]="item.option"
                     [disabled]="playerName !== currentUser"
+                    (blur)="saveAutomatedSelect(item)"
                   >
                     <option></option>
+                    <option
+                      *ngFor="let option of optionsArray"
+                      [value]="option.value"
+                      [disabled]="option.disabled"
+                    >
+                      {{ option.title }}
+                    </option>
                     <option value="writein">--&nbsp;Write In&nbsp;--</option>
                   </select>
                 </p>
@@ -271,8 +279,16 @@
                     class="my-4 block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-green-500 focus:ring-green-500"
                     [(ngModel)]="item.option"
                     [disabled]="playerName !== currentUser"
+                    (blur)="saveAutomatedSelect(item)"
                   >
                     <option></option>
+                    <option
+                      *ngFor="let option of optionsArray"
+                      [value]="option.value"
+                      [disabled]="option.disabled"
+                    >
+                      {{ option.title }}
+                    </option>
                     <option value="writein">--&nbsp;Write In&nbsp;--</option>
                   </select>
                 </p>
@@ -435,8 +451,16 @@
                     class="my-4 block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-green-500 focus:ring-green-500"
                     [(ngModel)]="item.option"
                     [disabled]="playerName !== currentUser"
+                    (blur)="saveAutomatedSelect(item)"
                   >
                     <option></option>
+                    <option
+                      *ngFor="let option of optionsArray"
+                      [value]="option.value"
+                      [disabled]="option.disabled"
+                    >
+                      {{ option.title }}
+                    </option>
                     <option value="writein">--&nbsp;Write In&nbsp;--</option>
                   </select>
                 </p>

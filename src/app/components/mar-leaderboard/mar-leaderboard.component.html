@@ -44,19 +44,19 @@
             Bonus
           </th>
           <th
-            class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            class="w-16 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
             (click)="sortColumn('bountyCount')"
           >
             Count
           </th>
           <th
-            class="w-40 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            class="w-60 cursor-pointer text-nowrap px-6 py-3 hover:text-green-500 sm:p-4"
             (click)="sortColumn('bestBounty')"
           >
             Best Bounty
           </th>
           <th
-            class="w-40 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            class="w-80 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
             (click)="sortColumn('bountiesClaimed')"
           >
             Bounties Claimed
@@ -89,13 +89,19 @@
               >No</span
             >
           </td>
-          <td class="w-12 px-6 py-4">
+          <td class="w-16 px-6 py-4">
             {{ recap.bountyCount }}
           </td>
-          <td class="w-40 px-6 py-4">
+          <td
+            class="w-60 overflow-hidden overflow-ellipsis whitespace-nowrap px-6 py-4"
+            title="{{ recap.bestBounty }}"
+          >
             {{ recap.bestBounty }}
           </td>
-          <td class="w-40 px-6 py-4">
+          <td
+            class="w-80 overflow-hidden overflow-ellipsis whitespace-nowrap px-6 py-4"
+            title="{{ recap.bountiesClaimed }}"
+          >
             {{ recap.bountiesClaimed }}
           </td>
         </tr>
