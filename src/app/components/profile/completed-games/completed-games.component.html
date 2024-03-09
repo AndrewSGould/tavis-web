@@ -36,7 +36,7 @@
     </div>
   </section>
   <div
-    class="w-full max-w-4xl self-center overflow-x-auto shadow-md sm:rounded-lg"
+    class="w-full max-w-5xl self-center overflow-x-auto shadow-md sm:rounded-lg"
   >
     <table
       class="w-full bg-gray-700 text-left text-sm text-gray-400 rtl:text-right"
@@ -55,11 +55,18 @@
           >
             Title
           </th>
+          <th class="w-24 px-6 py-3"></th>
           <th
             class="w-24 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
             (click)="sortColumn('points')"
           >
-            Points
+            Base Pts
+          </th>
+          <th
+            class="w-28 cursor-pointer px-6 py-3 text-violet-400 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('points')"
+          >
+            Bonus Pts
           </th>
           <th
             class="w-24 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
@@ -88,12 +95,35 @@
           >
             {{ playersGame.game.game.title }}
           </td>
+          <td
+            class="flex w-24 items-center gap-1 px-6 py-4 font-bold text-green-400"
+          >
+            <span *ngIf="playersGame.bonus === 1">Jan</span>
+            <span *ngIf="playersGame.bonus === 2">Feb</span>
+            <span *ngIf="playersGame.bonus === 3">Mar</span>
+            <span *ngIf="playersGame.bonus === 4">Apr</span>
+            <span *ngIf="playersGame.bonus === 5">May</span>
+            <span *ngIf="playersGame.bonus === 6">Jun</span>
+            <span *ngIf="playersGame.bonus === 7">Jul</span>
+            <span *ngIf="playersGame.bonus === 8">Aug</span>
+            <span *ngIf="playersGame.bonus === 9">Sep</span>
+            <span *ngIf="playersGame.bonus === 10">Oct</span>
+            <span *ngIf="playersGame.bonus === 11">Nov</span>
+            <img
+              *ngIf="playersGame.bonus"
+              class="h-4"
+              src="../../../../assets/up.png"
+            />
+          </td>
           <td class="w-24 px-6 py-4">
             {{
               playersGame.game.game.fullCompletionEstimate !== null
                 ? playersGame.points
                 : "--"
             }}
+          </td>
+          <td class="w-28 px-6 py-4 text-violet-400">
+            {{ playersGame.game.bcmPoints }}
           </td>
           <td class="w-24 px-6 py-4">
             {{ playersGame.game.game.siteRatio | number : "1.2-2" }}
