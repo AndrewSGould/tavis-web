@@ -15,6 +15,10 @@ export class TavisService {
     return this.http.get(baseUrl + `datasync/full`);
   }
 
+  rgscSync(): Observable<any> {
+    return this.http.get(baseUrl + `datasync/rgsc`);
+  }
+
   syncInfo(): Observable<any> {
     return this.http.get(baseUrl + `datasync/syncInfo`);
   }

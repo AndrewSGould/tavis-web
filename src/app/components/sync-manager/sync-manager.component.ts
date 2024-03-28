@@ -49,6 +49,13 @@ export class SyncManagerComponent implements OnInit {
     });
   }
 
+  rgscSync() {
+    this.tavisService?.rgscSync().subscribe((data) => {
+      alert('finished!');
+      console.log(data);
+    });
+  }
+
   shallowSync() {
     this.tavisService?.shallowSync().subscribe((data) => {
       console.log(data);

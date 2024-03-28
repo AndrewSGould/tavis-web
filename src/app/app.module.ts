@@ -46,6 +46,7 @@ import { JanLeaderboardComponent } from './components/jan-leaderboard/jan-leader
 import { FebLeaderboardComponent } from './components/feb-leaderboard/feb-leaderboard.component';
 import { MarLeaderboardComponent } from './components/mar-leaderboard/mar-leaderboard.component';
 import { MarBonusComponent } from './components/mar-bonus/mar-bonus.component';
+import { AprBonusComponent } from './components/apr-bonus/apr-bonus.component';
 
 export function tokenGetter() {
   return localStorage.getItem('jwt');
@@ -75,6 +76,7 @@ export function tokenGetter() {
     JanBonusComponent,
     FebBonusComponent,
     MarBonusComponent,
+    AprBonusComponent,
     MaintenanceComponent,
     MiscStatsComponent,
     JanLeaderboardComponent,
