@@ -87,6 +87,21 @@
         </div>
       </div>
     </section>
+
+    <section class="border border-dashed p-4 rounded self-start w-80">
+      <h1 class="text-xl font-thin mb-4">Tower Genres List</h1>
+      <p class="my-4 font-thin text-xs opacity-70">
+        These 5 genres will not change for the month of May, while the genre
+        breakdown will update as you get scanned in. Build the tower against
+        this list!
+      </p>
+      <ul *ngFor="let genre of topgenres; let i = index">
+        <li>
+          <span class="font-bold">#{{ genre.rank }}</span
+          >: {{ genre.genreId.name }}
+        </li>
+      </ul>
+    </section>
   </div>
 
   <!-- heat map https://swimlane.github.io/ngx-charts/#/ngx-charts/calendar

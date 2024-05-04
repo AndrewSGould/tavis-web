@@ -12,6 +12,7 @@ export class MiscStatsComponent implements OnInit {
   bcmPlayerSummary: any = null;
   isPlayerLoading: boolean = true;
   fullgenres: any = null;
+  topgenres: any = null;
   currentSort: { column: string; direction: string } = {
     column: '',
     direction: 'asc',
@@ -56,6 +57,12 @@ export class MiscStatsComponent implements OnInit {
       this.single = data.filter((x: any) => x.name !== 'None').slice(0, 8);
       this.fullgenres = data.filter((x: any) => x.name !== 'None');
     });
+
+    this.bcmService
+      .getPlayerTopGenres(this.playerName)
+      .subscribe((data: any) => {
+        this.topgenres = data.sort((a: any, b: any) => a.rank - b.rank);
+      });
   }
 
   handleImageLoad(event: Event): void {

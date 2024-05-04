@@ -25,6 +25,12 @@ export class BcmService {
     return this.http.get(baseUrl + `bcm/getPlayersGenres?player=` + player);
   }
 
+  getPlayerTopGenres(player: string): Observable<any> {
+    return this.http.get(
+      baseUrl + `stats/getPlayersTopGenres?player=` + player
+    );
+  }
+
   getBcmPlayerWithGames(player: string): Observable<any> {
     return this.http.get(
       baseUrl + `bcm/getBcmPlayerWithGames?player=` + player
