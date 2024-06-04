@@ -1,0 +1,87 @@
+<ng-container *ngIf="isLoading">
+  <main
+    class="absolute left-0 top-[65px] flex h-[calc(100%-65px)] w-full items-center justify-center bg-black bg-opacity-50"
+  >
+    <img src="../../../assets/infinite-spinner.svg" class="h-16" />
+  </main>
+</ng-container>
+<div class="flex flex-col justify-center" *ngIf="!isLoading">
+  <div
+    class="relative max-h-[calc(100vh-120px)] overflow-x-auto shadow-md sm:rounded-lg"
+  >
+    <table
+      class="m-auto bg-gray-700 text-left text-sm text-gray-400 rtl:text-right"
+    >
+      <caption
+        class="bg-gray-800 p-5 text-left text-lg font-semibold text-white"
+      >
+        June's 'Critical Review' Leaderboard
+      </caption>
+      <thead class="sticky top-0">
+        <tr class="flex bg-gray-700 text-xs uppercase text-gray-400">
+          <th
+            class="w-16 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('rank')"
+          >
+            Rank
+          </th>
+          <th
+            class="w-40 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('gamertag')"
+          >
+            Gamertag
+          </th>
+          <th
+            class="w-20 cursor-pointer px-6 py-3 text-yellow-400 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('totalPoints')"
+          >
+            Total
+          </th>
+          <th
+            class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('communityBonus')"
+          >
+            Bonus
+          </th>
+          <th
+            class="w-20 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('qualifiedGames')"
+          >
+            Games
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let recap of junRecapData; let i = index"
+          [ngClass]="{
+            'flex border-b border-gray-700': true,
+            'bg-gray-800': i % 2 === 0,
+            'bg-slate-800': i % 2 !== 0
+          }"
+        >
+          <td class="w-16 px-6 py-4">
+            {{ recap.rank | ordinal }}
+          </td>
+          <td class="w-40 px-6 py-4">
+            {{ recap.gamertag }}
+          </td>
+          <td class="w-20 px-6 py-4 text-yellow-400">
+            {{ recap.totalPoints | number : "0.0-0" }}
+          </td>
+          <td class="w-20 px-6 py-4">
+            <span *ngIf="recap.communityBonus" class="font-bold text-green-600"
+              >Yes</span
+            >
+            <span *ngIf="!recap.communityBonus" class="font-thin text-red-500"
+              >No</span
+            >
+          </td>
+          <td class="w-20 px-6 py-4">
+            {{ recap.qualifiedGames }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

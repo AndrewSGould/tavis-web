@@ -47,6 +47,10 @@ export class TavisService {
     return this.http.get(baseUrl + `monthly/jan-leaderboard`);
   }
 
+  getJunRecap(): Observable<any> {
+    return this.http.get(baseUrl + `monthly/jun-leaderboard`);
+  }
+
   getAprRecap(): Observable<any> {
     return this.http.get(baseUrl + `monthly/apr-leaderboard`);
   }

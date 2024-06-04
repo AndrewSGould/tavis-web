@@ -25,6 +25,7 @@ import { AprBonusComponent } from './components/apr-bonus/apr-bonus.component';
 import { MayBonusComponent } from './components/may-bonus/may-bonus.component';
 import { AprLeaderboardComponent } from './components/apr-leaderboard/apr-leaderboard.component';
 import { JunBonusComponent } from './components/jun-bonus/jun-bonus.component';
+import { JunLeaderboardComponent } from './components/jun-leaderboard/jun-leaderboard.component';
 
 const routes: Routes = [
   {
@@ -45,6 +46,7 @@ const routes: Routes = [
   { path: 'feb-leaderboard', component: FebLeaderboardComponent },
   { path: 'mar-leaderboard', component: MarLeaderboardComponent },
   { path: 'apr-leaderboard', component: AprLeaderboardComponent },
+  { path: 'jun-leaderboard', component: JunLeaderboardComponent },
   {
     path: 'player/:player',
     component: PlayerComponent,
