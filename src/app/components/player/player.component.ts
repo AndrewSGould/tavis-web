@@ -77,6 +77,7 @@ export class PlayerComponent {
     });
 
     this.bcmService.getMonthlySummary(this.playerName).subscribe((data) => {
+      console.log(data);
       this.monthlySummary = data;
       this.monthlyLoading = false;
     });

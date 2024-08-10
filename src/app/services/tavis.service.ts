@@ -59,6 +59,10 @@ export class TavisService {
     return this.http.get(baseUrl + `monthly/apr-leaderboard`);
   }
 
+  getAugRecap(): Observable<any> {
+    return this.http.get(baseUrl + `v2/bcm/august/leaderboard`);
+  }
+
   getFebRecap(): Observable<any> {
     return this.http.get(baseUrl + `monthly/feb-leaderboard`);
   }
@@ -100,7 +104,7 @@ export class TavisService {
   }
 
   calcMonthlyBonus(): Observable<any> {
-    return this.http.post(baseUrl + `stats/calcMonthlyBonus`, {});
+    return this.http.post(baseUrl + `v2/bcm/august/calc`, {});
   }
 
   getPlayerRgscs(player: string): Observable<any> {

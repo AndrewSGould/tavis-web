@@ -51,6 +51,7 @@ import { AprLeaderboardComponent } from './components/apr-leaderboard/apr-leader
 import { JunLeaderboardComponent } from './components/jun-leaderboard/jun-leaderboard.component';
 import { JulLeaderboardComponent } from './components/jul-leaderboard/jul-leaderboard.component';
 import { JulBonusComponent } from './components/jul-bonus/jul-bonus.component';
+import { AugLeaderboardComponent } from './components/aug-leaderboard/aug-leaderboard.component';
 
 export function tokenGetter() {
   return localStorage.getItem('jwt');
@@ -90,6 +91,7 @@ export function tokenGetter() {
     AprLeaderboardComponent,
     JunLeaderboardComponent,
     JulLeaderboardComponent,
+    AugLeaderboardComponent,
   ],
   imports: [
     BrowserModule,

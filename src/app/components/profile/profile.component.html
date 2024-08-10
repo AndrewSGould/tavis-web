@@ -33,8 +33,7 @@
                   'cursor-pointer': this.roles.length > 0,
                   'mx-2 h-4 w-4 rounded border-gray-500 bg-gray-600 text-green-600 ring-offset-gray-700 focus:ring-2 focus:ring-green-600 focus:ring-offset-gray-700': true
                 }"
-                (change)="onBcmReg($event)"
-                [disabled]="!(this.roles.length > 0) || !!this.bcmRegDate"
+                disabled
               />
               <label
                 for="bcmx-checkbox"
