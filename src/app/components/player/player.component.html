@@ -261,7 +261,7 @@
         </h5>
         <div class="mb-3 font-normal text-gray-400">
           <h6 class="mb-2 text-lg font-semibold">
-            Scorehammer 40,000 <span class="italic opacity-50">(Aug)</span>
+            Streaking <span class="italic opacity-50">(Sep)</span>
           </h6>
           <ng-container *ngIf="monthlyLoading">
             <main class="flex justify-center">
@@ -289,38 +289,32 @@
                 </span>
               </div>
               <div class="flex justify-between">
-                <span class="w-48 opacity-50">Tributes:</span>
+                <span class="w-48 opacity-50">Community Streakers:</span>
                 <span class="ml-2">
-                  <span class="font-thin"
-                    >{{ monthlySummary?.tributeCount || 0 }} / 5</span
+                  <span
+                    >{{ monthlySummary?.communityStreakers | number }} /
+                    40</span
                   >
                 </span>
               </div>
               <div class="flex justify-between">
-                <span class="w-48 opacity-50">Contributions:</span>
-                <span class="ml-2">{{
-                  monthlySummary?.achievementCount ?? 0 | number : "0.0-0"
-                }}</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="w-48 opacity-50">Traitors:</span>
-                <span class="ml-2 text-red-600"
-                  >-{{
-                    monthlySummary?.chaosCount ?? 0 | number : "0.0-0"
-                  }}</span
-                >
-              </div>
-              <div class="flex justify-between">
-                <span class="w-48 opacity-50">Community Progress:</span>
+                <span class="w-48 opacity-50">Community Streak Count:</span>
                 <span class="ml-2">
-                  <span class="font-bold">{{
-                    monthlySummary?.communityBonus | number
-                  }}</span>
+                  <span
+                    >{{ monthlySummary?.communityStreakCount | number }} /
+                    150</span
+                  >
+                </span>
+              </div>
+              <div class="flex justify-between">
+                <span class="w-48 opacity-50">Streak Count:</span>
+                <span class="ml-2">
+                  <span>{{ monthlySummary?.streakCount | number }}</span>
                 </span>
               </div>
               <div class="flex justify-between">
                 <span class="w-48 opacity-50">Month's Bonus Score:</span>
-                <span class="ml-2">{{
+                <span class="ml-2 font-bold">{{
                   monthlySummary?.totalPoints ?? 0 | number : "0.0-0"
                 }}</span>
               </div>

@@ -52,6 +52,9 @@ import { JunLeaderboardComponent } from './components/jun-leaderboard/jun-leader
 import { JulLeaderboardComponent } from './components/jul-leaderboard/jul-leaderboard.component';
 import { JulBonusComponent } from './components/jul-bonus/jul-bonus.component';
 import { AugLeaderboardComponent } from './components/aug-leaderboard/aug-leaderboard.component';
+import { AugBonusComponent } from './components/aug-bonus/aug-bonus.component';
+import { SepBonusComponent } from './components/sep-bonus/sep-bonus.component';
+import { SepLeaderboardComponent } from './components/sep-leaderboard/sep-leaderboard.component';
 
 export function tokenGetter() {
   return localStorage.getItem('jwt');
@@ -83,6 +86,8 @@ export function tokenGetter() {
     MarBonusComponent,
     AprBonusComponent,
     JulBonusComponent,
+    AugBonusComponent,
+    SepBonusComponent,
     MaintenanceComponent,
     MiscStatsComponent,
     JanLeaderboardComponent,
@@ -92,6 +97,7 @@ export function tokenGetter() {
     JunLeaderboardComponent,
     JulLeaderboardComponent,
     AugLeaderboardComponent,
+    SepLeaderboardComponent,
   ],
   imports: [
     BrowserModule,
