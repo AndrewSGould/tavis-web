@@ -34,6 +34,8 @@ import { SepBonusComponent } from './components/sep-bonus/sep-bonus.component';
 import { SepLeaderboardComponent } from './components/sep-leaderboard/sep-leaderboard.component';
 import { OctBonusComponent } from './components/oct-bonus/oct-bonus.component';
 import { OctLeaderboardComponent } from './components/oct-leaderboard/oct-leaderboard.component';
+import { NovBonusComponent } from './components/nov-bonus/nov-bonus.component';
+import { NovLeaderboardComponent } from './components/nov-leaderboard/nov-leaderboard.component';
 
 const routes: Routes = [
   {
@@ -53,6 +55,7 @@ const routes: Routes = [
   { path: 'aug-bonus', component: AugBonusComponent },
   { path: 'sep-bonus', component: SepBonusComponent },
   { path: 'oct-bonus', component: OctBonusComponent },
+  { path: 'nov-bonus', component: NovBonusComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
   { path: 'jan-leaderboard', component: JanLeaderboardComponent },
   { path: 'feb-leaderboard', component: FebLeaderboardComponent },
@@ -63,6 +66,7 @@ const routes: Routes = [
   { path: 'aug-leaderboard', component: AugLeaderboardComponent },
   { path: 'sep-leaderboard', component: SepLeaderboardComponent },
   { path: 'oct-leaderboard', component: OctLeaderboardComponent },
+  { path: 'nov-leaderboard', component: NovLeaderboardComponent },
   {
     path: 'player/:player',
     component: PlayerComponent,

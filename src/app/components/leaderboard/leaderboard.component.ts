@@ -19,7 +19,8 @@ export class LeaderboardComponent implements OnInit {
   ngOnInit(): void {
     this.bcmService.getBcmLeaderboardList().subscribe({
       next: (data) => {
-        this.leaderboard = data;
+        console.log(data);
+        this.leaderboard = data.filter((x: any) => x.bcmStats.rank !== 0);
         this.isLoading = false;
         this.lastScan = this.leaderboard![0].lastSync; //TODO: improve this
       },
