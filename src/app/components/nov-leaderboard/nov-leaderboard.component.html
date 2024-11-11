@@ -39,15 +39,9 @@
           </th>
           <th
             class="w-20 text-center cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
-            (click)="sortColumn('communityBonus')"
+            (click)="sortColumn('communityBonusQualified')"
           >
             Bonus
-          </th>
-          <th
-            class="w-28 text-center cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
-            (click)="sortColumn('participation')"
-          >
-            Partip
           </th>
           <th
             class="w-28 text-center cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
@@ -101,21 +95,13 @@
           </td>
           <td class="w-20 px-6 py-4">
             <span
-              *ngIf="recap.communityBonus >= 40000"
+              *ngIf="recap.communityBonusQualified"
               class="font-bold text-green-600"
               >Yes</span
             >
             <span
-              *ngIf="recap.communityBonus < 40000"
+              *ngIf="!recap.communityBonusQualified"
               class="font-thin text-red-500"
-              >No</span
-            >
-          </td>
-          <td class="w-28 px-6 py-4 text-center">
-            <span *ngIf="recap.participation" class="font-bold text-green-600"
-              >Yes</span
-            >
-            <span *ngIf="!recap.participation" class="font-thin text-red-500"
               >No</span
             >
           </td>
