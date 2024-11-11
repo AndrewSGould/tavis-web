@@ -101,12 +101,12 @@
           </td>
           <td class="w-20 px-6 py-4">
             <span
-              *ngIf="recap.communityBonus >= 40000"
+              *ngIf="recap.communityBonus >= 1000"
               class="font-bold text-green-600"
               >Yes</span
             >
             <span
-              *ngIf="recap.communityBonus < 40000"
+              *ngIf="recap.communityBonus <= 0"
               class="font-thin text-red-500"
               >No</span
             >
