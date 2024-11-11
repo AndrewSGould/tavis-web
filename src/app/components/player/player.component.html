@@ -261,7 +261,8 @@
         </h5>
         <div class="mb-3 font-normal text-gray-400">
           <h6 class="mb-2 text-lg font-semibold">
-            Build-a-Skeleton <span class="italic opacity-50">(Oct)</span>
+            So Long and Thanks for All the Fish
+            <span class="italic opacity-50">(Nov)</span>
           </h6>
           <ng-container *ngIf="monthlyLoading">
             <main class="flex justify-center">
@@ -289,23 +290,52 @@
                 </span>
               </div>
               <div class="flex justify-between">
-                <span class="w-48 opacity-50">Rituals:</span>
+                <span class="w-48 opacity-50">2019 Podiums:</span>
                 <span class="ml-2">
-                  <span class="font-thin"
-                    >{{ monthlySummary?.curseCount || 0 }} / 5</span
-                  >
+                  <span class="font-thin">{{
+                    monthlySummary?.podiums2019 || 0
+                  }}</span>
                 </span>
               </div>
               <div class="flex justify-between">
-                <span class="w-48 opacity-50">Contributions:</span>
-                <span class="ml-2">{{
-                  monthlySummary?.boneCount ?? 0 | number : "0.0-0"
-                }}</span>
+                <span class="w-48 opacity-50">2020 Podiums:</span>
+                <span class="ml-2">
+                  <span class="font-thin">{{
+                    monthlySummary?.podiums2020 || 0
+                  }}</span>
+                </span>
               </div>
               <div class="flex justify-between">
-                <span class="w-48 opacity-50">Total Bones:</span>
+                <span class="w-48 opacity-50">2021 Podiums:</span>
                 <span class="ml-2">
-                  <span>{{ monthlySummary?.communityBoneCount | number }}</span>
+                  <span class="font-thin">{{
+                    monthlySummary?.podiums2021 || 0
+                  }}</span>
+                </span>
+              </div>
+              <div class="flex justify-between">
+                <span class="w-48 opacity-50">2022 Podiums:</span>
+                <span class="ml-2">
+                  <span class="font-thin">{{
+                    monthlySummary?.podiums2022 || 0
+                  }}</span>
+                </span>
+              </div>
+              <div class="flex justify-between">
+                <span class="w-48 opacity-50">2023 Podiums:</span>
+                <span class="ml-2">
+                  <span class="font-thin">{{
+                    monthlySummary?.podiums2023 || 0
+                  }}</span>
+                </span>
+              </div>
+              <div class="flex justify-between">
+                <span class="w-48 opacity-50">Community Podiums:</span>
+                <span class="ml-2">
+                  <span
+                    >{{ monthlySummary?.communityPodiums || 0 | number }} /
+                    400</span
+                  >
                 </span>
               </div>
               <div class="flex justify-between">
