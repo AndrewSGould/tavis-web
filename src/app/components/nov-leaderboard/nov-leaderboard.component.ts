@@ -28,7 +28,7 @@ export class NovLeaderboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.tavisService?.getOctRecap().subscribe((data: any) => {
+    this.tavisService?.getNovRecap().subscribe((data: any) => {
       this.aprRecapData = data;
       console.log(data);
       this.sortColumn('rank');
@@ -56,18 +56,6 @@ export class NovLeaderboardComponent implements OnInit {
         return (a.communityBonus - b.communityBonus) * direction;
       } else if (column === 'totalPoints') {
         return (a.totalPoints - b.totalPoints) * direction;
-      } else if (column === 'boneCount') {
-        return (a.boneCount - b.boneCount) * direction;
-      } else if (column === 'crimsonCurseRitual') {
-        return (a.crimsonCurseRitual - b.crimsonCurseRitual) * direction;
-      } else if (column === 'dreadRitual') {
-        return (a.dreadRitual - b.dreadRitual) * direction;
-      } else if (column === 'markOfTheBeast1Ritual') {
-        return (a.markOfTheBeast1Ritual - b.markOfTheBeast1Ritual) * direction;
-      } else if (column === 'markOfTheBeast2Ritual') {
-        return (a.markOfTheBeast2Ritual - b.markOfTheBeast2Ritual) * direction;
-      } else if (column === 'markOfTheBeast3Ritual') {
-        return (a.markOfTheBeast3Ritual - b.markOfTheBeast3Ritual) * direction;
       } else return 0;
     });
   }

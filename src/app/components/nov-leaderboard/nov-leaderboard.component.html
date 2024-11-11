@@ -15,7 +15,7 @@
       <caption
         class="bg-gray-800 p-5 text-left text-lg font-semibold text-white"
       >
-        October's 'Lets Build a Skeleton' Leaderboard
+        November's 'So Long and Thanks For All the Fish' Leaderboard
       </caption>
       <thead class="sticky top-0">
         <tr class="flex bg-gray-700 text-xs uppercase text-gray-400">
@@ -26,7 +26,7 @@
             Rank
           </th>
           <th
-            class="w-40 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            class="w-44 cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
             (click)="sortColumn('gamertag')"
           >
             Gamertag
@@ -45,39 +45,39 @@
           </th>
           <th
             class="w-28 text-center cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
-            (click)="sortColumn('boneCount')"
+            (click)="sortColumn('participation')"
           >
-            Bone Count
+            Partip
           </th>
           <th
-            class="w-32 text-center cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
-            (click)="sortColumn('crimsonCurseRitual')"
+            class="w-28 text-center cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('2019')"
           >
-            Crimson Curse
+            2019
           </th>
           <th
-            class="w-32 text-center cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
-            (click)="sortColumn('dreadRitual')"
+            class="w-28 text-center cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('2020')"
           >
-            Dread Curse
+            2020
           </th>
           <th
-            class="w-32 text-center cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
-            (click)="sortColumn('markOfTheBeast1Ritual')"
+            class="w-28 text-center cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('2021')"
           >
-            Mark of the Beast Curse (1)
+            2021
           </th>
           <th
-            class="w-32 text-center cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
-            (click)="sortColumn('markOfTheBeast2Ritual')"
+            class="w-28 text-center cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('2022')"
           >
-            Mark of the Beast Curse (2)
+            2022
           </th>
           <th
-            class="w-32 text-center cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
-            (click)="sortColumn('markOfTheBeast3Ritual')"
+            class="w-28 text-center cursor-pointer px-6 py-3 hover:text-green-500 sm:p-4"
+            (click)="sortColumn('2023')"
           >
-            Mark of the Beast Curse (3)
+            2023
           </th>
         </tr>
       </thead>
@@ -93,7 +93,7 @@
           <td class="w-16 px-6 py-4">
             {{ recap.rank | ordinal }}
           </td>
-          <td class="w-40 px-6 py-4">
+          <td class="w-44 px-6 py-4">
             {{ recap.gamertag }}
           </td>
           <td class="w-20 px-6 py-4 text-yellow-400">
@@ -112,63 +112,37 @@
             >
           </td>
           <td class="w-28 px-6 py-4 text-center">
-            {{ recap.boneCount | number : "0.0-0" }}
-          </td>
-          <td class="w-32 px-6 py-4 text-center">
-            <span
-              *ngIf="recap.crimsonCurseRitual"
-              class="font-bold text-green-600"
+            <span *ngIf="recap.participation" class="font-bold text-green-600"
               >Yes</span
             >
-            <span
-              *ngIf="!recap.crimsonCurseRitual"
-              class="font-thin text-red-500"
+            <span *ngIf="!recap.participation" class="font-thin text-red-500"
               >No</span
             >
           </td>
-          <td class="w-32 px-6 py-4 text-center">
-            <span *ngIf="recap.dreadRitual" class="font-bold text-green-600"
-              >Yes</span
-            >
-            <span *ngIf="!recap.dreadRitual" class="font-thin text-red-500"
-              >No</span
-            >
+          <td class="w-28 px-6 py-4">
+            <div class="text-yellow-400">1sts: {{ recap.podium2019_1st }}</div>
+            <div class="text-slate-500">2nds: {{ recap.podium2019_2nd }}</div>
+            <div class="text-amber-800">3rds: {{ recap.podium2019_3rd }}</div>
           </td>
-          <td class="w-32 px-6 py-4 text-center">
-            <span
-              *ngIf="recap.markOfTheBeast1Ritual"
-              class="font-bold text-green-600"
-              >Yes</span
-            >
-            <span
-              *ngIf="!recap.markOfTheBeast1Ritual"
-              class="font-thin text-red-500"
-              >No</span
-            >
+          <td class="w-28 px-6 py-4">
+            <div class="text-yellow-400">1sts: {{ recap.podium2020_1st }}</div>
+            <div class="text-slate-500">2nds: {{ recap.podium2020_2nd }}</div>
+            <div class="text-amber-800">3rds: {{ recap.podium2020_3rd }}</div>
           </td>
-          <td class="w-32 px-6 py-4 text-center">
-            <span
-              *ngIf="recap.markOfTheBeast2Ritual"
-              class="font-bold text-green-600"
-              >Yes</span
-            >
-            <span
-              *ngIf="!recap.markOfTheBeast2Ritual"
-              class="font-thin text-red-500"
-              >No</span
-            >
+          <td class="w-28 px-6 py-4">
+            <div class="text-yellow-400">1sts: {{ recap.podium2021_1st }}</div>
+            <div class="text-slate-500">2nds: {{ recap.podium2021_2nd }}</div>
+            <div class="text-amber-800">3rds: {{ recap.podium2021_3rd }}</div>
           </td>
-          <td class="w-32 px-6 py-4 text-center">
-            <span
-              *ngIf="recap.markOfTheBeast3Ritual"
-              class="font-bold text-green-600"
-              >Yes</span
-            >
-            <span
-              *ngIf="!recap.markOfTheBeast3Ritual"
-              class="font-thin text-red-500"
-              >No</span
-            >
+          <td class="w-28 px-6 py-4">
+            <div class="text-yellow-400">1sts: {{ recap.podium2022_1st }}</div>
+            <div class="text-slate-500">2nds: {{ recap.podium2022_2nd }}</div>
+            <div class="text-amber-800">3rds: {{ recap.podium2022_3rd }}</div>
+          </td>
+          <td class="w-28 px-6 py-4">
+            <div class="text-yellow-400">1sts: {{ recap.podium2023_1st }}</div>
+            <div class="text-slate-500">2nds: {{ recap.podium2023_2nd }}</div>
+            <div class="text-amber-800">3rds: {{ recap.podium2023_3rd }}</div>
           </td>
         </tr>
       </tbody>
